@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.buttonRegistro = new System.Windows.Forms.Button();
-            this.buttonSai_Ent = new System.Windows.Forms.Button();
             this.buttonExit = new System.Windows.Forms.Button();
             this.buttonConfig = new System.Windows.Forms.Button();
             this.dataTabela = new System.Windows.Forms.DataGridView();
@@ -42,13 +41,18 @@
             this.TOTAL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonRmvF = new System.Windows.Forms.Button();
             this.textPesquisa = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonPesquisar = new System.Windows.Forms.Button();
             this.checkBar = new System.Windows.Forms.CheckBox();
             this.checkQuant = new System.Windows.Forms.CheckBox();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonRem = new System.Windows.Forms.Button();
             this.buttonCancelarOp = new System.Windows.Forms.Button();
+            this.buttonAddProd = new System.Windows.Forms.Button();
+            this.buttonRemProd = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.text1 = new System.Windows.Forms.TextBox();
+            this.text2 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataTabela)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -63,16 +67,6 @@
             this.buttonRegistro.UseVisualStyleBackColor = true;
             this.buttonRegistro.Click += new System.EventHandler(this.buttonRegistro_Click);
             // 
-            // buttonSai_Ent
-            // 
-            this.buttonSai_Ent.Location = new System.Drawing.Point(23, 199);
-            this.buttonSai_Ent.Name = "buttonSai_Ent";
-            this.buttonSai_Ent.Size = new System.Drawing.Size(290, 52);
-            this.buttonSai_Ent.TabIndex = 3;
-            this.buttonSai_Ent.Text = "Saída e entrada";
-            this.buttonSai_Ent.UseVisualStyleBackColor = true;
-            this.buttonSai_Ent.Click += new System.EventHandler(this.buttonSai_Ent_Click);
-            // 
             // buttonExit
             // 
             this.buttonExit.Location = new System.Drawing.Point(119, 919);
@@ -85,7 +79,7 @@
             // 
             // buttonConfig
             // 
-            this.buttonConfig.Location = new System.Drawing.Point(105, 257);
+            this.buttonConfig.Location = new System.Drawing.Point(108, 864);
             this.buttonConfig.Name = "buttonConfig";
             this.buttonConfig.Size = new System.Drawing.Size(120, 38);
             this.buttonConfig.TabIndex = 5;
@@ -110,6 +104,7 @@
             this.dataTabela.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dataTabela.Size = new System.Drawing.Size(1532, 922);
             this.dataTabela.TabIndex = 6;
+            this.dataTabela.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataTabela_CellContentClick);
             // 
             // ID
             // 
@@ -168,15 +163,6 @@
             this.textPesquisa.Name = "textPesquisa";
             this.textPesquisa.Size = new System.Drawing.Size(235, 20);
             this.textPesquisa.TabIndex = 9;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.pictureBox1.Location = new System.Drawing.Point(-6, -1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(345, 1049);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // buttonPesquisar
             // 
@@ -241,11 +227,71 @@
             this.buttonCancelarOp.Visible = false;
             this.buttonCancelarOp.Click += new System.EventHandler(this.buttonCancelarOp_Click);
             // 
+            // buttonAddProd
+            // 
+            this.buttonAddProd.Location = new System.Drawing.Point(23, 176);
+            this.buttonAddProd.Name = "buttonAddProd";
+            this.buttonAddProd.Size = new System.Drawing.Size(136, 45);
+            this.buttonAddProd.TabIndex = 16;
+            this.buttonAddProd.Text = "Adicionar Produto";
+            this.buttonAddProd.UseVisualStyleBackColor = true;
+            this.buttonAddProd.Visible = false;
+            this.buttonAddProd.Click += new System.EventHandler(this.buttonAddProd_Click);
+            // 
+            // buttonRemProd
+            // 
+            this.buttonRemProd.Location = new System.Drawing.Point(177, 176);
+            this.buttonRemProd.Name = "buttonRemProd";
+            this.buttonRemProd.Size = new System.Drawing.Size(136, 45);
+            this.buttonRemProd.TabIndex = 17;
+            this.buttonRemProd.Text = "Remover Produto";
+            this.buttonRemProd.UseVisualStyleBackColor = true;
+            this.buttonRemProd.Visible = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.pictureBox1.Location = new System.Drawing.Point(-3, 1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(345, 1049);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
+            // 
+            // text1
+            // 
+            this.text1.Location = new System.Drawing.Point(119, 242);
+            this.text1.Name = "text1";
+            this.text1.Size = new System.Drawing.Size(100, 20);
+            this.text1.TabIndex = 18;
+            // 
+            // text2
+            // 
+            this.text2.Location = new System.Drawing.Point(119, 286);
+            this.text2.Name = "text2";
+            this.text2.Size = new System.Drawing.Size(100, 20);
+            this.text2.TabIndex = 19;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(122, 312);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(95, 30);
+            this.button1.TabIndex = 20;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.text2);
+            this.Controls.Add(this.text1);
+            this.Controls.Add(this.buttonRemProd);
+            this.Controls.Add(this.buttonAddProd);
             this.Controls.Add(this.buttonCancelarOp);
             this.Controls.Add(this.buttonRem);
             this.Controls.Add(this.buttonAdd);
@@ -257,7 +303,6 @@
             this.Controls.Add(this.dataTabela);
             this.Controls.Add(this.buttonConfig);
             this.Controls.Add(this.buttonExit);
-            this.Controls.Add(this.buttonSai_Ent);
             this.Controls.Add(this.buttonRegistro);
             this.Controls.Add(this.pictureBox1);
             this.Name = "Home";
@@ -271,10 +316,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button buttonRegistro;
-        private System.Windows.Forms.Button buttonSai_Ent;
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.Button buttonConfig;
         private System.Windows.Forms.DataGridView dataTabela;
@@ -293,5 +335,11 @@
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonRem;
         private System.Windows.Forms.Button buttonCancelarOp;
+        private System.Windows.Forms.Button buttonAddProd;
+        private System.Windows.Forms.Button buttonRemProd;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox text1;
+        private System.Windows.Forms.TextBox text2;
+        private System.Windows.Forms.Button button1;
     }
 }

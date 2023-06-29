@@ -20,6 +20,7 @@ namespace Stq
     {
         private static List<Listagem> list_tab = new List<Listagem>();
         private static string code;
+        private static int quant_;
         public Home()
         {
             InitializeComponent();
@@ -30,32 +31,37 @@ namespace Stq
             Listagem lista = new Listagem(cod, prod, color, peso, quant, preco, total);
             list_tab.Add(lista);
         }
-
+        public Home(string cod)
+        {
+            code = cod;
+        }
         private void enable_true()
         {
             buttonAdd.Visible = false;
             buttonRem.Visible = false;
             buttonRegistro.Enabled = true;
-            buttonSai_Ent.Enabled = true;
             buttonConfig.Enabled = true;
             dataTabela.Enabled = true;
             checkBar.Enabled = true;
             checkQuant.Enabled = true;
             buttonPesquisar.Enabled = true;
             buttonCancelarOp.Visible = false;
+            buttonAddProd.Enabled = true;
+
         }
         private void enable_false()
         {
             buttonAdd.Visible = true;
             buttonRem.Visible = true;
             buttonRegistro.Enabled = false;
-            buttonSai_Ent.Enabled = false;
             buttonConfig.Enabled = false;
             dataTabela.Enabled = false;
             checkBar.Enabled = false;
             checkQuant.Enabled = false;
             buttonPesquisar.Enabled = false;
             buttonCancelarOp.Visible = true;
+            buttonAddProd.Enabled = false;
+            buttonRemProd.Enabled = false;
         }
         private void buttonExit_Click(object sender, EventArgs e)
         {
@@ -64,7 +70,7 @@ namespace Stq
 
         private void buttonRegistro_Click(object sender, EventArgs e)
         {
-           enable_false();
+            enable_false();
         }
 
         private void buttonRmvF_Click(object sender, EventArgs e)
@@ -79,6 +85,7 @@ namespace Stq
                 buttonRmvF.Visible = false;
                 buttonPesquisar.Visible = true;
             }
+
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -86,15 +93,47 @@ namespace Stq
             Form3 add = new Form3();
             add.ShowDialog();
             dataTabela.Rows.Clear();
+            buttonAddProd.Visible = true;
+            buttonRemProd.Visible = true;
             foreach (Listagem obj in list_tab)
             {
-                dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
+                if (obj.Quant < 50)
+                {
+                    dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
+                    dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.BackColor = Color.Red;
+                    dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.ForeColor = Color.White;
+                }
+                else
+                {
+                    dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
+                }
             }
             enable_true();
         }
         private void buttonRem_Click(object sender, EventArgs e)
         {
-
+            Form2 rem_reg = new Form2();
+            MessageBox.Show("Alterações feitas neste campo, não podem ser desfeitas! Se deseja sair, aperte em CANCELAR!");
+            rem_reg.ShowDialog();
+            dataTabela.Rows.Clear();
+            for (int i = 0; i < list_tab.Count; i++)
+            {
+                if (code == list_tab[i].Bars)
+                {
+                    list_tab.Remove(list_tab[i]);
+                }
+            }
+            dataTabela.Rows.Clear();
+            foreach (Listagem obj in list_tab)
+            {
+                dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
+            }
+            enable_true();
+            if (list_tab.Count == 0)
+            {
+                buttonAddProd.Visible = false;
+                buttonRemProd.Visible = false;
+            }
         }
 
         private void buttonPesq_Click(object sender, EventArgs e)
@@ -118,10 +157,6 @@ namespace Stq
             }
         }
 
-        private void buttonSai_Ent_Click(object sender, EventArgs e)
-        {
-
-        }
         private void buttonConfig_Click(object sender, EventArgs e)
         {
 
@@ -132,6 +167,40 @@ namespace Stq
             enable_true();
         }
 
-     
+        private void dataTabela_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void buttonAddProd_Click(object sender, EventArgs e)
+        {
+           
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            dataTabela.Rows.Clear();
+
+            foreach (Listagem obj in list_tab)
+            {
+                if (text1.Text == obj.Bars)
+                {
+                    int quant = int.Parse(text2.Text);
+                    obj.Quant = obj.Quant + quant;
+                    dataTabela.Rows.Clear();
+                    dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
+                    buttonPesquisar.Visible = false;
+                    buttonRmvF.Visible = true;
+                }
+                else
+                {
+                    buttonPesquisar.Visible = false;
+                    buttonRmvF.Visible = true;
+                }
+            }
+        }
     }
 }
+
+
