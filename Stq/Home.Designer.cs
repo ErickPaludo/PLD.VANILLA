@@ -62,7 +62,7 @@
             // 
             // buttonRegistro
             // 
-            this.buttonRegistro.Location = new System.Drawing.Point(23, 53);
+            this.buttonRegistro.Location = new System.Drawing.Point(26, 12);
             this.buttonRegistro.Name = "buttonRegistro";
             this.buttonRegistro.Size = new System.Drawing.Size(290, 52);
             this.buttonRegistro.TabIndex = 1;
@@ -72,9 +72,9 @@
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(119, 919);
+            this.buttonExit.Location = new System.Drawing.Point(106, 595);
             this.buttonExit.Name = "buttonExit";
-            this.buttonExit.Size = new System.Drawing.Size(95, 38);
+            this.buttonExit.Size = new System.Drawing.Size(116, 34);
             this.buttonExit.TabIndex = 4;
             this.buttonExit.Text = "Sair";
             this.buttonExit.UseVisualStyleBackColor = true;
@@ -82,9 +82,9 @@
             // 
             // buttonConfig
             // 
-            this.buttonConfig.Location = new System.Drawing.Point(108, 864);
+            this.buttonConfig.Location = new System.Drawing.Point(122, 560);
             this.buttonConfig.Name = "buttonConfig";
-            this.buttonConfig.Size = new System.Drawing.Size(120, 38);
+            this.buttonConfig.Size = new System.Drawing.Size(88, 29);
             this.buttonConfig.TabIndex = 5;
             this.buttonConfig.Text = "Configurações";
             this.buttonConfig.UseVisualStyleBackColor = true;
@@ -101,11 +101,11 @@
             this.QUANTIDADE,
             this.VALOR,
             this.TOTAL});
-            this.dataTabela.Location = new System.Drawing.Point(360, 71);
+            this.dataTabela.Location = new System.Drawing.Point(380, 61);
             this.dataTabela.Name = "dataTabela";
             this.dataTabela.RowHeadersVisible = false;
             this.dataTabela.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.dataTabela.Size = new System.Drawing.Size(1532, 922);
+            this.dataTabela.Size = new System.Drawing.Size(966, 568);
             this.dataTabela.TabIndex = 6;
             this.dataTabela.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataTabela_CellContentClick);
             // 
@@ -151,9 +151,9 @@
             // 
             // buttonRmvF
             // 
-            this.buttonRmvF.Location = new System.Drawing.Point(621, 12);
+            this.buttonRmvF.Location = new System.Drawing.Point(621, 7);
             this.buttonRmvF.Name = "buttonRmvF";
-            this.buttonRmvF.Size = new System.Drawing.Size(175, 20);
+            this.buttonRmvF.Size = new System.Drawing.Size(175, 29);
             this.buttonRmvF.TabIndex = 8;
             this.buttonRmvF.Text = "Remover Filtro";
             this.buttonRmvF.UseVisualStyleBackColor = true;
@@ -169,9 +169,9 @@
             // 
             // buttonPesquisar
             // 
-            this.buttonPesquisar.Location = new System.Drawing.Point(621, 12);
+            this.buttonPesquisar.Location = new System.Drawing.Point(621, 7);
             this.buttonPesquisar.Name = "buttonPesquisar";
-            this.buttonPesquisar.Size = new System.Drawing.Size(175, 20);
+            this.buttonPesquisar.Size = new System.Drawing.Size(175, 29);
             this.buttonPesquisar.TabIndex = 10;
             this.buttonPesquisar.Text = "Pesquisar";
             this.buttonPesquisar.UseVisualStyleBackColor = true;
@@ -199,7 +199,7 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(23, 111);
+            this.buttonAdd.Location = new System.Drawing.Point(26, 70);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(136, 33);
             this.buttonAdd.TabIndex = 13;
@@ -210,7 +210,7 @@
             // 
             // buttonRem
             // 
-            this.buttonRem.Location = new System.Drawing.Point(177, 111);
+            this.buttonRem.Location = new System.Drawing.Point(180, 70);
             this.buttonRem.Name = "buttonRem";
             this.buttonRem.Size = new System.Drawing.Size(136, 33);
             this.buttonRem.TabIndex = 14;
@@ -221,7 +221,7 @@
             // 
             // buttonCancelarOp
             // 
-            this.buttonCancelarOp.Location = new System.Drawing.Point(122, 150);
+            this.buttonCancelarOp.Location = new System.Drawing.Point(125, 109);
             this.buttonCancelarOp.Name = "buttonCancelarOp";
             this.buttonCancelarOp.Size = new System.Drawing.Size(92, 20);
             this.buttonCancelarOp.TabIndex = 15;
@@ -232,7 +232,7 @@
             // 
             // buttonAddProd
             // 
-            this.buttonAddProd.Location = new System.Drawing.Point(23, 176);
+            this.buttonAddProd.Location = new System.Drawing.Point(26, 135);
             this.buttonAddProd.Name = "buttonAddProd";
             this.buttonAddProd.Size = new System.Drawing.Size(136, 45);
             this.buttonAddProd.TabIndex = 16;
@@ -243,7 +243,7 @@
             // 
             // buttonRemProd
             // 
-            this.buttonRemProd.Location = new System.Drawing.Point(177, 176);
+            this.buttonRemProd.Location = new System.Drawing.Point(180, 135);
             this.buttonRemProd.Name = "buttonRemProd";
             this.buttonRemProd.Size = new System.Drawing.Size(136, 45);
             this.buttonRemProd.TabIndex = 17;
@@ -254,16 +254,15 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.pictureBox1.Location = new System.Drawing.Point(-3, 1);
+            this.pictureBox1.Location = new System.Drawing.Point(0, -14);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(345, 1049);
+            this.pictureBox1.Size = new System.Drawing.Size(352, 749);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Visible = false;
             // 
             // textCodAddQ
             // 
-            this.textCodAddQ.Location = new System.Drawing.Point(119, 250);
+            this.textCodAddQ.Location = new System.Drawing.Point(122, 209);
             this.textCodAddQ.Name = "textCodAddQ";
             this.textCodAddQ.Size = new System.Drawing.Size(100, 20);
             this.textCodAddQ.TabIndex = 18;
@@ -272,7 +271,7 @@
             // 
             // textAddQ
             // 
-            this.textAddQ.Location = new System.Drawing.Point(119, 286);
+            this.textAddQ.Location = new System.Drawing.Point(122, 245);
             this.textAddQ.Name = "textAddQ";
             this.textAddQ.Size = new System.Drawing.Size(100, 20);
             this.textAddQ.TabIndex = 19;
@@ -280,7 +279,7 @@
             // 
             // buttonAddQ
             // 
-            this.buttonAddQ.Location = new System.Drawing.Point(122, 312);
+            this.buttonAddQ.Location = new System.Drawing.Point(125, 271);
             this.buttonAddQ.Name = "buttonAddQ";
             this.buttonAddQ.Size = new System.Drawing.Size(95, 30);
             this.buttonAddQ.TabIndex = 20;
@@ -292,7 +291,7 @@
             // labelAddQ
             // 
             this.labelAddQ.AutoSize = true;
-            this.labelAddQ.Location = new System.Drawing.Point(127, 234);
+            this.labelAddQ.Location = new System.Drawing.Point(130, 193);
             this.labelAddQ.Name = "labelAddQ";
             this.labelAddQ.Size = new System.Drawing.Size(87, 13);
             this.labelAddQ.TabIndex = 21;
@@ -302,7 +301,7 @@
             // labelAddQ2
             // 
             this.labelAddQ2.AutoSize = true;
-            this.labelAddQ2.Location = new System.Drawing.Point(89, 273);
+            this.labelAddQ2.Location = new System.Drawing.Point(99, 232);
             this.labelAddQ2.Name = "labelAddQ2";
             this.labelAddQ2.Size = new System.Drawing.Size(158, 13);
             this.labelAddQ2.TabIndex = 22;
@@ -312,7 +311,7 @@
             // labelRemover
             // 
             this.labelRemover.AutoSize = true;
-            this.labelRemover.Location = new System.Drawing.Point(92, 272);
+            this.labelRemover.Location = new System.Drawing.Point(99, 232);
             this.labelRemover.Name = "labelRemover";
             this.labelRemover.Size = new System.Drawing.Size(154, 13);
             this.labelRemover.TabIndex = 23;
@@ -323,7 +322,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.ClientSize = new System.Drawing.Size(1370, 689);
             this.Controls.Add(this.labelRemover);
             this.Controls.Add(this.labelAddQ2);
             this.Controls.Add(this.labelAddQ);
