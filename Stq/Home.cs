@@ -35,6 +35,23 @@ namespace Stq
         {
             code = cod;
         }
+        private void reelist()
+        {
+            dataTabela.Rows.Clear();
+            foreach (Listagem obj in list_tab)
+            {
+                if (obj.Quant < 50)
+                {
+                    dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
+                    dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.BackColor = Color.Red;
+                    dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.ForeColor = Color.White;
+                }
+                else
+                {
+                    dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
+                }
+            }
+        }
         private void enable_true()
         {
             buttonAdd.Visible = false;
@@ -60,7 +77,7 @@ namespace Stq
             checkQuant.Enabled = false;
             buttonPesquisar.Enabled = false;
             buttonCancelarOp.Visible = true;
-            buttonAddProd.Enabled = false;
+            buttonAddProd.Enabled = false;         
             buttonRemProd.Enabled = false;
         }
         private void buttonExit_Click(object sender, EventArgs e)
@@ -70,22 +87,18 @@ namespace Stq
 
         private void buttonRegistro_Click(object sender, EventArgs e)
         {
+
             enable_false();
         }
 
+
         private void buttonRmvF_Click(object sender, EventArgs e)
         {
-            dataTabela.Rows.Clear();
-            foreach (Listagem obj in list_tab)
-            {
-
-                dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
-                textPesquisa.Text = string.Empty;
-                textPesquisa.Focus();
-                buttonRmvF.Visible = false;
-                buttonPesquisar.Visible = true;
-            }
-
+            reelist();
+            buttonRmvF.Visible = false;
+            buttonPesquisar.Visible = true;
+            textPesquisa.Text = string.Empty;
+            buttonRegistro.Focus();
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -93,10 +106,11 @@ namespace Stq
             Form3 add = new Form3();
             add.ShowDialog();
             dataTabela.Rows.Clear();
-            buttonAddProd.Visible = true;
-            buttonRemProd.Visible = true;
+            
             foreach (Listagem obj in list_tab)
             {
+                buttonAddProd.Visible = true;
+                buttonRemProd.Visible = true;
                 if (obj.Quant < 50)
                 {
                     dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
@@ -144,10 +158,22 @@ namespace Stq
             {
                 if (textPesquisa.Text == obj.Bars)
                 {
-                    dataTabela.Rows.Clear();
-                    dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
-                    buttonPesquisar.Visible = false;
-                    buttonRmvF.Visible = true;
+                    if (obj.Quant < 50)
+                    {
+                        dataTabela.Rows.Clear();
+                        dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
+                        buttonPesquisar.Visible = false;
+                        buttonRmvF.Visible = true;
+                        dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.BackColor = Color.Red;
+                        dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.ForeColor = Color.White;
+                    }
+                    else
+                    {
+                        dataTabela.Rows.Clear();
+                        dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
+                        buttonPesquisar.Visible = false;
+                        buttonRmvF.Visible = true;
+                    }
                 }
                 else
                 {
@@ -165,6 +191,15 @@ namespace Stq
         private void buttonCancelarOp_Click(object sender, EventArgs e)
         {
             enable_true();
+            labelAddQ.Visible = false;
+            textCodAddQ.Visible = false;
+            labelAddQ2.Visible = false;
+            textAddQ.Visible = false;
+            buttonAddQ.Visible = false;
+            textCodAddQ.Text = string.Empty;
+            textAddQ.Text = string.Empty;
+            dataTabela.Rows.Clear();
+            reelist();
         }
 
         private void dataTabela_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -174,7 +209,13 @@ namespace Stq
 
         private void buttonAddProd_Click(object sender, EventArgs e)
         {
-           
+            buttonCancelarOp.Visible = true;
+            labelAddQ.Visible = true;
+            textCodAddQ.Visible = true;
+            labelAddQ2.Visible = true;
+            textAddQ.Visible = true;
+            buttonAddQ.Visible = true;
+
 
         }
 
@@ -184,19 +225,61 @@ namespace Stq
 
             foreach (Listagem obj in list_tab)
             {
-                if (text1.Text == obj.Bars)
+                if (textCodAddQ.Text == obj.Bars)
                 {
-                    int quant = int.Parse(text2.Text);
-                    obj.Quant = obj.Quant + quant;
                     dataTabela.Rows.Clear();
                     dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
-                    buttonPesquisar.Visible = false;
-                    buttonRmvF.Visible = true;
+                    if (textCodAddQ.Text != string.Empty && textAddQ.Text != string.Empty)
+                    {
+
+                        int quant = int.Parse(textAddQ.Text);
+                        obj.Quant = obj.Quant + quant;
+                        dataTabela.Rows.Clear();
+                        dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
+                        buttonPesquisar.Visible = false;
+                        buttonRmvF.Visible = true;
+                        MessageBox.Show("Foram adicionados " + quant + " itens dentro do produto " + obj.Prodct);
+                        labelAddQ.Visible = false;
+                        textCodAddQ.Visible = false;
+                        labelAddQ2.Visible = false;
+                        textAddQ.Visible = false;
+                        buttonAddQ.Visible = false;
+                        textCodAddQ.Text = string.Empty;
+                        textAddQ.Text = string.Empty;
+                        buttonRmvF.Visible = false;
+                        buttonPesquisar.Visible = true;
+                        buttonCancelarOp.Visible = false;
+                        reelist();
+                    }
+                    else
+                    {
+
+                        MessageBox.Show("Preencha os campos");
+                        textCodAddQ.Text = string.Empty;
+                        textAddQ.Text = string.Empty;
+                        reelist();
+                    }
                 }
-                else
+            }
+        }
+
+        private void textCodAddQ_TextChanged(object sender, EventArgs e)
+        {
+            foreach (Listagem obj in list_tab)
+            {
+                if (textCodAddQ.Text == obj.Bars)
                 {
-                    buttonPesquisar.Visible = false;
-                    buttonRmvF.Visible = true;
+                    dataTabela.Rows.Clear();
+                    if (obj.Quant < 50)
+                    {
+                        dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
+                        dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.BackColor = Color.Red;
+                        dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.ForeColor = Color.White;
+                    }
+                    else
+                    {
+                        dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
+                    }                  
                 }
             }
         }

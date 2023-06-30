@@ -45,10 +45,10 @@
             // textProd
             // 
             this.textProd.Location = new System.Drawing.Point(54, 37);
+            this.textProd.MaxLength = 20;
             this.textProd.Name = "textProd";
             this.textProd.Size = new System.Drawing.Size(126, 20);
             this.textProd.TabIndex = 0;
-            this.textProd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textProd_KeyPress);
             // 
             // textQuant
             // 
@@ -76,6 +76,8 @@
             // 
             // comboColor
             // 
+            this.comboColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboColor.FormattingEnabled = true;
             this.comboColor.Items.AddRange(new object[] {
             "Azul",
@@ -84,7 +86,12 @@
             "Verde",
             "Branco",
             "Cinza",
-            "Preto"});
+            "Preto",
+            "Roxo",
+            "Marrom",
+            "Laranja",
+            "(Não informado)",
+            "Outros"});
             this.comboColor.Location = new System.Drawing.Point(54, 85);
             this.comboColor.Name = "comboColor";
             this.comboColor.Size = new System.Drawing.Size(126, 21);

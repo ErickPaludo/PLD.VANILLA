@@ -50,9 +50,12 @@
             this.buttonAddProd = new System.Windows.Forms.Button();
             this.buttonRemProd = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.text1 = new System.Windows.Forms.TextBox();
-            this.text2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.textCodAddQ = new System.Windows.Forms.TextBox();
+            this.textAddQ = new System.Windows.Forms.TextBox();
+            this.buttonAddQ = new System.Windows.Forms.Button();
+            this.labelAddQ = new System.Windows.Forms.Label();
+            this.labelAddQ2 = new System.Windows.Forms.Label();
+            this.labelRemover = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataTabela)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -258,38 +261,75 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
             // 
-            // text1
+            // textCodAddQ
             // 
-            this.text1.Location = new System.Drawing.Point(119, 242);
-            this.text1.Name = "text1";
-            this.text1.Size = new System.Drawing.Size(100, 20);
-            this.text1.TabIndex = 18;
+            this.textCodAddQ.Location = new System.Drawing.Point(119, 250);
+            this.textCodAddQ.Name = "textCodAddQ";
+            this.textCodAddQ.Size = new System.Drawing.Size(100, 20);
+            this.textCodAddQ.TabIndex = 18;
+            this.textCodAddQ.Visible = false;
+            this.textCodAddQ.TextChanged += new System.EventHandler(this.textCodAddQ_TextChanged);
             // 
-            // text2
+            // textAddQ
             // 
-            this.text2.Location = new System.Drawing.Point(119, 286);
-            this.text2.Name = "text2";
-            this.text2.Size = new System.Drawing.Size(100, 20);
-            this.text2.TabIndex = 19;
+            this.textAddQ.Location = new System.Drawing.Point(119, 286);
+            this.textAddQ.Name = "textAddQ";
+            this.textAddQ.Size = new System.Drawing.Size(100, 20);
+            this.textAddQ.TabIndex = 19;
+            this.textAddQ.Visible = false;
             // 
-            // button1
+            // buttonAddQ
             // 
-            this.button1.Location = new System.Drawing.Point(122, 312);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(95, 30);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonAddQ.Location = new System.Drawing.Point(122, 312);
+            this.buttonAddQ.Name = "buttonAddQ";
+            this.buttonAddQ.Size = new System.Drawing.Size(95, 30);
+            this.buttonAddQ.TabIndex = 20;
+            this.buttonAddQ.Text = "Adicionar";
+            this.buttonAddQ.UseVisualStyleBackColor = true;
+            this.buttonAddQ.Visible = false;
+            this.buttonAddQ.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // labelAddQ
+            // 
+            this.labelAddQ.AutoSize = true;
+            this.labelAddQ.Location = new System.Drawing.Point(127, 234);
+            this.labelAddQ.Name = "labelAddQ";
+            this.labelAddQ.Size = new System.Drawing.Size(87, 13);
+            this.labelAddQ.TabIndex = 21;
+            this.labelAddQ.Text = "Código de barras";
+            this.labelAddQ.Visible = false;
+            // 
+            // labelAddQ2
+            // 
+            this.labelAddQ2.AutoSize = true;
+            this.labelAddQ2.Location = new System.Drawing.Point(89, 273);
+            this.labelAddQ2.Name = "labelAddQ2";
+            this.labelAddQ2.Size = new System.Drawing.Size(158, 13);
+            this.labelAddQ2.TabIndex = 22;
+            this.labelAddQ2.Text = "Quantidade para ser adicionada";
+            this.labelAddQ2.Visible = false;
+            // 
+            // labelRemover
+            // 
+            this.labelRemover.AutoSize = true;
+            this.labelRemover.Location = new System.Drawing.Point(92, 272);
+            this.labelRemover.Name = "labelRemover";
+            this.labelRemover.Size = new System.Drawing.Size(154, 13);
+            this.labelRemover.TabIndex = 23;
+            this.labelRemover.Text = "Quantidade para ser Removido";
+            this.labelRemover.Visible = false;
             // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.text2);
-            this.Controls.Add(this.text1);
+            this.Controls.Add(this.labelRemover);
+            this.Controls.Add(this.labelAddQ2);
+            this.Controls.Add(this.labelAddQ);
+            this.Controls.Add(this.buttonAddQ);
+            this.Controls.Add(this.textAddQ);
+            this.Controls.Add(this.textCodAddQ);
             this.Controls.Add(this.buttonRemProd);
             this.Controls.Add(this.buttonAddProd);
             this.Controls.Add(this.buttonCancelarOp);
@@ -338,8 +378,11 @@
         private System.Windows.Forms.Button buttonAddProd;
         private System.Windows.Forms.Button buttonRemProd;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox text1;
-        private System.Windows.Forms.TextBox text2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textCodAddQ;
+        private System.Windows.Forms.TextBox textAddQ;
+        private System.Windows.Forms.Button buttonAddQ;
+        private System.Windows.Forms.Label labelAddQ;
+        private System.Windows.Forms.Label labelAddQ2;
+        private System.Windows.Forms.Label labelRemover;
     }
 }
