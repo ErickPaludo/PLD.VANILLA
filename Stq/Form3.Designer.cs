@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
             this.textProd = new System.Windows.Forms.TextBox();
             this.textQuant = new System.Windows.Forms.TextBox();
             this.textPeso = new System.Windows.Forms.TextBox();
@@ -182,6 +183,7 @@
             this.Controls.Add(this.textPeso);
             this.Controls.Add(this.textQuant);
             this.Controls.Add(this.textProd);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form3";

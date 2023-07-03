@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
             this.buttonRegistro = new System.Windows.Forms.Button();
             this.buttonExit = new System.Windows.Forms.Button();
             this.buttonConfig = new System.Windows.Forms.Button();
@@ -42,8 +43,6 @@
             this.buttonRmvF = new System.Windows.Forms.Button();
             this.textPesquisa = new System.Windows.Forms.TextBox();
             this.buttonPesquisar = new System.Windows.Forms.Button();
-            this.checkBar = new System.Windows.Forms.CheckBox();
-            this.checkQuant = new System.Windows.Forms.CheckBox();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonRem = new System.Windows.Forms.Button();
             this.buttonCancelarOp = new System.Windows.Forms.Button();
@@ -56,6 +55,8 @@
             this.labelAddQ = new System.Windows.Forms.Label();
             this.labelAddQ2 = new System.Windows.Forms.Label();
             this.labelRemover = new System.Windows.Forms.Label();
+            this.labelTotalestoque = new System.Windows.Forms.Label();
+            this.buttonRmvQuant = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataTabela)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -107,7 +108,6 @@
             this.dataTabela.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dataTabela.Size = new System.Drawing.Size(966, 568);
             this.dataTabela.TabIndex = 6;
-            this.dataTabela.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataTabela_CellContentClick);
             // 
             // ID
             // 
@@ -177,26 +177,6 @@
             this.buttonPesquisar.UseVisualStyleBackColor = true;
             this.buttonPesquisar.Click += new System.EventHandler(this.buttonPesq_Click);
             // 
-            // checkBar
-            // 
-            this.checkBar.AutoSize = true;
-            this.checkBar.Location = new System.Drawing.Point(380, 38);
-            this.checkBar.Name = "checkBar";
-            this.checkBar.Size = new System.Drawing.Size(46, 17);
-            this.checkBar.TabIndex = 11;
-            this.checkBar.Text = "*****";
-            this.checkBar.UseVisualStyleBackColor = true;
-            // 
-            // checkQuant
-            // 
-            this.checkQuant.AutoSize = true;
-            this.checkQuant.Location = new System.Drawing.Point(466, 38);
-            this.checkQuant.Name = "checkQuant";
-            this.checkQuant.Size = new System.Drawing.Size(46, 17);
-            this.checkQuant.TabIndex = 12;
-            this.checkQuant.Text = "*****";
-            this.checkQuant.UseVisualStyleBackColor = true;
-            // 
             // buttonAdd
             // 
             this.buttonAdd.Location = new System.Drawing.Point(26, 70);
@@ -250,11 +230,12 @@
             this.buttonRemProd.Text = "Remover Produto";
             this.buttonRemProd.UseVisualStyleBackColor = true;
             this.buttonRemProd.Visible = false;
+            this.buttonRemProd.Click += new System.EventHandler(this.buttonRemProd_Click);
             // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.pictureBox1.Location = new System.Drawing.Point(0, -14);
+            this.pictureBox1.Location = new System.Drawing.Point(-7, -25);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(352, 749);
             this.pictureBox1.TabIndex = 0;
@@ -318,11 +299,34 @@
             this.labelRemover.Text = "Quantidade para ser Removido";
             this.labelRemover.Visible = false;
             // 
+            // labelTotalestoque
+            // 
+            this.labelTotalestoque.AutoSize = true;
+            this.labelTotalestoque.Location = new System.Drawing.Point(1168, 632);
+            this.labelTotalestoque.Name = "labelTotalestoque";
+            this.labelTotalestoque.Size = new System.Drawing.Size(153, 13);
+            this.labelTotalestoque.TabIndex = 24;
+            this.labelTotalestoque.Text = "Valor total em estoque: R$0,00";
+            this.labelTotalestoque.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // buttonRmvQuant
+            // 
+            this.buttonRmvQuant.Location = new System.Drawing.Point(125, 271);
+            this.buttonRmvQuant.Name = "buttonRmvQuant";
+            this.buttonRmvQuant.Size = new System.Drawing.Size(95, 30);
+            this.buttonRmvQuant.TabIndex = 25;
+            this.buttonRmvQuant.Text = "Remover";
+            this.buttonRmvQuant.UseVisualStyleBackColor = true;
+            this.buttonRmvQuant.Visible = false;
+            this.buttonRmvQuant.Click += new System.EventHandler(this.buttonRmvQuant_Click);
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1370, 689);
+            this.Controls.Add(this.buttonRmvQuant);
+            this.Controls.Add(this.labelTotalestoque);
             this.Controls.Add(this.labelRemover);
             this.Controls.Add(this.labelAddQ2);
             this.Controls.Add(this.labelAddQ);
@@ -334,8 +338,6 @@
             this.Controls.Add(this.buttonCancelarOp);
             this.Controls.Add(this.buttonRem);
             this.Controls.Add(this.buttonAdd);
-            this.Controls.Add(this.checkQuant);
-            this.Controls.Add(this.checkBar);
             this.Controls.Add(this.buttonPesquisar);
             this.Controls.Add(this.textPesquisa);
             this.Controls.Add(this.buttonRmvF);
@@ -344,6 +346,7 @@
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.buttonRegistro);
             this.Controls.Add(this.pictureBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Home";
             this.Text = "Home";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -369,8 +372,6 @@
         private System.Windows.Forms.Button buttonRmvF;
         private System.Windows.Forms.TextBox textPesquisa;
         private System.Windows.Forms.Button buttonPesquisar;
-        private System.Windows.Forms.CheckBox checkBar;
-        private System.Windows.Forms.CheckBox checkQuant;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonRem;
         private System.Windows.Forms.Button buttonCancelarOp;
@@ -383,5 +384,7 @@
         private System.Windows.Forms.Label labelAddQ;
         private System.Windows.Forms.Label labelAddQ2;
         private System.Windows.Forms.Label labelRemover;
+        private System.Windows.Forms.Label labelTotalestoque;
+        private System.Windows.Forms.Button buttonRmvQuant;
     }
 }
