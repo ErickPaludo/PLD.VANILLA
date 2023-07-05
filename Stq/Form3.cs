@@ -72,6 +72,10 @@ namespace Stq
                 this.Close();
             }
         }
+        private bool commaEntered = false;
+        private bool tru = false;
+
+
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -82,12 +86,23 @@ namespace Stq
         {
 
         }
-        private void textPreco_KeyPress(object sender, KeyPressEventArgs e)
+        private void textPreco_KeyPress(object sender, KeyPressEventArgs f)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',')
+            if (!char.IsControl(f.KeyChar) && !char.IsDigit(f.KeyChar) && f.KeyChar != ',')
             {
-                e.Handled = true;
-            }    
+                f.Handled = true;
+            }
+            else if (f.KeyChar == ',')
+            {
+                if (commaEntered)
+                {
+                    f.Handled = true; // Impede a entrada adicional de vírgula
+                }
+                else
+                {
+                    commaEntered = true; // Marca a vírgula como já digitada
+                }
+            }
         }
 
         private void textQuant_KeyPress(object sender, KeyPressEventArgs e)
@@ -104,6 +119,17 @@ namespace Stq
             {
                 e.Handled = true;
             }
+            else if (e.KeyChar == ',')
+            {
+                if (tru)
+                {
+                    e.Handled = true; // Impede a entrada adicional de vírgula
+                }
+                else
+                {
+                    tru = true; // Marca a vírgula como já digitada
+                }
+            }
         }
 
 
@@ -117,11 +143,6 @@ namespace Stq
         }
 
         private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboColor_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

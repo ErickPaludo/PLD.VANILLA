@@ -46,8 +46,9 @@
             // textProd
             // 
             this.textProd.Location = new System.Drawing.Point(54, 37);
-            this.textProd.MaxLength = 20;
+            this.textProd.MaxLength = 30;
             this.textProd.Name = "textProd";
+            this.textProd.ShortcutsEnabled = false;
             this.textProd.Size = new System.Drawing.Size(126, 20);
             this.textProd.TabIndex = 0;
             // 
@@ -55,6 +56,7 @@
             // 
             this.textQuant.Location = new System.Drawing.Point(54, 181);
             this.textQuant.Name = "textQuant";
+            this.textQuant.ShortcutsEnabled = false;
             this.textQuant.Size = new System.Drawing.Size(126, 20);
             this.textQuant.TabIndex = 4;
             this.textQuant.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textQuant_KeyPress);
@@ -63,6 +65,7 @@
             // 
             this.textPeso.Location = new System.Drawing.Point(54, 133);
             this.textPeso.Name = "textPeso";
+            this.textPeso.ShortcutsEnabled = false;
             this.textPeso.Size = new System.Drawing.Size(126, 20);
             this.textPeso.TabIndex = 3;
             this.textPeso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textPeso_KeyPress);
@@ -71,6 +74,7 @@
             // 
             this.textPreco.Location = new System.Drawing.Point(74, 229);
             this.textPreco.Name = "textPreco";
+            this.textPreco.ShortcutsEnabled = false;
             this.textPreco.Size = new System.Drawing.Size(106, 20);
             this.textPreco.TabIndex = 5;
             this.textPreco.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textPreco_KeyPress);
@@ -97,7 +101,6 @@
             this.comboColor.Name = "comboColor";
             this.comboColor.Size = new System.Drawing.Size(126, 21);
             this.comboColor.TabIndex = 1;
-            this.comboColor.SelectedIndexChanged += new System.EventHandler(this.comboColor_SelectedIndexChanged);
             this.comboColor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboColor_KeyPress);
             // 
             // button1

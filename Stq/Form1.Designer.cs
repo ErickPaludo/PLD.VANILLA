@@ -45,6 +45,7 @@
             this.textUser.Location = new System.Drawing.Point(265, 165);
             this.textUser.MaxLength = 3;
             this.textUser.Name = "textUser";
+            this.textUser.ShortcutsEnabled = false;
             this.textUser.Size = new System.Drawing.Size(171, 19);
             this.textUser.TabIndex = 0;
             this.textUser.Tag = "";
@@ -58,6 +59,7 @@
             this.textPass.Location = new System.Drawing.Point(265, 243);
             this.textPass.MaxLength = 7;
             this.textPass.Name = "textPass";
+            this.textPass.ShortcutsEnabled = false;
             this.textPass.Size = new System.Drawing.Size(171, 19);
             this.textPass.TabIndex = 1;
             this.textPass.UseSystemPasswordChar = true;

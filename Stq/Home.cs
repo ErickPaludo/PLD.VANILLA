@@ -16,9 +16,9 @@ namespace Stq
 {
     public partial class Home : Form
     {
+        private static int lim = 50;
         private static List<Listagem> list_tab = new List<Listagem>();
         private static string code;
-        private static int quant_;
         public Home()
         {
             InitializeComponent();
@@ -35,7 +35,7 @@ namespace Stq
             code = cod;
         }
 
-        public Home(string bars, string prod,string color,decimal peso,decimal value)
+        public Home(string bars, string prod, string color, decimal peso, decimal value)
         {
             InitializeComponent();
             int ver = 0;
@@ -66,7 +66,7 @@ namespace Stq
                     }
                 }
             }
-            if(ver == 0)
+            if (ver == 0)
             {
                 MessageBox.Show("Item não encontrado");
             }
@@ -75,13 +75,17 @@ namespace Stq
                 MessageBox.Show("Registros editados com sucesso");
             }
         }
+        public Home(int value)
+        {
+            lim = value;
+        }
         private void reelist()
         {
             decimal Tsystem = 0;
             dataTabela.Rows.Clear();
             foreach (Listagem obj in list_tab)
             {
-                if (obj.Quant < 50)
+                if (obj.Quant <= lim)
                 {
                     dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
                     dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.BackColor = Color.Red;
@@ -115,7 +119,7 @@ namespace Stq
             buttonRem.Visible = true;
             buttonRegistro.Enabled = false;
             buttonConfig.Enabled = false;
-            dataTabela.Enabled = false;       
+            dataTabela.Enabled = false;
             buttonPesquisar.Enabled = false;
             buttonCancelarOp.Visible = true;
             buttonAddProd.Enabled = false;
@@ -157,12 +161,14 @@ namespace Stq
             {
                 buttonRemProd.Visible = true;
                 buttonAddProd.Visible = true;
+                buttonAlterarReg.Visible = true;
             }
             else
             {
 
-                buttonRemProd.Visible = true;
-                buttonAddProd.Visible = true;
+                buttonRemProd.Visible = false;
+                buttonAddProd.Visible = false;
+                buttonAlterarReg.Visible = false;
             }
         } //adiciona registro
         private void buttonRem_Click(object sender, EventArgs e)
@@ -233,7 +239,9 @@ namespace Stq
         }//pesquisa registro
         private void buttonConfig_Click(object sender, EventArgs e)
         {
-
+            Config env = new Config(lim);
+            env.ShowDialog();
+            reelist();
         }//configurações
         private void buttonCancelarOp_Click(object sender, EventArgs e)
         {
@@ -345,7 +353,7 @@ namespace Stq
             textCodAddQ.Visible = true;
         } //Ativa Removedor de Item
         private void buttonRmvQuant_Click(object sender, EventArgs e) // Remove Item
-        {           
+        {
             foreach (Listagem obj in list_tab)
             {
                 if (textCodAddQ.Text == obj.Bars)
@@ -386,7 +394,7 @@ namespace Stq
                             textAddQ.Text = string.Empty;
                             textAddQ.Focus();
                         }
-                    }           
+                    }
                 }
             }
         }
@@ -394,9 +402,21 @@ namespace Stq
         private void buttonEditReg_Click(object sender, EventArgs e)
         {
             EditReg env = new EditReg();
-            env.Show();
-            dataTabela.Rows.Clear();
-            MessageBox.Show("nhe");
+            env.ShowDialog();
+            reelist();
+        }
+
+        private void Home_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textCodAddQ_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }
