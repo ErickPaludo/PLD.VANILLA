@@ -19,7 +19,6 @@ namespace Stq
         {
             InitializeComponent();
         }
-
         private void Form3_Load(object sender, EventArgs e)
         {
 
@@ -118,6 +117,11 @@ namespace Stq
         }
 
         private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboColor_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

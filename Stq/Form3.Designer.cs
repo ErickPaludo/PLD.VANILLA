@@ -97,6 +97,7 @@
             this.comboColor.Name = "comboColor";
             this.comboColor.Size = new System.Drawing.Size(126, 21);
             this.comboColor.TabIndex = 1;
+            this.comboColor.SelectedIndexChanged += new System.EventHandler(this.comboColor_SelectedIndexChanged);
             this.comboColor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboColor_KeyPress);
             // 
             // button1

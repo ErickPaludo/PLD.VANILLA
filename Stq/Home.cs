@@ -33,7 +33,48 @@ namespace Stq
         public Home(string cod)
         {
             code = cod;
-        } 
+        }
+
+        public Home(string bars, string prod,string color,decimal peso,decimal value)
+        {
+            InitializeComponent();
+            int ver = 0;
+            foreach (Listagem obj in list_tab)
+            {
+                if (bars == obj.Bars)
+                {
+                    dataTabela.Rows.Clear();
+                    if (obj.Quant < 50)
+                    {
+                        obj.Total = obj.Quant * value;
+                        obj.Color = color;
+                        obj.Prodct = prod;
+                        obj.Peso = peso;
+                        obj.Preco = value;
+                        ver = 1;
+                        reelist();
+                    }
+                    else
+                    {
+                        obj.Total = obj.Quant * value;
+                        obj.Color = color;
+                        obj.Prodct = prod;
+                        obj.Peso = peso;
+                        obj.Preco = value;
+                        ver = 1;
+                        reelist();
+                    }
+                }
+            }
+            if(ver == 0)
+            {
+                MessageBox.Show("Item não encontrado");
+            }
+            else
+            {
+                MessageBox.Show("Registros editados com sucesso");
+            }
+        }
         private void reelist()
         {
             decimal Tsystem = 0;
@@ -53,6 +94,7 @@ namespace Stq
                     Tsystem = Tsystem + obj.Total;
                 }
                 labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("f2", CultureInfo.InvariantCulture);
+
             }
         } // vai listar tudo que está no estoque
         private void enable_true()
@@ -347,6 +389,14 @@ namespace Stq
                     }           
                 }
             }
+        }
+
+        private void buttonEditReg_Click(object sender, EventArgs e)
+        {
+            EditReg env = new EditReg();
+            env.Show();
+            dataTabela.Rows.Clear();
+            MessageBox.Show("nhe");
         }
     }
 }

@@ -48,7 +48,6 @@
             this.buttonCancelarOp = new System.Windows.Forms.Button();
             this.buttonAddProd = new System.Windows.Forms.Button();
             this.buttonRemProd = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textCodAddQ = new System.Windows.Forms.TextBox();
             this.textAddQ = new System.Windows.Forms.TextBox();
             this.buttonAddQ = new System.Windows.Forms.Button();
@@ -57,13 +56,15 @@
             this.labelRemover = new System.Windows.Forms.Label();
             this.labelTotalestoque = new System.Windows.Forms.Label();
             this.buttonRmvQuant = new System.Windows.Forms.Button();
+            this.buttonAlterarReg = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataTabela)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonRegistro
             // 
-            this.buttonRegistro.Location = new System.Drawing.Point(26, 12);
+            this.buttonRegistro.Location = new System.Drawing.Point(27, 12);
             this.buttonRegistro.Name = "buttonRegistro";
             this.buttonRegistro.Size = new System.Drawing.Size(290, 52);
             this.buttonRegistro.TabIndex = 1;
@@ -179,7 +180,7 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(26, 70);
+            this.buttonAdd.Location = new System.Drawing.Point(27, 70);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(136, 33);
             this.buttonAdd.TabIndex = 13;
@@ -190,7 +191,7 @@
             // 
             // buttonRem
             // 
-            this.buttonRem.Location = new System.Drawing.Point(180, 70);
+            this.buttonRem.Location = new System.Drawing.Point(181, 70);
             this.buttonRem.Name = "buttonRem";
             this.buttonRem.Size = new System.Drawing.Size(136, 33);
             this.buttonRem.TabIndex = 14;
@@ -201,7 +202,7 @@
             // 
             // buttonCancelarOp
             // 
-            this.buttonCancelarOp.Location = new System.Drawing.Point(125, 109);
+            this.buttonCancelarOp.Location = new System.Drawing.Point(126, 169);
             this.buttonCancelarOp.Name = "buttonCancelarOp";
             this.buttonCancelarOp.Size = new System.Drawing.Size(92, 20);
             this.buttonCancelarOp.TabIndex = 15;
@@ -212,7 +213,7 @@
             // 
             // buttonAddProd
             // 
-            this.buttonAddProd.Location = new System.Drawing.Point(26, 135);
+            this.buttonAddProd.Location = new System.Drawing.Point(27, 195);
             this.buttonAddProd.Name = "buttonAddProd";
             this.buttonAddProd.Size = new System.Drawing.Size(136, 45);
             this.buttonAddProd.TabIndex = 16;
@@ -223,7 +224,7 @@
             // 
             // buttonRemProd
             // 
-            this.buttonRemProd.Location = new System.Drawing.Point(180, 135);
+            this.buttonRemProd.Location = new System.Drawing.Point(181, 195);
             this.buttonRemProd.Name = "buttonRemProd";
             this.buttonRemProd.Size = new System.Drawing.Size(136, 45);
             this.buttonRemProd.TabIndex = 17;
@@ -232,18 +233,9 @@
             this.buttonRemProd.Visible = false;
             this.buttonRemProd.Click += new System.EventHandler(this.buttonRemProd_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.pictureBox1.Location = new System.Drawing.Point(-7, -25);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(352, 749);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // textCodAddQ
             // 
-            this.textCodAddQ.Location = new System.Drawing.Point(122, 209);
+            this.textCodAddQ.Location = new System.Drawing.Point(123, 269);
             this.textCodAddQ.Name = "textCodAddQ";
             this.textCodAddQ.Size = new System.Drawing.Size(100, 20);
             this.textCodAddQ.TabIndex = 18;
@@ -252,7 +244,7 @@
             // 
             // textAddQ
             // 
-            this.textAddQ.Location = new System.Drawing.Point(122, 245);
+            this.textAddQ.Location = new System.Drawing.Point(123, 305);
             this.textAddQ.Name = "textAddQ";
             this.textAddQ.Size = new System.Drawing.Size(100, 20);
             this.textAddQ.TabIndex = 19;
@@ -260,7 +252,7 @@
             // 
             // buttonAddQ
             // 
-            this.buttonAddQ.Location = new System.Drawing.Point(125, 271);
+            this.buttonAddQ.Location = new System.Drawing.Point(126, 331);
             this.buttonAddQ.Name = "buttonAddQ";
             this.buttonAddQ.Size = new System.Drawing.Size(95, 30);
             this.buttonAddQ.TabIndex = 20;
@@ -272,7 +264,7 @@
             // labelAddQ
             // 
             this.labelAddQ.AutoSize = true;
-            this.labelAddQ.Location = new System.Drawing.Point(130, 193);
+            this.labelAddQ.Location = new System.Drawing.Point(131, 253);
             this.labelAddQ.Name = "labelAddQ";
             this.labelAddQ.Size = new System.Drawing.Size(87, 13);
             this.labelAddQ.TabIndex = 21;
@@ -282,7 +274,7 @@
             // labelAddQ2
             // 
             this.labelAddQ2.AutoSize = true;
-            this.labelAddQ2.Location = new System.Drawing.Point(99, 232);
+            this.labelAddQ2.Location = new System.Drawing.Point(100, 292);
             this.labelAddQ2.Name = "labelAddQ2";
             this.labelAddQ2.Size = new System.Drawing.Size(158, 13);
             this.labelAddQ2.TabIndex = 22;
@@ -292,7 +284,7 @@
             // labelRemover
             // 
             this.labelRemover.AutoSize = true;
-            this.labelRemover.Location = new System.Drawing.Point(99, 232);
+            this.labelRemover.Location = new System.Drawing.Point(100, 292);
             this.labelRemover.Name = "labelRemover";
             this.labelRemover.Size = new System.Drawing.Size(154, 13);
             this.labelRemover.TabIndex = 23;
@@ -311,7 +303,7 @@
             // 
             // buttonRmvQuant
             // 
-            this.buttonRmvQuant.Location = new System.Drawing.Point(125, 271);
+            this.buttonRmvQuant.Location = new System.Drawing.Point(126, 331);
             this.buttonRmvQuant.Name = "buttonRmvQuant";
             this.buttonRmvQuant.Size = new System.Drawing.Size(95, 30);
             this.buttonRmvQuant.TabIndex = 25;
@@ -320,11 +312,31 @@
             this.buttonRmvQuant.Visible = false;
             this.buttonRmvQuant.Click += new System.EventHandler(this.buttonRmvQuant_Click);
             // 
+            // buttonAlterarReg
+            // 
+            this.buttonAlterarReg.Location = new System.Drawing.Point(27, 109);
+            this.buttonAlterarReg.Name = "buttonAlterarReg";
+            this.buttonAlterarReg.Size = new System.Drawing.Size(290, 44);
+            this.buttonAlterarReg.TabIndex = 26;
+            this.buttonAlterarReg.Text = "Alterar Registro";
+            this.buttonAlterarReg.UseVisualStyleBackColor = true;
+            this.buttonAlterarReg.Click += new System.EventHandler(this.buttonEditReg_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.pictureBox1.Location = new System.Drawing.Point(-7, -25);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(352, 749);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1370, 689);
+            this.Controls.Add(this.buttonAlterarReg);
             this.Controls.Add(this.buttonRmvQuant);
             this.Controls.Add(this.labelTotalestoque);
             this.Controls.Add(this.labelRemover);
@@ -386,5 +398,6 @@
         private System.Windows.Forms.Label labelRemover;
         private System.Windows.Forms.Label labelTotalestoque;
         private System.Windows.Forms.Button buttonRmvQuant;
+        private System.Windows.Forms.Button buttonAlterarReg;
     }
 }
