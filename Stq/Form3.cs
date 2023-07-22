@@ -26,7 +26,7 @@ namespace Stq
 
         private int null_error()
         {
-            if (textProd.Text == string.Empty || textPreco.Text == string.Empty || textPeso.Text == string.Empty || comboColor.Text == string.Empty || textQuant.Text == string.Empty)
+            if (textProd.Text == string.Empty || textPreco.Text == string.Empty || textPeso.Text == string.Empty || textQuant.Text == string.Empty)
             {
                 textProd.Text = string.Empty;
                 textPreco.Text = string.Empty;

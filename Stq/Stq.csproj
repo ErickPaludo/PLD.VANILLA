@@ -135,5 +135,26 @@
   <ItemGroup>
     <None Include="Resources\Background_login1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\beckgroun_login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BackgroundInic_.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LateralInc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LateralInc1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buton_login1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Butoon_reg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Butoon_reg1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

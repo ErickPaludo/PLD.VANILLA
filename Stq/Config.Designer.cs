@@ -46,6 +46,7 @@
             // 
             // textValue
             // 
+            this.textValue.Cursor = System.Windows.Forms.Cursors.Hand;
             this.textValue.Location = new System.Drawing.Point(79, 65);
             this.textValue.MaxLength = 4;
             this.textValue.Name = "textValue";
@@ -56,6 +57,7 @@
             // 
             // buttonAplic
             // 
+            this.buttonAplic.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonAplic.Location = new System.Drawing.Point(79, 108);
             this.buttonAplic.Name = "buttonAplic";
             this.buttonAplic.Size = new System.Drawing.Size(133, 29);

@@ -21,6 +21,10 @@ namespace Stq
         {
             textUser.Text = string.Empty;
             textPass.Text = string.Empty;
+            labelPass.Visible = true;
+            labelPass.Enabled = false;
+            labelUser.Visible = true;
+            labelUser.Enabled = false;
             textUser.Focus();
             MessageBox.Show("User ou Senha Invalidos!");
         }
@@ -31,7 +35,7 @@ namespace Stq
             if (user == "ADM" && textPass.Text == "2605223")
             {
                 Home home = new Home();
-                home.ShowDialog();
+                home.Show();
                 this.Hide();
             }
             else { login_inc(); }
@@ -62,12 +66,40 @@ namespace Stq
             {
                 e.Handled = true;
             }
+           
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+ 
+
+        private void textUser_KeyUp(object sender, KeyEventArgs e)
         {
-
+            if (textUser.Text != string.Empty)
+            {
+                labelUser.Visible = false;
+            }
+            else
+            {
+            labelUser.Visible = true;
+            labelUser.Visible = true;
+            }
         }
+
+        private void textPass_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (textPass.Text != string.Empty)
+            {
+                labelPass.Visible = false;
+            }
+            else
+            {
+                labelPass.Visible = true;
+                labelPass.Enabled = false;
+            }
+        }
+
+
+
+
     }
 
 }

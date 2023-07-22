@@ -58,7 +58,7 @@
             this.textQuant.Name = "textQuant";
             this.textQuant.ShortcutsEnabled = false;
             this.textQuant.Size = new System.Drawing.Size(126, 20);
-            this.textQuant.TabIndex = 4;
+            this.textQuant.TabIndex = 3;
             this.textQuant.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textQuant_KeyPress);
             // 
             // textPeso
@@ -67,7 +67,7 @@
             this.textPeso.Name = "textPeso";
             this.textPeso.ShortcutsEnabled = false;
             this.textPeso.Size = new System.Drawing.Size(126, 20);
-            this.textPeso.TabIndex = 3;
+            this.textPeso.TabIndex = 2;
             this.textPeso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textPeso_KeyPress);
             // 
             // textPreco
@@ -76,7 +76,7 @@
             this.textPreco.Name = "textPreco";
             this.textPreco.ShortcutsEnabled = false;
             this.textPreco.Size = new System.Drawing.Size(106, 20);
-            this.textPreco.TabIndex = 5;
+            this.textPreco.TabIndex = 4;
             this.textPreco.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textPreco_KeyPress);
             // 
             // comboColor
@@ -85,6 +85,7 @@
             this.comboColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboColor.FormattingEnabled = true;
             this.comboColor.Items.AddRange(new object[] {
+            "       ",
             "Azul",
             "Vermelho",
             "Amarelo",
@@ -95,7 +96,6 @@
             "Roxo",
             "Marrom",
             "Laranja",
-            "(Não informado)",
             "Outros"});
             this.comboColor.Location = new System.Drawing.Point(54, 85);
             this.comboColor.Name = "comboColor";
@@ -108,7 +108,7 @@
             this.button1.Location = new System.Drawing.Point(54, 277);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(126, 46);
-            this.button1.TabIndex = 6;
+            this.button1.TabIndex = 5;
             this.button1.Text = "Adicionar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);

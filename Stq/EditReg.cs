@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,66 +15,40 @@ namespace Stq
     {
         static bool tru = false;
         private bool commaEntered = false;
+        private static List<Listagem> list_tab = new List<Listagem>();
+        static string Bars;
         public EditReg()
         {
             InitializeComponent();
         }
-
-
-        private void EditReg_Load(object sender, EventArgs e)
+        public EditReg(string bars,string prod, string color, decimal peso, decimal preco)
         {
-            
+            InitializeComponent();
+            Bars = bars;
+                textProduto.Text = prod;
+                comboColor.Text = color;
+                textNewPeso.Text = Convert.ToString(peso);
+                textNewValue.Text = Convert.ToString(preco);
         }
+
+
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBoxEnvCodBars.Text != string.Empty && textProduto.Text != string.Empty && comboColor.Text != string.Empty && textNewPeso.Text != string.Empty && textNewValue.Text != string.Empty)
+         
+            if (textProduto.Text != string.Empty && textNewPeso.Text != string.Empty && textNewValue.Text != string.Empty)
             {
-                Home env = new Home(textBoxEnvCodBars.Text, textProduto.Text, comboColor.Text, Convert.ToDecimal(textNewPeso.Text), Convert.ToDecimal(textNewValue.Text));
+                Home env = new Home(Bars,textProduto.Text, comboColor.Text, Convert.ToDecimal(textNewPeso.Text), Convert.ToDecimal(textNewValue.Text));
                 this.Close();
             }
             else
             {
                 MessageBox.Show("Todos os campos devem ser preenchidos");
-                textBoxEnvCodBars.Text = string.Empty;
                 textProduto.Text = string.Empty;
                 comboColor.Text = string.Empty;
                 textNewPeso.Text = string.Empty;
                 textNewValue.Text = string.Empty;
-                textBoxEnvCodBars.Focus();
+                textProduto.Focus();
 
-            }
-        }
-
-        private void comboColor_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textProduto_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textNewPeso_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textNewValue_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxEnvCodBars_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxEnvCodBars_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
             }
         }
 

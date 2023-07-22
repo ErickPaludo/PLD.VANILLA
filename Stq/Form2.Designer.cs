@@ -41,17 +41,23 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(64, 145);
+            this.button1.BackColor = System.Drawing.Color.DimGray;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.button1.Location = new System.Drawing.Point(41, 168);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(111, 23);
+            this.button1.Size = new System.Drawing.Size(159, 37);
             this.button1.TabIndex = 0;
             this.button1.Text = "Enviar Solicitação";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label1.Location = new System.Drawing.Point(50, 64);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(125, 13);
@@ -60,6 +66,9 @@
             // 
             // textRemovedor_Reg
             // 
+            this.textRemovedor_Reg.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.textRemovedor_Reg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textRemovedor_Reg.ForeColor = System.Drawing.SystemColors.Window;
             this.textRemovedor_Reg.Location = new System.Drawing.Point(52, 80);
             this.textRemovedor_Reg.Name = "textRemovedor_Reg";
             this.textRemovedor_Reg.Size = new System.Drawing.Size(133, 20);
@@ -67,6 +76,9 @@
             // 
             // textPassR
             // 
+            this.textPassR.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.textPassR.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textPassR.ForeColor = System.Drawing.SystemColors.Window;
             this.textPassR.Location = new System.Drawing.Point(52, 119);
             this.textPassR.MaxLength = 9;
             this.textPassR.Name = "textPassR";
@@ -77,6 +89,8 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label2.Location = new System.Drawing.Point(60, 103);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(109, 13);
@@ -86,12 +100,16 @@
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(76, 173);
+            this.buttonExit.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.buttonExit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonExit.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.buttonExit.Location = new System.Drawing.Point(75, 211);
             this.buttonExit.Name = "buttonExit";
-            this.buttonExit.Size = new System.Drawing.Size(81, 20);
+            this.buttonExit.Size = new System.Drawing.Size(82, 27);
             this.buttonExit.TabIndex = 5;
             this.buttonExit.Text = "Cancelar";
-            this.buttonExit.UseVisualStyleBackColor = true;
+            this.buttonExit.UseVisualStyleBackColor = false;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
             // label3
@@ -110,7 +128,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.label4.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.label4.Location = new System.Drawing.Point(26, 35);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(183, 20);
@@ -121,7 +139,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(235, 201);
+            this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.ClientSize = new System.Drawing.Size(235, 260);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.buttonExit);

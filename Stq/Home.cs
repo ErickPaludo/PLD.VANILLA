@@ -38,42 +38,25 @@ namespace Stq
         public Home(string bars, string prod, string color, decimal peso, decimal value)
         {
             InitializeComponent();
-            int ver = 0;
+            buttonRegistro.Visible = false;
             foreach (Listagem obj in list_tab)
             {
+
                 if (bars == obj.Bars)
                 {
                     dataTabela.Rows.Clear();
-                    if (obj.Quant < 50)
-                    {
-                        obj.Total = obj.Quant * value;
-                        obj.Color = color;
-                        obj.Prodct = prod;
-                        obj.Peso = peso;
-                        obj.Preco = value;
-                        ver = 1;
-                        reelist();
-                    }
-                    else
-                    {
-                        obj.Total = obj.Quant * value;
-                        obj.Color = color;
-                        obj.Prodct = prod;
-                        obj.Peso = peso;
-                        obj.Preco = value;
-                        ver = 1;
-                        reelist();
-                    }
+
+                    obj.Total = obj.Quant * value;
+                    obj.Color = color;
+                    obj.Prodct = prod;
+                    obj.Peso = peso;
+                    obj.Preco = value;
                 }
+
             }
-            if (ver == 0)
-            {
-                MessageBox.Show("Item não encontrado");
-            }
-            else
-            {
-                MessageBox.Show("Registros editados com sucesso");
-            }
+          
+            MessageBox.Show("Registros editados com sucesso");
+
         }
         public Home(int value)
         {
@@ -98,7 +81,6 @@ namespace Stq
                     Tsystem = Tsystem + obj.Total;
                 }
                 labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("f2", CultureInfo.InvariantCulture);
-
             }
         } // vai listar tudo que está no estoque
         private void enable_true()
@@ -132,13 +114,18 @@ namespace Stq
         {
 
             enable_false();
+            buttonAdd.Enabled = true;
+            buttonAlterarReg.Enabled = false;
+            buttonRemProd.Enabled = false;
             if (list_tab.Count != 0)
             {
                 buttonRem.Enabled = true;
+                buttonAlterarReg.Visible = true;
             }
             else
             {
                 buttonRem.Enabled = false;
+                buttonAlterarReg.Visible = false;
             }
         } // mostra as opções de registros
         private void buttonRmvF_Click(object sender, EventArgs e)
@@ -151,10 +138,14 @@ namespace Stq
         } //remove o filtro
         private void buttonAdd_Click(object sender, EventArgs e)
         {
+
             Form3 add = new Form3();
             add.ShowDialog();
-            dataTabela.Rows.Clear();
+            buttonAlterarReg.Enabled = true;
+            buttonRemProd.Enabled = true;
 
+            dataTabela.Rows.Clear();
+           
             reelist();
             enable_true();
             if (list_tab.Count != 0)
@@ -177,6 +168,11 @@ namespace Stq
 
             MessageBox.Show("Alterações feitas neste campo, não podem ser desfeitas! Se deseja sair, aperte em CANCELAR!");
             rem_reg.ShowDialog();
+            cancop();
+            buttonAlterarReg.Enabled = true;
+            buttonRemProd.Enabled = true;
+
+           
             dataTabela.Rows.Clear();
             for (int i = 0; i < list_tab.Count; i++)
             {
@@ -190,19 +186,13 @@ namespace Stq
             if (list_tab.Count == 0)
             {
                 labelTotalestoque.Text = "Valor total em estoque: R$0.00";
-            }
-
-
-            if (list_tab.Count == 0)
-            {
+                buttonAlterarReg.Visible = false;
                 buttonAddProd.Visible = false;
                 buttonRemProd.Visible = false;
             }
-            else
-            {
-                buttonAddProd.Visible = true;
-                buttonRemProd.Visible = true;
-            }
+
+
+
 
         }// remove registro
         private void buttonPesq_Click(object sender, EventArgs e)
@@ -213,7 +203,7 @@ namespace Stq
             {
                 if (textPesquisa.Text == obj.Bars || textPesquisa.Text == obj.Prodct || textPesquisa.Text == obj.Color)
                 {
-                    if (obj.Quant < 50)
+                    if (obj.Quant < lim)
                     {
 
                         dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
@@ -230,11 +220,9 @@ namespace Stq
                         buttonRmvF.Visible = true;
                     }
                 }
-                else
-                {
-                    buttonPesquisar.Visible = false;
-                    buttonRmvF.Visible = true;
-                }
+
+                buttonPesquisar.Visible = false;
+                buttonRmvF.Visible = true;
             }
         }//pesquisa registro
         private void buttonConfig_Click(object sender, EventArgs e)
@@ -243,9 +231,11 @@ namespace Stq
             env.ShowDialog();
             reelist();
         }//configurações
-        private void buttonCancelarOp_Click(object sender, EventArgs e)
+        private void cancop()
         {
             enable_true();
+            textCodAddQ.Visible = false;
+            buttonEdit.Visible = false;
             labelAddQ.Visible = false;
             textCodAddQ.Visible = false;
             labelAddQ2.Visible = false;
@@ -255,8 +245,15 @@ namespace Stq
             labelRemover.Visible = false;
             textCodAddQ.Text = string.Empty;
             textAddQ.Text = string.Empty;
+            buttonAlterarReg.Enabled = true;
+            buttonRemProd.Enabled = true;
+            textPesquisa.Enabled = true;
             dataTabela.Rows.Clear();
             reelist();
+        }
+        private void buttonCancelarOp_Click(object sender, EventArgs e)
+        {
+           cancop();
         } //Cancela Operações
         private void buttonAddProd_Click(object sender, EventArgs e)
         {
@@ -266,6 +263,8 @@ namespace Stq
             labelAddQ2.Visible = true;
             textAddQ.Visible = true;
             buttonAddQ.Visible = true;
+            buttonAlterarReg.Enabled = false;
+            buttonRemProd.Enabled = false;
 
             enable_false();
             buttonAdd.Visible = false;
@@ -280,6 +279,7 @@ namespace Stq
             {
                 if (textCodAddQ.Text == obj.Bars)
                 {
+
                     dataTabela.Rows.Clear();
                     dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
                     if (textCodAddQ.Text != string.Empty && textAddQ.Text != string.Empty)
@@ -305,6 +305,7 @@ namespace Stq
                         buttonCancelarOp.Visible = false;
                         enable_true();
                         reelist();
+                        cancop();
                     }
                     else
                     {
@@ -313,6 +314,7 @@ namespace Stq
                         textCodAddQ.Text = string.Empty;
                         textAddQ.Text = string.Empty;
                         reelist();
+                       
                     }
                 }
             }
@@ -351,6 +353,8 @@ namespace Stq
             buttonRmvQuant.Visible = true;
             textAddQ.Visible = true;
             textCodAddQ.Visible = true;
+            buttonAlterarReg.Enabled = false;
+            
         } //Ativa Removedor de Item
         private void buttonRmvQuant_Click(object sender, EventArgs e) // Remove Item
         {
@@ -386,7 +390,7 @@ namespace Stq
                             buttonRmvQuant.Visible = false;
                             labelRemover.Visible = false;
                             buttonCancelarOp.Visible = false;
-
+                            cancop();
                         }
                         else
                         {
@@ -401,9 +405,14 @@ namespace Stq
 
         private void buttonEditReg_Click(object sender, EventArgs e)
         {
-            EditReg env = new EditReg();
-            env.ShowDialog();
-            reelist();
+            enable_false();
+            buttonAdd.Enabled = false;
+            buttonRemProd.Enabled = false;
+            buttonPesquisar.Enabled = false;
+            textPesquisa.Enabled = false;
+            buttonCancelarOp.Visible = true;
+            textCodAddQ.Visible = true;
+            buttonEdit.Visible = true;
         }
 
         private void Home_Load(object sender, EventArgs e)
@@ -417,6 +426,41 @@ namespace Stq
             {
                 e.Handled = true;
             }
+        }
+
+        private void buttonEdit_Click(object sender, EventArgs e)
+        {
+            int v = 0;
+            foreach (Listagem obj in list_tab)
+            {
+                if (obj.Bars == textCodAddQ.Text)
+                {
+                    v = 1;
+                    EditReg env = new EditReg(obj.Bars, obj.Prodct, obj.Color, obj.Peso, obj.Preco);
+                    env.ShowDialog();
+                    cancop();
+                }
+            }
+            if (v == 0)
+            {
+                MessageBox.Show("Código inválido");
+                textCodAddQ.Text = string.Empty;
+                textCodAddQ.Focus();
+            }
+            else
+            {
+                reelist();
+                textCodAddQ.Text = string.Empty;
+                buttonCancelarOp.Visible = false;
+                textCodAddQ.Visible = false;
+                buttonEdit.Visible = false;
+            }
+
+        }
+
+        private void dataTabela_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
