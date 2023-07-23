@@ -28,6 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
             this.buttonRegistro = new System.Windows.Forms.Button();
             this.buttonExit = new System.Windows.Forms.Button();
@@ -112,8 +116,21 @@
             // 
             // dataTabela
             // 
-            this.dataTabela.BackgroundColor = System.Drawing.Color.Gray;
-            this.dataTabela.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray;
+            this.dataTabela.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataTabela.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataTabela.BackgroundColor = System.Drawing.Color.DimGray;
+            this.dataTabela.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.GrayText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataTabela.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataTabela.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataTabela.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
@@ -124,9 +141,26 @@
             this.VALOR,
             this.TOTAL});
             this.dataTabela.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.dataTabela.GridColor = System.Drawing.Color.DarkGray;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.GrayText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataTabela.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataTabela.EnableHeadersVisualStyles = false;
+            this.dataTabela.GridColor = System.Drawing.Color.DimGray;
             this.dataTabela.Location = new System.Drawing.Point(380, 61);
             this.dataTabela.Name = "dataTabela";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataTabela.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataTabela.RowHeadersVisible = false;
             this.dataTabela.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataTabela.Size = new System.Drawing.Size(966, 568);
@@ -179,9 +213,9 @@
             this.buttonRmvF.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonRmvF.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRmvF.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonRmvF.Location = new System.Drawing.Point(621, 20);
+            this.buttonRmvF.Location = new System.Drawing.Point(834, 13);
             this.buttonRmvF.Name = "buttonRmvF";
-            this.buttonRmvF.Size = new System.Drawing.Size(175, 29);
+            this.buttonRmvF.Size = new System.Drawing.Size(175, 34);
             this.buttonRmvF.TabIndex = 8;
             this.buttonRmvF.Text = "Remover Filtro";
             this.buttonRmvF.UseVisualStyleBackColor = false;
@@ -194,9 +228,10 @@
             this.textPesquisa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textPesquisa.Cursor = System.Windows.Forms.Cursors.Hand;
             this.textPesquisa.ForeColor = System.Drawing.SystemColors.Info;
-            this.textPesquisa.Location = new System.Drawing.Point(380, 25);
+            this.textPesquisa.Location = new System.Drawing.Point(380, 22);
             this.textPesquisa.Name = "textPesquisa";
-            this.textPesquisa.Size = new System.Drawing.Size(235, 20);
+            this.textPesquisa.ShortcutsEnabled = false;
+            this.textPesquisa.Size = new System.Drawing.Size(448, 20);
             this.textPesquisa.TabIndex = 15;
             // 
             // buttonPesquisar
@@ -206,9 +241,9 @@
             this.buttonPesquisar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonPesquisar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonPesquisar.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonPesquisar.Location = new System.Drawing.Point(621, 19);
+            this.buttonPesquisar.Location = new System.Drawing.Point(834, 14);
             this.buttonPesquisar.Name = "buttonPesquisar";
-            this.buttonPesquisar.Size = new System.Drawing.Size(175, 29);
+            this.buttonPesquisar.Size = new System.Drawing.Size(175, 33);
             this.buttonPesquisar.TabIndex = 16;
             this.buttonPesquisar.Text = "Pesquisar";
             this.buttonPesquisar.UseVisualStyleBackColor = false;
@@ -352,6 +387,7 @@
             // 
             this.labelAddQ2.AutoSize = true;
             this.labelAddQ2.BackColor = System.Drawing.Color.Transparent;
+            this.labelAddQ2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelAddQ2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAddQ2.ForeColor = System.Drawing.SystemColors.Control;
             this.labelAddQ2.Location = new System.Drawing.Point(54, 371);
@@ -365,6 +401,7 @@
             // 
             this.labelRemover.AutoSize = true;
             this.labelRemover.BackColor = System.Drawing.Color.Transparent;
+            this.labelRemover.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelRemover.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelRemover.ForeColor = System.Drawing.SystemColors.Control;
             this.labelRemover.Location = new System.Drawing.Point(61, 371);

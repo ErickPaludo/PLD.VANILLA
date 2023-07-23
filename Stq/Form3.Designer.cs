@@ -45,6 +45,9 @@
             // 
             // textProd
             // 
+            this.textProd.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.textProd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textProd.ForeColor = System.Drawing.Color.White;
             this.textProd.Location = new System.Drawing.Point(54, 37);
             this.textProd.MaxLength = 30;
             this.textProd.Name = "textProd";
@@ -54,6 +57,9 @@
             // 
             // textQuant
             // 
+            this.textQuant.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.textQuant.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textQuant.ForeColor = System.Drawing.Color.White;
             this.textQuant.Location = new System.Drawing.Point(54, 181);
             this.textQuant.Name = "textQuant";
             this.textQuant.ShortcutsEnabled = false;
@@ -63,6 +69,9 @@
             // 
             // textPeso
             // 
+            this.textPeso.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.textPeso.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textPeso.ForeColor = System.Drawing.Color.White;
             this.textPeso.Location = new System.Drawing.Point(54, 133);
             this.textPeso.Name = "textPeso";
             this.textPeso.ShortcutsEnabled = false;
@@ -72,17 +81,22 @@
             // 
             // textPreco
             // 
-            this.textPreco.Location = new System.Drawing.Point(74, 229);
+            this.textPreco.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.textPreco.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textPreco.ForeColor = System.Drawing.Color.White;
+            this.textPreco.Location = new System.Drawing.Point(83, 229);
             this.textPreco.Name = "textPreco";
             this.textPreco.ShortcutsEnabled = false;
-            this.textPreco.Size = new System.Drawing.Size(106, 20);
+            this.textPreco.Size = new System.Drawing.Size(97, 20);
             this.textPreco.TabIndex = 4;
             this.textPreco.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textPreco_KeyPress);
             // 
             // comboColor
             // 
+            this.comboColor.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.comboColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboColor.ForeColor = System.Drawing.SystemColors.MenuBar;
             this.comboColor.FormattingEnabled = true;
             this.comboColor.Items.AddRange(new object[] {
             "       ",
@@ -105,17 +119,22 @@
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.Gray;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.Transparent;
             this.button1.Location = new System.Drawing.Point(54, 277);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(126, 46);
             this.button1.TabIndex = 5;
             this.button1.Text = "Adicionar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(51, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 13);
@@ -126,6 +145,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(51, 69);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 13);
@@ -135,6 +155,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(51, 117);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 13);
@@ -145,6 +166,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(51, 165);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(95, 13);
@@ -154,6 +176,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(51, 213);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
@@ -164,7 +187,8 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(56, 232);
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(56, 231);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(21, 13);
             this.label6.TabIndex = 12;
@@ -174,6 +198,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(235, 361);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -187,6 +212,7 @@
             this.Controls.Add(this.textPeso);
             this.Controls.Add(this.textQuant);
             this.Controls.Add(this.textProd);
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;

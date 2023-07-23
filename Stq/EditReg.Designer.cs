@@ -41,17 +41,24 @@
             // 
             // buttonAlterar
             // 
+            this.buttonAlterar.BackColor = System.Drawing.Color.DimGray;
+            this.buttonAlterar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonAlterar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAlterar.ForeColor = System.Drawing.Color.White;
             this.buttonAlterar.Location = new System.Drawing.Point(26, 240);
             this.buttonAlterar.Name = "buttonAlterar";
             this.buttonAlterar.Size = new System.Drawing.Size(139, 36);
             this.buttonAlterar.TabIndex = 5;
             this.buttonAlterar.Text = "Alterar";
-            this.buttonAlterar.UseVisualStyleBackColor = true;
+            this.buttonAlterar.UseVisualStyleBackColor = false;
             this.buttonAlterar.Click += new System.EventHandler(this.button1_Click);
             // 
             // textNewValue
             // 
+            this.textNewValue.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.textNewValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textNewValue.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.textNewValue.ForeColor = System.Drawing.SystemColors.Window;
             this.textNewValue.Location = new System.Drawing.Point(26, 210);
             this.textNewValue.Name = "textNewValue";
             this.textNewValue.ShortcutsEnabled = false;
@@ -61,9 +68,11 @@
             // 
             // comboColor
             // 
+            this.comboColor.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.comboColor.Cursor = System.Windows.Forms.Cursors.Hand;
             this.comboColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboColor.ForeColor = System.Drawing.SystemColors.MenuBar;
             this.comboColor.FormattingEnabled = true;
             this.comboColor.Items.AddRange(new object[] {
             "       ",
@@ -85,7 +94,10 @@
             // 
             // textNewPeso
             // 
+            this.textNewPeso.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.textNewPeso.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textNewPeso.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.textNewPeso.ForeColor = System.Drawing.SystemColors.Window;
             this.textNewPeso.Location = new System.Drawing.Point(26, 157);
             this.textNewPeso.Name = "textNewPeso";
             this.textNewPeso.ShortcutsEnabled = false;
@@ -95,7 +107,10 @@
             // 
             // textProduto
             // 
+            this.textProduto.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.textProduto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textProduto.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.textProduto.ForeColor = System.Drawing.SystemColors.Window;
             this.textProduto.Location = new System.Drawing.Point(26, 50);
             this.textProduto.MaxLength = 30;
             this.textProduto.Name = "textProduto";
@@ -107,6 +122,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label2.Location = new System.Drawing.Point(23, 87);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 13);
@@ -116,6 +132,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label3.Location = new System.Drawing.Point(23, 34);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(89, 13);
@@ -125,6 +142,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label4.Location = new System.Drawing.Point(23, 141);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(55, 13);
@@ -134,6 +152,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label5.Location = new System.Drawing.Point(23, 194);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
@@ -144,6 +163,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(191, 298);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);

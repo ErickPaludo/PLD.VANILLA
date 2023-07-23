@@ -58,7 +58,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(50, 64);
+            this.label1.Location = new System.Drawing.Point(60, 87);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(125, 13);
             this.label1.TabIndex = 1;
@@ -68,8 +68,8 @@
             // 
             this.textRemovedor_Reg.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.textRemovedor_Reg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRemovedor_Reg.ForeColor = System.Drawing.SystemColors.Window;
-            this.textRemovedor_Reg.Location = new System.Drawing.Point(52, 80);
+            this.textRemovedor_Reg.ForeColor = System.Drawing.Color.White;
+            this.textRemovedor_Reg.Location = new System.Drawing.Point(53, 103);
             this.textRemovedor_Reg.Name = "textRemovedor_Reg";
             this.textRemovedor_Reg.Size = new System.Drawing.Size(133, 20);
             this.textRemovedor_Reg.TabIndex = 2;
@@ -78,8 +78,8 @@
             // 
             this.textPassR.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.textPassR.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textPassR.ForeColor = System.Drawing.SystemColors.Window;
-            this.textPassR.Location = new System.Drawing.Point(52, 119);
+            this.textPassR.ForeColor = System.Drawing.Color.White;
+            this.textPassR.Location = new System.Drawing.Point(52, 142);
             this.textPassR.MaxLength = 9;
             this.textPassR.Name = "textPassR";
             this.textPassR.Size = new System.Drawing.Size(133, 20);
@@ -91,7 +91,7 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(60, 103);
+            this.label2.Location = new System.Drawing.Point(63, 126);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(109, 13);
             this.label2.TabIndex = 4;
@@ -117,7 +117,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Impact", 17.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(60, 7);
+            this.label3.Location = new System.Drawing.Point(61, 16);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(114, 28);
             this.label3.TabIndex = 6;
@@ -129,7 +129,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label4.Location = new System.Drawing.Point(26, 35);
+            this.label4.Location = new System.Drawing.Point(27, 44);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(183, 20);
             this.label4.TabIndex = 7;
@@ -139,7 +139,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(235, 260);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -149,7 +149,10 @@
             this.Controls.Add(this.textRemovedor_Reg);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
+            this.ForeColor = System.Drawing.Color.White;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Form2";
