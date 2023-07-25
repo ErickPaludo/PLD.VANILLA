@@ -26,7 +26,7 @@ namespace Stq
 
         private int null_error()
         {
-            if (textProd.Text == string.Empty || textPreco.Text == string.Empty || textPeso.Text == string.Empty || textQuant.Text == string.Empty)
+            if (comboPesoName.Text == string.Empty ||textProd.Text == string.Empty || textPreco.Text == string.Empty || textPeso.Text == string.Empty || textQuant.Text == string.Empty)
             {
                 textProd.Text = string.Empty;
                 textPreco.Text = string.Empty;
@@ -68,7 +68,7 @@ namespace Stq
                 int quant = int.Parse(textQuant.Text);
                 decimal preco = Convert.ToDecimal(textPreco.Text);
                 decimal total = preco * quant;
-                Home env = new Home(cod, textProd.Text, comboColor.Text, peso, quant, preco, total);
+                Home env = new Home(cod, textProd.Text, comboColor.Text, comboPesoName.Text, peso, quant, preco, total);
                 this.Close();
             }
         }
@@ -143,6 +143,11 @@ namespace Stq
         }
 
         private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboPesoName_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

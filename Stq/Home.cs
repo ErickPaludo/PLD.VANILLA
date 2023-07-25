@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using MySql.Data.MySqlClient;
+
 
 namespace Stq
 {
@@ -22,12 +24,30 @@ namespace Stq
         public Home()
         {
             InitializeComponent();
+            var strConexao = "server=localhost;uid=root;database=stq";
+            var conecxão = new MySqlConnection(strConexao);
+            conecxão.Open();
+            var cmd = new MySqlCommand("SELECT * FROM dados", conecxão);
+            var readr = cmd.ExecuteReader();
+            while (readr.Read())
+            {
+                dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"],  readr["peso"]+ " " + readr["peso_kg"],readr["quant"], "R$ " + readr["quant"], "R$ " + readr["total"]);
+                string cod = readr + "cod";
+                string prod = readr + "nome";
+                string color = readr + "color";
+                string PesoN = readr + "peso_kg";
+                var peso = readr + "peso";
+                var quant = readr + "quant";
+                var preco = readr + "preco";
+                var total = readr + "total";
+     
+            }
             buttonRemProd.Visible = false;
         } //construtor padrão
-        public Home(string cod, string prod, string color, decimal peso, int quant, decimal preco, decimal total)
+        public Home(string cod, string prod, string color, string PesoN, decimal peso, int quant, decimal preco, decimal total)
         {
             InitializeComponent();
-            Listagem lista = new Listagem(cod, prod, color, peso, quant, preco, total);
+            Listagem lista = new Listagem(cod, prod, color, PesoN, peso, quant, preco, total);
             list_tab.Add(lista);
         } // sobrecarga para adicionar registro
         public Home(string cod)
@@ -35,7 +55,7 @@ namespace Stq
             code = cod;
         }
 
-        public Home(string bars, string prod, string color, decimal peso, decimal value)
+        public Home(string bars, string prod, string color, decimal peso, string pesoN, decimal value)
         {
             InitializeComponent();
             buttonRegistro.Visible = false;
@@ -50,6 +70,7 @@ namespace Stq
                     obj.Color = color;
                     obj.Prodct = prod;
                     obj.Peso = peso;
+                    obj.PesoN = pesoN;
                     obj.Preco = value;
                 }
 
@@ -70,14 +91,14 @@ namespace Stq
             {
                 if (obj.Quant <= lim)
                 {
-                    dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
+                    dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, obj.Peso.ToString("f2", CultureInfo.InvariantCulture) + " " + obj.PesoN, obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
                     dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.BackColor = Color.Red;
                     dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.ForeColor = Color.White;
                     Tsystem = Tsystem + obj.Total;
                 }
                 else
                 {
-                    dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
+                    dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, obj.Peso.ToString("f2", CultureInfo.InvariantCulture) + " " + obj.PesoN, obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
                     Tsystem = Tsystem + obj.Total;
                 }
                 labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("f2", CultureInfo.InvariantCulture);
@@ -133,7 +154,7 @@ namespace Stq
             reelist();
             buttonRmvF.Visible = false;
             buttonPesquisar.Visible = true;
-            textPesquisa.Text = string.Empty;
+            Pesq.Text = string.Empty;
             buttonRegistro.Focus();
         } //remove o filtro
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -201,7 +222,7 @@ namespace Stq
 
             foreach (Listagem obj in list_tab)
             {
-                if (textPesquisa.Text == obj.Bars || textPesquisa.Text == obj.Prodct || textPesquisa.Text == obj.Color)
+                if (Pesq.Text == obj.Bars || Pesq.Text == obj.Prodct || Pesq.Text == obj.Color)
                 {
                     if (obj.Quant < lim)
                     {
@@ -247,7 +268,7 @@ namespace Stq
             textAddQ.Text = string.Empty;
             buttonAlterarReg.Enabled = true;
             buttonRemProd.Enabled = true;
-            textPesquisa.Enabled = true;
+            Pesq.Enabled = true;
             dataTabela.Rows.Clear();
             reelist();
         }
@@ -409,7 +430,7 @@ namespace Stq
             buttonAdd.Enabled = false;
             buttonRemProd.Enabled = false;
             buttonPesquisar.Enabled = false;
-            textPesquisa.Enabled = false;
+            Pesq.Enabled = false;
             buttonCancelarOp.Visible = true;
             textCodAddQ.Visible = true;
             buttonEdit.Visible = true;
@@ -417,7 +438,7 @@ namespace Stq
 
         private void Home_Load(object sender, EventArgs e)
         {
-
+          
         }
 
         private void textCodAddQ_KeyPress(object sender, KeyPressEventArgs e)
@@ -436,7 +457,7 @@ namespace Stq
                 if (obj.Bars == textCodAddQ.Text)
                 {
                     v = 1;
-                    EditReg env = new EditReg(obj.Bars, obj.Prodct, obj.Color, obj.Peso, obj.Preco);
+                    EditReg env = new EditReg(obj.Bars, obj.Prodct, obj.Color, obj.Peso,obj.PesoN, obj.Preco);
                     env.ShowDialog();
                     cancop();
                 }
@@ -459,6 +480,11 @@ namespace Stq
         }
 
         private void dataTabela_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
 
         }

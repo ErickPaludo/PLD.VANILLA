@@ -45,7 +45,6 @@
             this.VALOR = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TOTAL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonRmvF = new System.Windows.Forms.Button();
-            this.textPesquisa = new System.Windows.Forms.TextBox();
             this.buttonPesquisar = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonRem = new System.Windows.Forms.Button();
@@ -63,6 +62,7 @@
             this.buttonAlterarReg = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonEdit = new System.Windows.Forms.Button();
+            this.Pesq = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataTabela)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -221,18 +221,6 @@
             this.buttonRmvF.UseVisualStyleBackColor = false;
             this.buttonRmvF.Visible = false;
             this.buttonRmvF.Click += new System.EventHandler(this.buttonRmvF_Click);
-            // 
-            // textPesquisa
-            // 
-            this.textPesquisa.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.textPesquisa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textPesquisa.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.textPesquisa.ForeColor = System.Drawing.SystemColors.Info;
-            this.textPesquisa.Location = new System.Drawing.Point(380, 22);
-            this.textPesquisa.Name = "textPesquisa";
-            this.textPesquisa.ShortcutsEnabled = false;
-            this.textPesquisa.Size = new System.Drawing.Size(448, 20);
-            this.textPesquisa.TabIndex = 15;
             // 
             // buttonPesquisar
             // 
@@ -467,6 +455,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(352, 749);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // buttonEdit
             // 
@@ -484,12 +473,23 @@
             this.buttonEdit.Visible = false;
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
+            // Pesq
+            // 
+            this.Pesq.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.Pesq.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Pesq.ForeColor = System.Drawing.SystemColors.Window;
+            this.Pesq.Location = new System.Drawing.Point(380, 21);
+            this.Pesq.Name = "Pesq";
+            this.Pesq.Size = new System.Drawing.Size(448, 20);
+            this.Pesq.TabIndex = 25;
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Stq.Properties.Resources.BackgroundInic_;
             this.ClientSize = new System.Drawing.Size(1370, 689);
+            this.Controls.Add(this.Pesq);
             this.Controls.Add(this.buttonEdit);
             this.Controls.Add(this.buttonAlterarReg);
             this.Controls.Add(this.buttonRmvQuant);
@@ -506,7 +506,6 @@
             this.Controls.Add(this.buttonRem);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.buttonPesquisar);
-            this.Controls.Add(this.textPesquisa);
             this.Controls.Add(this.buttonRmvF);
             this.Controls.Add(this.dataTabela);
             this.Controls.Add(this.buttonConfig);
@@ -539,7 +538,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn VALOR;
         private System.Windows.Forms.DataGridViewTextBoxColumn TOTAL;
         private System.Windows.Forms.Button buttonRmvF;
-        private System.Windows.Forms.TextBox textPesquisa;
         private System.Windows.Forms.Button buttonPesquisar;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonRem;
@@ -557,5 +555,6 @@
         private System.Windows.Forms.Button buttonRmvQuant;
         private System.Windows.Forms.Button buttonAlterarReg;
         private System.Windows.Forms.Button buttonEdit;
+        private System.Windows.Forms.TextBox Pesq;
     }
 }

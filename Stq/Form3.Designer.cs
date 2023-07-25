@@ -41,6 +41,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.comboPesoName = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // textProd
@@ -72,10 +73,10 @@
             this.textPeso.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.textPeso.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textPeso.ForeColor = System.Drawing.Color.White;
-            this.textPeso.Location = new System.Drawing.Point(54, 133);
+            this.textPeso.Location = new System.Drawing.Point(54, 132);
             this.textPeso.Name = "textPeso";
             this.textPeso.ShortcutsEnabled = false;
-            this.textPeso.Size = new System.Drawing.Size(126, 20);
+            this.textPeso.Size = new System.Drawing.Size(84, 20);
             this.textPeso.TabIndex = 2;
             this.textPeso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textPeso_KeyPress);
             // 
@@ -158,9 +159,9 @@
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(51, 117);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 13);
+            this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 9;
-            this.label3.Text = "Peso (kg):";
+            this.label3.Text = "Peso:";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
@@ -194,12 +195,27 @@
             this.label6.TabIndex = 12;
             this.label6.Text = "R$";
             // 
+            // comboPesoName
+            // 
+            this.comboPesoName.FormattingEnabled = true;
+            this.comboPesoName.Items.AddRange(new object[] {
+            "Kg",
+            "g",
+            "L",
+            "ml"});
+            this.comboPesoName.Location = new System.Drawing.Point(144, 132);
+            this.comboPesoName.Name = "comboPesoName";
+            this.comboPesoName.Size = new System.Drawing.Size(36, 21);
+            this.comboPesoName.TabIndex = 13;
+            this.comboPesoName.SelectedIndexChanged += new System.EventHandler(this.comboPesoName_SelectedIndexChanged);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(235, 361);
+            this.Controls.Add(this.comboPesoName);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -239,5 +255,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox comboPesoName;
     }
 }

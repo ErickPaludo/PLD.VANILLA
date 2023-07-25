@@ -37,6 +37,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.comboPesoN = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // buttonAlterar
@@ -98,10 +99,10 @@
             this.textNewPeso.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textNewPeso.Cursor = System.Windows.Forms.Cursors.Hand;
             this.textNewPeso.ForeColor = System.Drawing.SystemColors.Window;
-            this.textNewPeso.Location = new System.Drawing.Point(26, 157);
+            this.textNewPeso.Location = new System.Drawing.Point(26, 156);
             this.textNewPeso.Name = "textNewPeso";
             this.textNewPeso.ShortcutsEnabled = false;
-            this.textNewPeso.Size = new System.Drawing.Size(139, 20);
+            this.textNewPeso.Size = new System.Drawing.Size(96, 20);
             this.textNewPeso.TabIndex = 3;
             this.textNewPeso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textNewPeso_KeyPress);
             // 
@@ -159,12 +160,27 @@
             this.label5.TabIndex = 11;
             this.label5.Text = "Preço:";
             // 
+            // comboPesoN
+            // 
+            this.comboPesoN.FormattingEnabled = true;
+            this.comboPesoN.Items.AddRange(new object[] {
+            "Kg",
+            "g",
+            "L",
+            "ml"});
+            this.comboPesoN.Location = new System.Drawing.Point(128, 155);
+            this.comboPesoN.Name = "comboPesoN";
+            this.comboPesoN.Size = new System.Drawing.Size(37, 21);
+            this.comboPesoN.TabIndex = 12;
+            this.comboPesoN.SelectedIndexChanged += new System.EventHandler(this.comboPesoN_SelectedIndexChanged);
+            // 
             // EditReg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(191, 298);
+            this.Controls.Add(this.comboPesoN);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -196,5 +212,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboPesoN;
     }
 }

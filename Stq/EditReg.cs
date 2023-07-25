@@ -21,23 +21,25 @@ namespace Stq
         {
             InitializeComponent();
         }
-        public EditReg(string bars,string prod, string color, decimal peso, decimal preco)
+        public EditReg(string bars, string prod, string color, decimal peso, string pesoN, decimal preco)
         {
             InitializeComponent();
             Bars = bars;
-                textProduto.Text = prod;
-                comboColor.Text = color;
-                textNewPeso.Text = Convert.ToString(peso);
-                textNewValue.Text = Convert.ToString(preco);
+            textProduto.Text = prod;
+            comboColor.Text = color;
+            comboPesoN.Text = pesoN;
+            textNewPeso.Text = Convert.ToString(peso);
+            textNewValue.Text = Convert.ToString(preco);
         }
 
 
         private void button1_Click(object sender, EventArgs e)
         {
-         
-            if (textProduto.Text != string.Empty && textNewPeso.Text != string.Empty && textNewValue.Text != string.Empty)
+
+            if (comboPesoN.Text != string.Empty || textProduto.Text != string.Empty && textNewPeso.Text != string.Empty && textNewValue.Text != string.Empty)
             {
-                Home env = new Home(Bars,textProduto.Text, comboColor.Text, Convert.ToDecimal(textNewPeso.Text), Convert.ToDecimal(textNewValue.Text));
+                Home env = new Home(Bars, textProduto.Text, comboColor.Text, Convert.ToDecimal(textNewPeso.Text), comboPesoN.Text, Convert.ToDecimal(textNewValue.Text));
+                ;
                 this.Close();
             }
             else
@@ -93,6 +95,11 @@ namespace Stq
                     commaEntered = true; // Marca a vírgula como já digitada
                 }
             }
+        }
+
+        private void comboPesoN_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
