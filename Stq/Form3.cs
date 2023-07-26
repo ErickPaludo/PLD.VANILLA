@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using MySql.Data.MySqlClient;
 
 namespace Stq
 {
@@ -26,13 +27,8 @@ namespace Stq
 
         private int null_error()
         {
-            if (comboPesoName.Text == string.Empty ||textProd.Text == string.Empty || textPreco.Text == string.Empty || textPeso.Text == string.Empty || textQuant.Text == string.Empty)
+            if (comboPesoName.Text == string.Empty || textProd.Text == string.Empty || textPreco.Text == string.Empty || textPeso.Text == string.Empty || textQuant.Text == string.Empty)
             {
-                textProd.Text = string.Empty;
-                textPreco.Text = string.Empty;
-                textQuant.Text = string.Empty;
-                textPeso.Text = string.Empty;
-                comboColor.Text = string.Empty;
                 textProd.Focus();
                 MessageBox.Show("Preencha todos os campos! ");
                 return 0;
@@ -68,10 +64,42 @@ namespace Stq
                 int quant = int.Parse(textQuant.Text);
                 decimal preco = Convert.ToDecimal(textPreco.Text);
                 decimal total = preco * quant;
-                Home env = new Home(cod, textProd.Text, comboColor.Text, comboPesoName.Text, peso, quant, preco, total);
+                if (!decimal.TryParse(textPeso.Text, out peso) || !int.TryParse(textQuant.Text, out quant))
+                {
+                    MessageBox.Show("Entrada inválida. Por favor, insira valores numéricos válidos para peso e quantidade.");
+                    return;
+                }
+
+                var strConexao = "server=localhost;uid=root;database=stq";
+                using (var conexao = new MySqlConnection(strConexao))
+                {
+                    conexao.Open();
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+                        cmd.Connection = conexao;
+                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = "INSERT INTO dados (cod, nome, color,peso, peso_kg, quant, preco, total) " +
+                                          "VALUES (@cod, @nome, @color, @peso, @peso_kg, @quant, @preco, @total)";
+                        cmd.Parameters.AddWithValue("@cod", cod); // Supondo que 'cod' já esteja definido em outro lugar.
+                        cmd.Parameters.AddWithValue("@nome", textProd.Text);
+                        cmd.Parameters.AddWithValue("@color", comboColor.Text);
+                        cmd.Parameters.AddWithValue("@peso", textPeso.Text);
+                        cmd.Parameters.AddWithValue("@peso_kg", comboPesoName.Text);
+                        cmd.Parameters.AddWithValue("@quant", textQuant.Text);
+                        cmd.Parameters.AddWithValue("@preco", textPreco.Text);
+                        cmd.Parameters.AddWithValue("@total",total);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Produto " + textProd.Text + " adicionado com sucesso!");
                 this.Close();
+
             }
         }
+
+
+
         private bool commaEntered = false;
         private bool tru = false;
 

@@ -24,32 +24,11 @@ namespace Stq
         public Home()
         {
             InitializeComponent();
-            var strConexao = "server=localhost;uid=root;database=stq";
-            var conecxão = new MySqlConnection(strConexao);
-            conecxão.Open();
-            var cmd = new MySqlCommand("SELECT * FROM dados", conecxão);
-            var readr = cmd.ExecuteReader();
-            while (readr.Read())
-            {
-                dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"],  readr["peso"]+ " " + readr["peso_kg"],readr["quant"], "R$ " + readr["quant"], "R$ " + readr["total"]);
-                string cod = readr + "cod";
-                string prod = readr + "nome";
-                string color = readr + "color";
-                string PesoN = readr + "peso_kg";
-                var peso = readr + "peso";
-                var quant = readr + "quant";
-                var preco = readr + "preco";
-                var total = readr + "total";
-     
-            }
+
+            reelist();
             buttonRemProd.Visible = false;
         } //construtor padrão
-        public Home(string cod, string prod, string color, string PesoN, decimal peso, int quant, decimal preco, decimal total)
-        {
-            InitializeComponent();
-            Listagem lista = new Listagem(cod, prod, color, PesoN, peso, quant, preco, total);
-            list_tab.Add(lista);
-        } // sobrecarga para adicionar registro
+
         public Home(string cod)
         {
             code = cod;
@@ -75,7 +54,7 @@ namespace Stq
                 }
 
             }
-          
+
             MessageBox.Show("Registros editados com sucesso");
 
         }
@@ -85,24 +64,55 @@ namespace Stq
         }
         private void reelist()
         {
+
+            dataTabela.Rows.Clear(); // limpa tabela
+
+            var strConexao = "server=localhost;uid=root;database=stq"; // loga banco
+            var conexao = new MySqlConnection(strConexao);
+            conexao.Open(); // abre banco
+            var cmd = new MySqlCommand("SELECT * FROM dados", conexao); //mostrar
+            var readr = cmd.ExecuteReader();
+
             decimal Tsystem = 0;
-            dataTabela.Rows.Clear();
-            foreach (Listagem obj in list_tab)
+            while (readr.Read())
             {
-                if (obj.Quant <= lim)
+                int quant = Convert.ToInt32(readr["quant"]);
+                decimal total = Convert.ToDecimal(readr["total"]);
+                if (quant <= lim)
                 {
-                    dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, obj.Peso.ToString("f2", CultureInfo.InvariantCulture) + " " + obj.PesoN, obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
+                    dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], readr["quant"], "R$ " +
+                    Convert.ToDecimal(readr["quant"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + Convert.ToDecimal(readr["total"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
                     dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.BackColor = Color.Red;
                     dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.ForeColor = Color.White;
-                    Tsystem = Tsystem + obj.Total;
+                    Tsystem = Tsystem + total;
                 }
                 else
                 {
-                    dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, obj.Peso.ToString("f2", CultureInfo.InvariantCulture) + " " + obj.PesoN, obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
-                    Tsystem = Tsystem + obj.Total;
+                    dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], readr["quant"], "R$ " +
+                   Convert.ToDecimal(readr["quant"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + Convert.ToDecimal(readr["total"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
+                    Tsystem = Tsystem + total;
                 }
-                labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("f2", CultureInfo.InvariantCulture);
             }
+
+            labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
+
+            readr.Close();
+            var cmd_ = new MySqlCommand("SELECT COUNT(*) FROM dados", conexao);
+            if (Convert.ToInt32(cmd_.ExecuteScalar()) > 0)
+            {
+                buttonRemProd.Visible = true;
+                buttonAddProd.Visible = true;
+                buttonAlterarReg.Visible = true;
+            }
+            else
+            {
+                buttonRem.Enabled = false;
+                buttonRemProd.Visible = false;
+                buttonAddProd.Visible = false;
+                buttonAlterarReg.Visible = false;
+            }
+            cmd.Connection.Close();
+
         } // vai listar tudo que está no estoque
         private void enable_true()
         {
@@ -138,16 +148,7 @@ namespace Stq
             buttonAdd.Enabled = true;
             buttonAlterarReg.Enabled = false;
             buttonRemProd.Enabled = false;
-            if (list_tab.Count != 0)
-            {
-                buttonRem.Enabled = true;
-                buttonAlterarReg.Visible = true;
-            }
-            else
-            {
-                buttonRem.Enabled = false;
-                buttonAlterarReg.Visible = false;
-            }
+            reelist();
         } // mostra as opções de registros
         private void buttonRmvF_Click(object sender, EventArgs e)
         {
@@ -164,24 +165,11 @@ namespace Stq
             add.ShowDialog();
             buttonAlterarReg.Enabled = true;
             buttonRemProd.Enabled = true;
-
             dataTabela.Rows.Clear();
-           
+
             reelist();
             enable_true();
-            if (list_tab.Count != 0)
-            {
-                buttonRemProd.Visible = true;
-                buttonAddProd.Visible = true;
-                buttonAlterarReg.Visible = true;
-            }
-            else
-            {
 
-                buttonRemProd.Visible = false;
-                buttonAddProd.Visible = false;
-                buttonAlterarReg.Visible = false;
-            }
         } //adiciona registro
         private void buttonRem_Click(object sender, EventArgs e)
         {
@@ -193,7 +181,7 @@ namespace Stq
             buttonAlterarReg.Enabled = true;
             buttonRemProd.Enabled = true;
 
-           
+
             dataTabela.Rows.Clear();
             for (int i = 0; i < list_tab.Count; i++)
             {
@@ -218,33 +206,57 @@ namespace Stq
         }// remove registro
         private void buttonPesq_Click(object sender, EventArgs e)
         {
-            dataTabela.Rows.Clear();
 
-            foreach (Listagem obj in list_tab)
+            dataTabela.Rows.Clear(); // limpa tabela
+
+            if (Pesq.Text != string.Empty)
             {
-                if (Pesq.Text == obj.Bars || Pesq.Text == obj.Prodct || Pesq.Text == obj.Color)
-                {
-                    if (obj.Quant < lim)
-                    {
+                var strConexao = "server=localhost;uid=root;database=stq"; // loga banco
+                var conexao = new MySqlConnection(strConexao);
+                conexao.Open(); // abre banco
+                var cmd = new MySqlCommand("SELECT * FROM dados where nome = @nome OR cod = @cod Or color = @color", conexao); //mostrar
+                cmd.Parameters.AddWithValue("@nome", Pesq.Text);
+                cmd.Parameters.AddWithValue("@cod", Pesq.Text);
+                cmd.Parameters.AddWithValue("@color", Pesq.Text);
+                var readr = cmd.ExecuteReader();
 
-                        dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
-                        buttonPesquisar.Visible = false;
-                        buttonRmvF.Visible = true;
+                decimal Tsystem = 0;
+                while (readr.Read())
+                {
+
+                    int quant = Convert.ToInt32(readr["quant"]);
+                    decimal total = Convert.ToDecimal(readr["total"]);
+                    if (quant <= lim)
+                    {
+                        dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], readr["quant"], "R$ " +
+                        Convert.ToDecimal(readr["quant"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + Convert.ToDecimal(readr["total"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
                         dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.BackColor = Color.Red;
                         dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.ForeColor = Color.White;
+                        Tsystem = Tsystem + total;
                     }
                     else
                     {
-
-                        dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
-                        buttonPesquisar.Visible = false;
-                        buttonRmvF.Visible = true;
+                        dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], readr["quant"], "R$ " +
+                       Convert.ToDecimal(readr["quant"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + Convert.ToDecimal(readr["total"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
+                        Tsystem = Tsystem + total;
                     }
+
                 }
+
+                labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
+
+                readr.Close();
 
                 buttonPesquisar.Visible = false;
                 buttonRmvF.Visible = true;
             }
+            else
+            {
+                MessageBox.Show("Campo de pesquisa está vazio!");
+                Pesq.Focus();
+                reelist();
+            }
+            
         }//pesquisa registro
         private void buttonConfig_Click(object sender, EventArgs e)
         {
@@ -274,7 +286,7 @@ namespace Stq
         }
         private void buttonCancelarOp_Click(object sender, EventArgs e)
         {
-           cancop();
+            cancop();
         } //Cancela Operações
         private void buttonAddProd_Click(object sender, EventArgs e)
         {
@@ -335,7 +347,7 @@ namespace Stq
                         textCodAddQ.Text = string.Empty;
                         textAddQ.Text = string.Empty;
                         reelist();
-                       
+
                     }
                 }
             }
@@ -375,7 +387,7 @@ namespace Stq
             textAddQ.Visible = true;
             textCodAddQ.Visible = true;
             buttonAlterarReg.Enabled = false;
-            
+
         } //Ativa Removedor de Item
         private void buttonRmvQuant_Click(object sender, EventArgs e) // Remove Item
         {
@@ -438,7 +450,7 @@ namespace Stq
 
         private void Home_Load(object sender, EventArgs e)
         {
-          
+
         }
 
         private void textCodAddQ_KeyPress(object sender, KeyPressEventArgs e)
@@ -457,7 +469,7 @@ namespace Stq
                 if (obj.Bars == textCodAddQ.Text)
                 {
                     v = 1;
-                    EditReg env = new EditReg(obj.Bars, obj.Prodct, obj.Color, obj.Peso,obj.PesoN, obj.Preco);
+                    EditReg env = new EditReg(obj.Bars, obj.Prodct, obj.Color, obj.Peso, obj.PesoN, obj.Preco);
                     env.ShowDialog();
                     cancop();
                 }
