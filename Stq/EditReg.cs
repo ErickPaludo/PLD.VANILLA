@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using MySql.Data.MySqlClient;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,15 +22,33 @@ namespace Stq
         {
             InitializeComponent();
         }
-        public EditReg(string bars, string prod, string color, decimal peso, string pesoN, decimal preco)
+        public EditReg(string bars)
         {
             InitializeComponent();
             Bars = bars;
-            textProduto.Text = prod;
-            comboColor.Text = color;
-            comboPesoN.Text = pesoN;
-            textNewPeso.Text = Convert.ToString(peso);
-            textNewValue.Text = Convert.ToString(preco);
+            var strConexao = "server=localhost;uid=root;database=stq"; // loga banco
+            var conexao = new MySqlConnection(strConexao);
+            conexao.Open(); // abre banco
+            var cmd = new MySqlCommand("SELECT * FROM dados where cod = @cod", conexao);
+            cmd.Parameters.AddWithValue("@cod", bars);
+            var readr = cmd.ExecuteReader();
+
+            decimal Tsystem = 0;
+            while (readr.Read())
+            {
+                int quant = Convert.ToInt32(readr["quant"]);
+                decimal peso = Convert.ToDecimal(readr["peso"]);
+                decimal preco = Convert.ToDecimal(readr["preco"]);
+
+                textProduto.Text = readr["nome"].ToString();
+                comboColor.Text = readr["color"].ToString();
+                textNewPeso.Text = peso.ToString("n2", CultureInfo.GetCultureInfo("pt-br"));
+                comboPesoN.Text = readr["peso_kg"].ToString();
+                textNewValue.Text = preco.ToString("n2", CultureInfo.GetCultureInfo("pt-br"));
+            }
+
+
+            readr.Close();
         }
 
 
@@ -40,7 +59,28 @@ namespace Stq
             {
                 Home env = new Home(Bars, textProduto.Text, comboColor.Text, Convert.ToDecimal(textNewPeso.Text), comboPesoN.Text, Convert.ToDecimal(textNewValue.Text));
                 ;
-                this.Close();
+                var strConexao = "server=localhost;uid=root;database=stq";
+                using (var conexao = new MySqlConnection(strConexao))
+                {
+                    conexao.Open();
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+                        cmd.Connection = conexao;
+                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = "update dados SET nome = @nome , color = @color,peso = @peso," +
+                            " peso_kg = @peso_kg, preco = @preco where cod = @cod";
+                       
+                        cmd.Parameters.AddWithValue("@nome", textProduto.Text);
+                        cmd.Parameters.AddWithValue("@color", comboColor.Text);
+                        cmd.Parameters.AddWithValue("@peso", textNewPeso.Text);
+                        cmd.Parameters.AddWithValue("@peso_kg", comboPesoN.Text);
+                        cmd.Parameters.AddWithValue("@preco", textNewValue.Text);
+                        cmd.Parameters.AddWithValue("@cod",Bars);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    this.Close();
+                }
             }
             else
             {

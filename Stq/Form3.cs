@@ -179,5 +179,19 @@ namespace Stq
         {
 
         }
+
+
+        private void comboPesoName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void comboColor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

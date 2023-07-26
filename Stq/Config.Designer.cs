@@ -38,7 +38,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(75, 42);
+            this.label1.ForeColor = System.Drawing.SystemColors.Control;
+            this.label1.Location = new System.Drawing.Point(12, 42);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(127, 20);
             this.label1.TabIndex = 0;
@@ -46,8 +47,11 @@
             // 
             // textValue
             // 
+            this.textValue.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.textValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textValue.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.textValue.Location = new System.Drawing.Point(79, 65);
+            this.textValue.ForeColor = System.Drawing.SystemColors.Window;
+            this.textValue.Location = new System.Drawing.Point(16, 65);
             this.textValue.MaxLength = 4;
             this.textValue.Name = "textValue";
             this.textValue.ShortcutsEnabled = false;
@@ -57,19 +61,23 @@
             // 
             // buttonAplic
             // 
+            this.buttonAplic.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.buttonAplic.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonAplic.Location = new System.Drawing.Point(79, 108);
+            this.buttonAplic.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonAplic.ForeColor = System.Drawing.SystemColors.Control;
+            this.buttonAplic.Location = new System.Drawing.Point(16, 104);
             this.buttonAplic.Name = "buttonAplic";
             this.buttonAplic.Size = new System.Drawing.Size(133, 29);
             this.buttonAplic.TabIndex = 2;
             this.buttonAplic.Text = "Aplicar";
-            this.buttonAplic.UseVisualStyleBackColor = true;
+            this.buttonAplic.UseVisualStyleBackColor = false;
             this.buttonAplic.Click += new System.EventHandler(this.buttonAplic_Click);
             // 
             // labellim
             // 
             this.labellim.AutoSize = true;
-            this.labellim.Location = new System.Drawing.Point(79, 13);
+            this.labellim.ForeColor = System.Drawing.SystemColors.Control;
+            this.labellim.Location = new System.Drawing.Point(12, 9);
             this.labellim.Name = "labellim";
             this.labellim.Size = new System.Drawing.Size(83, 13);
             this.labellim.TabIndex = 3;
@@ -79,12 +87,19 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 170);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ClientSize = new System.Drawing.Size(164, 170);
             this.Controls.Add(this.labellim);
             this.Controls.Add(this.buttonAplic);
             this.Controls.Add(this.textValue);
             this.Controls.Add(this.label1);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Config";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Config";
             this.ResumeLayout(false);
             this.PerformLayout();

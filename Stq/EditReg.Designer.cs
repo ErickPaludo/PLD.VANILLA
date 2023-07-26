@@ -162,6 +162,8 @@
             // 
             // comboPesoN
             // 
+            this.comboPesoN.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.comboPesoN.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboPesoN.FormattingEnabled = true;
             this.comboPesoN.Items.AddRange(new object[] {
             "Kg",

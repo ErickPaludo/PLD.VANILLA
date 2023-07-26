@@ -482,6 +482,7 @@
             this.Pesq.Name = "Pesq";
             this.Pesq.Size = new System.Drawing.Size(448, 20);
             this.Pesq.TabIndex = 25;
+            this.Pesq.TextChanged += new System.EventHandler(this.Pesq_TextChanged);
             // 
             // Home
             // 

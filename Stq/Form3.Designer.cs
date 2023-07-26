@@ -65,7 +65,7 @@
             this.textQuant.Name = "textQuant";
             this.textQuant.ShortcutsEnabled = false;
             this.textQuant.Size = new System.Drawing.Size(126, 20);
-            this.textQuant.TabIndex = 3;
+            this.textQuant.TabIndex = 4;
             this.textQuant.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textQuant_KeyPress);
             // 
             // textPeso
@@ -73,7 +73,7 @@
             this.textPeso.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.textPeso.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textPeso.ForeColor = System.Drawing.Color.White;
-            this.textPeso.Location = new System.Drawing.Point(54, 132);
+            this.textPeso.Location = new System.Drawing.Point(54, 133);
             this.textPeso.Name = "textPeso";
             this.textPeso.ShortcutsEnabled = false;
             this.textPeso.Size = new System.Drawing.Size(84, 20);
@@ -89,7 +89,7 @@
             this.textPreco.Name = "textPreco";
             this.textPreco.ShortcutsEnabled = false;
             this.textPreco.Size = new System.Drawing.Size(97, 20);
-            this.textPreco.TabIndex = 4;
+            this.textPreco.TabIndex = 5;
             this.textPreco.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textPreco_KeyPress);
             // 
             // comboColor
@@ -116,6 +116,7 @@
             this.comboColor.Name = "comboColor";
             this.comboColor.Size = new System.Drawing.Size(126, 21);
             this.comboColor.TabIndex = 1;
+            this.comboColor.SelectedIndexChanged += new System.EventHandler(this.comboColor_SelectedIndexChanged);
             this.comboColor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboColor_KeyPress);
             // 
             // button1
@@ -127,7 +128,7 @@
             this.button1.Location = new System.Drawing.Point(54, 277);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(126, 46);
-            this.button1.TabIndex = 5;
+            this.button1.TabIndex = 6;
             this.button1.Text = "Adicionar";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -197,17 +198,19 @@
             // 
             // comboPesoName
             // 
+            this.comboPesoName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboPesoName.FormattingEnabled = true;
             this.comboPesoName.Items.AddRange(new object[] {
             "Kg",
             "g",
             "L",
             "ml"});
-            this.comboPesoName.Location = new System.Drawing.Point(144, 132);
+            this.comboPesoName.Location = new System.Drawing.Point(144, 133);
             this.comboPesoName.Name = "comboPesoName";
             this.comboPesoName.Size = new System.Drawing.Size(36, 21);
-            this.comboPesoName.TabIndex = 13;
+            this.comboPesoName.TabIndex = 3;
             this.comboPesoName.SelectedIndexChanged += new System.EventHandler(this.comboPesoName_SelectedIndexChanged);
+            this.comboPesoName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboPesoName_KeyPress);
             // 
             // Form3
             // 
