@@ -77,10 +77,10 @@ namespace Stq
             while (readr.Read())
             {
                 int quant = Convert.ToInt32(readr["quant"]);
-                
+
                 decimal preco = Convert.ToDecimal(readr["preco"]);
 
-                decimal total =quant * preco;
+                decimal total = quant * preco;
                 if (quant <= lim)
                 {
                     dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
@@ -228,22 +228,24 @@ namespace Stq
                 {
 
                     int quant = Convert.ToInt32(readr["quant"]);
-                    decimal total = Convert.ToDecimal(readr["total"]);
+
+                    decimal preco = Convert.ToDecimal(readr["preco"]);
+
+                    decimal total = quant * preco;
                     if (quant <= lim)
                     {
-                        dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], readr["quant"], "R$ " +
-                        Convert.ToDecimal(readr["quant"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + Convert.ToDecimal(readr["total"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
+                        dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
+                        Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
                         dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.BackColor = Color.Red;
                         dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.ForeColor = Color.White;
                         Tsystem = Tsystem + total;
                     }
                     else
                     {
-                        dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], readr["quant"], "R$ " +
-                       Convert.ToDecimal(readr["quant"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + Convert.ToDecimal(readr["total"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
+                        dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
+                         Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
                         Tsystem = Tsystem + total;
                     }
-
                 }
 
                 labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
@@ -259,7 +261,7 @@ namespace Stq
                 Pesq.Focus();
                 reelist();
             }
-            
+
         }//pesquisa registro
         private void buttonConfig_Click(object sender, EventArgs e)
         {
@@ -310,56 +312,49 @@ namespace Stq
         } //ativa os elementos de adição de quant
         private void button1_Click(object sender, EventArgs e) // adiciona produto
         {
-            dataTabela.Rows.Clear();
-            foreach (Listagem obj in list_tab)
+            if (textCodAddQ.Text != string.Empty && textAddQ.Text != string.Empty)
             {
-                if (textCodAddQ.Text == obj.Bars)
+                var strConexao = "server=localhost;uid=root;database=stq"; // loga banco
+                var conexao = new MySqlConnection(strConexao);
+                conexao.Open(); // abre banco
+                var cmd_ = new MySqlCommand("SELECT * FROM dados where cod = @cod", conexao);
+                cmd_.Parameters.AddWithValue("@cod", textCodAddQ.Text);
+
+                int old_quant = 0;
+                var leitor = cmd_.ExecuteReader();
+                string prod = string.Empty;
+
+                while (leitor.Read())
                 {
-
-                    dataTabela.Rows.Clear();
-                    dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
-                    if (textCodAddQ.Text != string.Empty && textAddQ.Text != string.Empty)
-                    {
-
-                        int quant = int.Parse(textAddQ.Text);
-                        obj.Quant = obj.Quant + quant;
-                        obj.Total = obj.Preco * obj.Quant;
-                        dataTabela.Rows.Clear();
-                        dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
-                        buttonPesquisar.Visible = false;
-                        buttonRmvF.Visible = true;
-                        MessageBox.Show("Foram adicionados " + quant + " itens dentro do produto " + obj.Prodct);
-                        labelAddQ.Visible = false;
-                        textCodAddQ.Visible = false;
-                        labelAddQ2.Visible = false;
-                        textAddQ.Visible = false;
-                        buttonAddQ.Visible = false;
-                        textCodAddQ.Text = string.Empty;
-                        textAddQ.Text = string.Empty;
-                        buttonRmvF.Visible = false;
-                        buttonPesquisar.Visible = true;
-                        buttonCancelarOp.Visible = false;
-                        enable_true();
-                        reelist();
-                        cancop();
-                    }
-                    else
-                    {
-
-                        MessageBox.Show("Preencha os campos");
-                        textCodAddQ.Text = string.Empty;
-                        textAddQ.Text = string.Empty;
-                        reelist();
-
-                    }
+                    old_quant = Convert.ToInt32(leitor["quant"]);
+                    prod = leitor["nome"].ToString(); 
                 }
+                conexao.Close();
+
+                int quant = int.Parse(textAddQ.Text) + old_quant;
+                textCodAddQ.Text = quant.ToString();
+
+
+                conexao.Open();
+                cmd_.CommandType = CommandType.Text;
+                cmd_.CommandText = "UPDATE dados set quant = @quant where cod =@cod";
+                cmd_.Parameters.AddWithValue("@quant", quant);
+                cmd_.ExecuteNonQuery();
+                conexao.Close();
+                reelist();
+                MessageBox.Show("Foram adicionados " + textAddQ.Text + " itens dentro do registro " + prod + "!");
+                textCodAddQ.Text = string.Empty;
+                textAddQ.Text = string.Empty;
+              
+                cancop();
             }
+
         }
         private void textCodAddQ_TextChanged(object sender, EventArgs e)
         {
 
-          
-             //Filtra o item que deve ser add ou rem
+
+            //Filtra o item que deve ser add ou rem
         }
         private void label1_Click(object sender, EventArgs e)
         {
@@ -448,6 +443,7 @@ namespace Stq
             {
                 e.Handled = true;
             }
+
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)
@@ -467,7 +463,7 @@ namespace Stq
                 decimal Tsystem = 0;
                 while (readr.Read())
                 {
-                    
+
                     int quant = Convert.ToInt32(readr["quant"]);
                     decimal total = Convert.ToDecimal(readr["total"]);
                     if (quant <= lim)
@@ -515,7 +511,52 @@ namespace Stq
         {
 
         }
+
+        private void textCodAddQ_KeyUp(object sender, KeyEventArgs e)
+        {
+            dataTabela.Rows.Clear(); // limpa tabela
+
+            if (textCodAddQ.Text != string.Empty)
+            {
+                var strConexao = "server=localhost;uid=root;database=stq"; // loga banco
+                var conexao = new MySqlConnection(strConexao);
+                conexao.Open(); // abre banco
+                var cmd = new MySqlCommand("SELECT * FROM dados where cod = @cod", conexao); //mostrar
+                cmd.Parameters.AddWithValue("@cod", textCodAddQ.Text);
+                var readr = cmd.ExecuteReader();
+
+                decimal Tsystem = 0;
+                while (readr.Read())
+                {
+
+                    int quant = Convert.ToInt32(readr["quant"]);
+
+                    decimal preco = Convert.ToDecimal(readr["preco"]);
+
+                    decimal total = quant * preco;
+                    if (quant <= lim)
+                    {
+                        dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
+                        Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
+                        dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.BackColor = Color.Red;
+                        dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.ForeColor = Color.White;
+                        Tsystem = Tsystem + total;
+                    }
+                    else
+                    {
+                        dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
+                         Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
+                        Tsystem = Tsystem + total;
+                    }
+                }
+
+                labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
+
+                readr.Close();
+            }
+        }
     }
+
 }
 
 

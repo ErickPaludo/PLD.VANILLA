@@ -60,16 +60,6 @@ namespace Stq
 
                 } while (v != 0);
 
-                decimal peso = Convert.ToDecimal(textPeso.Text);
-                int quant = int.Parse(textQuant.Text);
-                decimal preco = Convert.ToDecimal(textPreco.Text);
-                decimal total = preco * quant;
-                if (!decimal.TryParse(textPeso.Text, out peso) || !int.TryParse(textQuant.Text, out quant))
-                {
-                    MessageBox.Show("Entrada inválida. Por favor, insira valores numéricos válidos para peso e quantidade.");
-                    return;
-                }
-
                 var strConexao = "server=localhost;uid=root;database=stq";
                 using (var conexao = new MySqlConnection(strConexao))
                 {
@@ -78,16 +68,15 @@ namespace Stq
                     {
                         cmd.Connection = conexao;
                         cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = "INSERT INTO dados (cod, nome, color,peso, peso_kg, quant, preco, total) " +
-                                          "VALUES (@cod, @nome, @color, @peso, @peso_kg, @quant, @preco, @total)";
-                        cmd.Parameters.AddWithValue("@cod", cod); // Supondo que 'cod' já esteja definido em outro lugar.
+                        cmd.CommandText = "INSERT INTO dados (cod, nome, color,peso, peso_kg, quant, preco) " +
+                                          "VALUES (@cod, @nome, @color, @peso, @peso_kg, @quant, @preco)";
+                        cmd.Parameters.AddWithValue("@cod", cod); 
                         cmd.Parameters.AddWithValue("@nome", textProd.Text);
                         cmd.Parameters.AddWithValue("@color", comboColor.Text);
                         cmd.Parameters.AddWithValue("@peso", textPeso.Text);
                         cmd.Parameters.AddWithValue("@peso_kg", comboPesoName.Text);
                         cmd.Parameters.AddWithValue("@quant", textQuant.Text);
                         cmd.Parameters.AddWithValue("@preco", textPreco.Text);
-                        cmd.Parameters.AddWithValue("@total",total);
                         cmd.ExecuteNonQuery();
                     }
                 }

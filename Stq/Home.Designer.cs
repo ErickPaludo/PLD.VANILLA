@@ -329,6 +329,7 @@
             this.textCodAddQ.Visible = false;
             this.textCodAddQ.TextChanged += new System.EventHandler(this.textCodAddQ_TextChanged);
             this.textCodAddQ.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textCodAddQ_KeyPress);
+            this.textCodAddQ.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textCodAddQ_KeyUp);
             // 
             // textAddQ
             // 

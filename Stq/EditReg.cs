@@ -58,7 +58,6 @@ namespace Stq
             if (comboPesoN.Text != string.Empty || textProduto.Text != string.Empty && textNewPeso.Text != string.Empty && textNewValue.Text != string.Empty)
             {
                 Home env = new Home(Bars, textProduto.Text, comboColor.Text, Convert.ToDecimal(textNewPeso.Text), comboPesoN.Text, Convert.ToDecimal(textNewValue.Text));
-                ;
                 var strConexao = "server=localhost;uid=root;database=stq";
                 using (var conexao = new MySqlConnection(strConexao))
                 {
