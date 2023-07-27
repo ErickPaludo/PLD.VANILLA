@@ -24,9 +24,7 @@ namespace Stq
         public Home()
         {
             InitializeComponent();
-
             reelist();
-            buttonRemProd.Visible = false;
         } //construtor padrão
 
         public Home(string cod)
@@ -72,12 +70,12 @@ namespace Stq
             conexao.Open(); // abre banco
             var cmd = new MySqlCommand("SELECT * FROM dados", conexao); //mostrar
             var readr = cmd.ExecuteReader();
-
+            int cont = 0;
             decimal Tsystem = 0;
             while (readr.Read())
             {
                 int quant = Convert.ToInt32(readr["quant"]);
-
+                cont = cont + 1;
                 decimal preco = Convert.ToDecimal(readr["preco"]);
 
                 decimal total = quant * preco;
@@ -98,7 +96,7 @@ namespace Stq
             }
 
             labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
-
+            labelQuantR.Text = "Registros no estoque: " + cont;
             readr.Close();
             var cmd_ = new MySqlCommand("SELECT COUNT(*) FROM dados", conexao);
             if (Convert.ToInt32(cmd_.ExecuteScalar()) > 0)
@@ -106,6 +104,7 @@ namespace Stq
                 buttonRemProd.Visible = true;
                 buttonAddProd.Visible = true;
                 buttonAlterarReg.Visible = true;
+               
             }
             else
             {
@@ -149,6 +148,7 @@ namespace Stq
 
             enable_false();
             buttonAdd.Enabled = true;
+            buttonRem.Enabled = true;
             buttonAlterarReg.Enabled = false;
             buttonRemProd.Enabled = false;
             reelist();
@@ -327,7 +327,7 @@ namespace Stq
                 while (leitor.Read())
                 {
                     old_quant = Convert.ToInt32(leitor["quant"]);
-                    prod = leitor["nome"].ToString(); 
+                    prod = leitor["nome"].ToString();
                 }
                 conexao.Close();
 
@@ -345,7 +345,7 @@ namespace Stq
                 MessageBox.Show("Foram adicionados " + textAddQ.Text + " itens dentro do registro " + prod + "!");
                 textCodAddQ.Text = string.Empty;
                 textAddQ.Text = string.Empty;
-              
+
                 cancop();
             }
 
@@ -375,47 +375,49 @@ namespace Stq
         } //Ativa Removedor de Item
         private void buttonRmvQuant_Click(object sender, EventArgs e) // Remove Item
         {
-            foreach (Listagem obj in list_tab)
+            if (textCodAddQ.Text != string.Empty && textAddQ.Text != string.Empty)
             {
-                if (textCodAddQ.Text == obj.Bars)
-                {
-                    if (textCodAddQ.Text != string.Empty && textAddQ.Text != string.Empty)
-                    {
-                        if (int.Parse(textAddQ.Text) <= obj.Quant)
-                        {
+                var strConexao = "server=localhost;uid=root;database=stq"; // loga banco
+                var conexao = new MySqlConnection(strConexao);
+                conexao.Open(); // abre banco
+                var cmd_ = new MySqlCommand("SELECT * FROM dados where cod = @cod", conexao);
+                cmd_.Parameters.AddWithValue("@cod", textCodAddQ.Text);
 
-                            int quant = int.Parse(textAddQ.Text);
-                            obj.Quant = obj.Quant - quant;
-                            obj.Total = obj.Preco * obj.Quant;
-                            dataTabela.Rows.Clear();
-                            dataTabela.Rows.Add(obj.Bars, obj.Prodct, obj.Color, "Kg " + obj.Peso.ToString("f2", CultureInfo.InvariantCulture), obj.Quant, "R$ " + obj.Preco.ToString("f2", CultureInfo.InvariantCulture), "R$ " + obj.Total.ToString("f2", CultureInfo.InvariantCulture));
-                            buttonPesquisar.Visible = false;
-                            buttonRmvF.Visible = true;
-                            MessageBox.Show("Foram removidos " + quant + " itens dentro do produto " + obj.Prodct);
-                            labelAddQ.Visible = false;
-                            textCodAddQ.Visible = false;
-                            labelAddQ2.Visible = false;
-                            textAddQ.Visible = false;
-                            buttonAddQ.Visible = false;
-                            textCodAddQ.Text = string.Empty;
-                            textAddQ.Text = string.Empty;
-                            buttonRmvF.Visible = false;
-                            buttonPesquisar.Visible = true;
-                            buttonCancelarOp.Visible = false;
-                            enable_true();
-                            reelist();
-                            buttonRmvQuant.Visible = false;
-                            labelRemover.Visible = false;
-                            buttonCancelarOp.Visible = false;
-                            cancop();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Não é possivel removar mais itens do que o estoque possue");
-                            textAddQ.Text = string.Empty;
-                            textAddQ.Focus();
-                        }
-                    }
+                int old_quant = 0;
+                var leitor = cmd_.ExecuteReader();
+                string prod = string.Empty;
+
+                while (leitor.Read())
+                {
+                    old_quant = Convert.ToInt32(leitor["quant"]);
+                    prod = leitor["nome"].ToString();
+                }
+                conexao.Close();
+
+                if (int.Parse(textAddQ.Text) <= old_quant)
+                {
+
+                    int quant = old_quant - int.Parse(textAddQ.Text);
+                    textCodAddQ.Text = quant.ToString();
+
+
+                    conexao.Open();
+                    cmd_.CommandType = CommandType.Text;
+                    cmd_.CommandText = "UPDATE dados set quant = @quant where cod =@cod";
+                    cmd_.Parameters.AddWithValue("@quant", quant);
+                    cmd_.ExecuteNonQuery();
+                    conexao.Close();
+                    reelist();
+                    MessageBox.Show("Foram removidos " + textAddQ.Text + " itens do registro " + prod + "!");
+                    textCodAddQ.Text = string.Empty;
+                    textAddQ.Text = string.Empty;
+
+                    cancop();
+                }
+                else
+                {
+                    MessageBox.Show("Impossível comcluir operação!");
+                    textAddQ.Text = string.Empty;
                 }
             }
         }
@@ -423,6 +425,7 @@ namespace Stq
         private void buttonEditReg_Click(object sender, EventArgs e)
         {
             enable_false();
+            labelAddQ.Visible = true;
             buttonAdd.Enabled = false;
             buttonRemProd.Enabled = false;
             buttonPesquisar.Enabled = false;

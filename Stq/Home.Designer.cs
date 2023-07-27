@@ -63,6 +63,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonEdit = new System.Windows.Forms.Button();
             this.Pesq = new System.Windows.Forms.TextBox();
+            this.labelQuantR = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataTabela)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -485,12 +486,25 @@
             this.Pesq.TabIndex = 25;
             this.Pesq.TextChanged += new System.EventHandler(this.Pesq_TextChanged);
             // 
+            // labelQuantR
+            // 
+            this.labelQuantR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelQuantR.AutoSize = true;
+            this.labelQuantR.BackColor = System.Drawing.Color.Transparent;
+            this.labelQuantR.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.labelQuantR.Location = new System.Drawing.Point(377, 632);
+            this.labelQuantR.Name = "labelQuantR";
+            this.labelQuantR.Size = new System.Drawing.Size(113, 13);
+            this.labelQuantR.TabIndex = 26;
+            this.labelQuantR.Text = "Registros no estoque: ";
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Stq.Properties.Resources.BackgroundInic_;
             this.ClientSize = new System.Drawing.Size(1370, 689);
+            this.Controls.Add(this.labelQuantR);
             this.Controls.Add(this.Pesq);
             this.Controls.Add(this.buttonEdit);
             this.Controls.Add(this.buttonAlterarReg);
@@ -558,5 +572,6 @@
         private System.Windows.Forms.Button buttonAlterarReg;
         private System.Windows.Forms.Button buttonEdit;
         private System.Windows.Forms.TextBox Pesq;
+        private System.Windows.Forms.Label labelQuantR;
     }
 }
