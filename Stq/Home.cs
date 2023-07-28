@@ -18,9 +18,18 @@ namespace Stq
 {
     public partial class Home : Form
     {
-        private static int lim = 50;
+        private static int lim = -1;
         private static List<Listagem> list_tab = new List<Listagem>();
-        private static string code;
+        private static string code, User;
+        private static int Ver = 0;
+
+        public Home(int ver,string user)
+        {
+            Ver = ver;
+            User = user;
+            InitializeComponent();
+            reelist();
+        }
         public Home()
         {
             InitializeComponent();
@@ -32,34 +41,6 @@ namespace Stq
             code = cod;
         }
 
-        public Home(string bars, string prod, string color, decimal peso, string pesoN, decimal value)
-        {
-            InitializeComponent();
-            buttonRegistro.Visible = false;
-            foreach (Listagem obj in list_tab)
-            {
-
-                if (bars == obj.Bars)
-                {
-                    dataTabela.Rows.Clear();
-
-                    obj.Total = obj.Quant * value;
-                    obj.Color = color;
-                    obj.Prodct = prod;
-                    obj.Peso = peso;
-                    obj.PesoN = pesoN;
-                    obj.Preco = value;
-                }
-
-            }
-
-            MessageBox.Show("Registros editados com sucesso");
-
-        }
-        public Home(int value)
-        {
-            lim = value;
-        }
         private void reelist()
         {
 
@@ -99,22 +80,48 @@ namespace Stq
             labelQuantR.Text = "Registros no estoque: " + cont;
             readr.Close();
             var cmd_ = new MySqlCommand("SELECT COUNT(*) FROM dados", conexao);
-            if (Convert.ToInt32(cmd_.ExecuteScalar()) > 0)
+            if (Ver == 0)
             {
-                buttonRemProd.Visible = true;
-                buttonAddProd.Visible = true;
-                buttonAlterarReg.Visible = true;
-               
+                buttonConfig.Visible = true;
+                if (Convert.ToInt32(cmd_.ExecuteScalar()) > 0)
+                {
+                    buttonRegistro.Visible = true;
+                    buttonRemProd.Visible = true;
+                    buttonAddProd.Visible = true;
+                    buttonAlterarReg.Visible = true;
+                    
+
+                }
+                else
+                {
+                    buttonRegistro.Visible = true;
+                    buttonRem.Enabled = false;
+                    buttonRemProd.Visible = false;
+                    buttonAddProd.Visible = false;
+                    buttonAlterarReg.Visible = false;
+                }
             }
             else
             {
-                buttonRem.Enabled = false;
-                buttonRemProd.Visible = false;
-                buttonAddProd.Visible = false;
-                buttonAlterarReg.Visible = false;
-            }
-            cmd.Connection.Close();
+                buttonConfig.Visible = false;
+                if (Convert.ToInt32(cmd_.ExecuteScalar()) > 0)
+                {
 
+                    buttonRemProd.Visible = true;
+                    buttonAddProd.Visible = true;
+                    buttonAlterarReg.Visible = true;
+
+                }
+                else
+                {
+
+                    buttonRem.Enabled = false;
+                    buttonRemProd.Visible = false;
+                    buttonAddProd.Visible = false;
+                    buttonAlterarReg.Visible = false;
+                }
+                cmd.Connection.Close();
+            }
         } // vai listar tudo que está no estoque
         private void enable_true()
         {
@@ -265,7 +272,7 @@ namespace Stq
         }//pesquisa registro
         private void buttonConfig_Click(object sender, EventArgs e)
         {
-            Config env = new Config(lim);
+            buttonAplic env = new buttonAplic(User);
             env.ShowDialog();
             reelist();
         }//configurações
@@ -363,6 +370,7 @@ namespace Stq
         private void buttonRemProd_Click(object sender, EventArgs e)
         {
             enable_false();
+            buttonRemProd.Enabled = false;
             buttonRem.Visible = false;
             buttonAdd.Visible = false;
             labelAddQ.Visible = true;
@@ -424,7 +432,7 @@ namespace Stq
 
         private void buttonEditReg_Click(object sender, EventArgs e)
         {
-            enable_false();
+            buttonAddProd.Enabled = false;
             labelAddQ.Visible = true;
             buttonAdd.Enabled = false;
             buttonRemProd.Enabled = false;

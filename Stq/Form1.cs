@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+
 
 namespace Stq
 {
@@ -31,10 +33,29 @@ namespace Stq
      
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            string user = textUser.Text.ToUpper();
-            if (user == "ADM" && textPass.Text == "2605223")
+            var strconexao = "server=localhost;uid=root;database=stq";
+            var conexao = new MySqlConnection(strconexao);
+            conexao.Open();
+            var cmd = new MySqlCommand("SELECT * FROM login where nome = @n AND pass = @p",conexao);
+            cmd.Parameters.AddWithValue("@n", textUser.Text);
+            cmd.Parameters.AddWithValue("@p", textPass.Text);
+            var readr = cmd.ExecuteReader();
+
+            string user = string.Empty;
+            string pass = string.Empty;
+            int ver = 1;
+            while (readr.Read())
             {
-                Home home = new Home();
+                user = readr["nome"].ToString();
+                pass = readr["pass"].ToString();
+                ver = Convert.ToInt32(readr["ver"]);
+                MessageBox.Show(ver.ToString());
+            }
+
+           
+            if (textUser.Text == user && textPass.Text == pass)
+            {
+                Home home = new Home(ver,user);
                 home.Show();
                 this.Hide();
             }
@@ -62,11 +83,6 @@ namespace Stq
 
         private void textUser_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-           
         }
 
  
@@ -97,9 +113,10 @@ namespace Stq
             }
         }
 
+        private void textUser_TextChanged(object sender, EventArgs e)
+        {
 
-
-
+        }
     }
 
 }

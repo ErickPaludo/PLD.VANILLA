@@ -43,12 +43,13 @@
             this.textUser.Cursor = System.Windows.Forms.Cursors.Hand;
             this.textUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textUser.Location = new System.Drawing.Point(523, 155);
-            this.textUser.MaxLength = 3;
+            this.textUser.MaxLength = 10;
             this.textUser.Name = "textUser";
             this.textUser.ShortcutsEnabled = false;
             this.textUser.Size = new System.Drawing.Size(169, 19);
             this.textUser.TabIndex = 1;
             this.textUser.Tag = "";
+            this.textUser.TextChanged += new System.EventHandler(this.textUser_TextChanged);
             this.textUser.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textUser_KeyPress);
             this.textUser.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textUser_KeyUp);
             // 

@@ -5,47 +5,226 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace Stq
 {
-    public partial class Config : Form
+    public partial class buttonAplic : Form
     {
-        private static int limite;
-        public Config(int lim)
+        private static int where = 0;
+        private static string User_;
+        public buttonAplic(string user)
         {
+            User_ = user;
             InitializeComponent();
-            limite = lim;
-            labellim.Text = "LIMITE ATUAL: " + limite;
+            reelist();
+        }
+        private void reelist()
+        {
+            reset();
+            dataTabelaUser.Rows.Clear();
+            var strconexao = "server=localhost;uid=root;database=stq";
+            var conexao = new MySqlConnection(strconexao);
+            conexao.Open();
+            var cmd = new MySqlCommand("SELECT * FROM login", conexao);
+            var readr = cmd.ExecuteReader();
+            string user;
+            while (readr.Read())
+            {
+
+                if (Convert.ToInt32(readr["ver"]) == 0)
+                {
+                    user = "Admin";
+                }
+                else { user = "Padrão"; }
+                dataTabelaUser.Rows.Add(readr["nome"], readr["pass"], user);
+            }
         }
 
-        private void buttonAplic_Click(object sender, EventArgs e)
+
+        private void Config_Load(object sender, EventArgs e)
         {
-            if(textValue.Text == string.Empty)
+
+        }
+        private void buttonAdduser_Click(object sender, EventArgs e)
+        {
+            textCamp1.Visible = true;
+            textCamp2.Visible = true;
+            textCamp1.Focus();
+            comboTipoUser.Visible = true;
+            buttonApc.Visible = true;
+            buttonCan.Visible = true;
+            where = 1;
+        }
+
+        private void buttonRemuser_Click(object sender, EventArgs e)
+        {
+            textCamp1.Focus();
+            textCamp1.Visible = true;
+            buttonApc.Visible = true;
+            buttonCan.Visible = true;
+            where = 2;
+        }
+        private void buttonAlterarSenha_Click(object sender, EventArgs e)
+        {
+            textCamp1.Focus();
+            textCamp1.Visible = true;
+            textCamp2.Visible = true;
+            comboTipoUser.Visible = true;
+            buttonApc.Visible = true;
+            buttonCan.Visible = true;
+            where = 3;
+        }
+
+        private void reset()
+        {
+            textCamp1.Visible = false;
+            textCamp2.Visible = false;
+            textCamp1.Text = string.Empty;
+            textCamp2.Text = string.Empty;
+            comboTipoUser.Visible = false;
+            buttonApc.Visible = false;
+            buttonCan.Visible = false;
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            reset();
+        }
+        private int Tipouser(string tipo)
+        {
+            if (tipo == "Admin")
             {
-                textValue.Focus();
-                MessageBox.Show("Preencha os campos");
+                return 0;
             }
             else
             {
-                int value = int.Parse(textValue.Text);
-                Home env = new Home(value);
-                MessageBox.Show("Alterações aplicadas com Sucesso!");
-                this.Close();
+                return 1;
             }
         }
-
-        private void textValue_KeyPress(object sender, KeyPressEventArgs e)
+        private void buttonApc_Click(object sender, EventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+
+
+            if (where == 1) //adduser
             {
-                e.Handled = true;
+                MessageBox.Show("ADD");
+                if (textCamp1.Text != string.Empty && textCamp2.Text != string.Empty && comboTipoUser.Text != string.Empty)
+                {
+                    int ver = Tipouser(comboTipoUser.Text);
+
+                    var strConexao = "server=localhost;uid=root;database=stq";
+                    using (var conexao = new MySqlConnection(strConexao))
+                    {
+
+                        using (MySqlCommand cmd = new MySqlCommand())
+                        {
+                            conexao.Open();
+                            int verificador = 0;
+                            cmd.Connection = conexao;
+                            cmd.CommandType = CommandType.Text;
+                            cmd.CommandText = "SELECT * FROM login where nome = @n";
+                            cmd.Parameters.AddWithValue("@n", textCamp1.Text);
+                            var readr = cmd.ExecuteReader();
+                            while (readr.Read())
+                            {
+                                if (readr["nome"].ToString() == textCamp1.Text)
+                                {
+                                    verificador = 1;
+                                    break;
+                                }
+                            }
+
+                            conexao.Close();
+                            if (verificador == 0)
+                            {
+                                conexao.Open();
+                                cmd.Connection = conexao;
+                                cmd.CommandType = CommandType.Text;
+                                cmd.CommandText = "INSERT INTO login (nome,pass,ver)" + "VALUES (@n,@p,@v)";
+                                cmd.Parameters.AddWithValue("@p", textCamp2.Text);
+                                cmd.Parameters.AddWithValue("@v", ver);
+                                cmd.ExecuteNonQuery();
+                                reelist();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Já existe um usuário com esse nome cadastrado!");
+                                textCamp1.Text = string.Empty;
+                            }
+
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Favor prencher todos os campos!");
+                }
             }
 
-           
-        }
+            else if (where == 2)//remuser
+            {
+                int verificador = 0;
+                if (textCamp1.Text != string.Empty)
+                {
+                    var strConexao = "server=localhost;uid=root;database=stq"; // loga banco
+                    var conexao = new MySqlConnection(strConexao);
+                    conexao.Open(); // abre banco
+                    var cmd = new MySqlCommand("SELECT * FROM login where nome = @n", conexao);
+                    cmd.Parameters.AddWithValue("@n", textCamp1.Text);
+                    var readr = cmd.ExecuteReader();
+                    string tipo = string.Empty;
+                    while (readr.Read())
+                    {
+                        if (readr["nome"].ToString() == User_)
+                        {
+                            verificador = 2;
+                            break;
+                        }
+                        else if(readr["nome"].ToString() == textCamp1.Text)
+                        {
+                            verificador = 1;
+                            tipo = readr["ver"].ToString();
+                            if (tipo == "0")
+                            {
+                                tipo = "Admin";
+                            }
+                            else { tipo = "Padrão"; }
 
+                            break;
+                        }
+
+                    }
+                    conexao.Close();
+                    conexao.Open();
+                    if (verificador == 1)
+                    {
+                        cmd = new MySqlCommand("DELETE FROM login where nome = @n", conexao);
+                        cmd.Parameters.Add("@n", MySqlDbType.String).Value = textCamp1.Text;
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Usuário " + textCamp1.Text + ", tipo " + tipo + ", foi removido com sucesso!");
+                    }
+                    else if (verificador == 2)
+                    {
+                        MessageBox.Show("Usuário em operação!");
+                    }
+                    else { MessageBox.Show("Usuário não encontrado!"); }
+                    reelist();
+                }
+                else
+                {
+                    MessageBox.Show("Favor prencher o campo acima!");
+                }
+            }
+            else if (where == 3)//confguser
+            {
+
+            }
+        }
     }
 }

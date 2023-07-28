@@ -81,6 +81,7 @@
             this.buttonRegistro.TabIndex = 1;
             this.buttonRegistro.Text = "Registros";
             this.buttonRegistro.UseVisualStyleBackColor = false;
+            this.buttonRegistro.Visible = false;
             this.buttonRegistro.Click += new System.EventHandler(this.buttonRegistro_Click);
             // 
             // buttonExit
@@ -117,6 +118,9 @@
             // 
             // dataTabela
             // 
+            this.dataTabela.AllowUserToAddRows = false;
+            this.dataTabela.AllowUserToDeleteRows = false;
+            this.dataTabela.AllowUserToOrderColumns = true;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray;
             this.dataTabela.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataTabela.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -154,6 +158,7 @@
             this.dataTabela.GridColor = System.Drawing.Color.DimGray;
             this.dataTabela.Location = new System.Drawing.Point(380, 61);
             this.dataTabela.Name = "dataTabela";
+            this.dataTabela.ReadOnly = true;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -172,41 +177,48 @@
             // 
             this.ID.HeaderText = "Código de Barras";
             this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
             // 
             // NOME
             // 
             this.NOME.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.NOME.HeaderText = "Produto";
             this.NOME.Name = "NOME";
+            this.NOME.ReadOnly = true;
             // 
             // COR
             // 
             this.COR.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.COR.HeaderText = "Cor";
             this.COR.Name = "COR";
+            this.COR.ReadOnly = true;
             // 
             // PESO
             // 
             this.PESO.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.PESO.HeaderText = "Peso";
             this.PESO.Name = "PESO";
+            this.PESO.ReadOnly = true;
             // 
             // QUANTIDADE
             // 
             this.QUANTIDADE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.QUANTIDADE.HeaderText = "Quantidade";
             this.QUANTIDADE.Name = "QUANTIDADE";
+            this.QUANTIDADE.ReadOnly = true;
             // 
             // VALOR
             // 
             this.VALOR.HeaderText = "Preço";
             this.VALOR.Name = "VALOR";
+            this.VALOR.ReadOnly = true;
             // 
             // TOTAL
             // 
             this.TOTAL.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.TOTAL.HeaderText = "Total";
             this.TOTAL.Name = "TOTAL";
+            this.TOTAL.ReadOnly = true;
             // 
             // buttonRmvF
             // 
@@ -277,7 +289,7 @@
             this.buttonCancelarOp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonCancelarOp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCancelarOp.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonCancelarOp.Location = new System.Drawing.Point(126, 190);
+            this.buttonCancelarOp.Location = new System.Drawing.Point(121, 190);
             this.buttonCancelarOp.Name = "buttonCancelarOp";
             this.buttonCancelarOp.Size = new System.Drawing.Size(92, 20);
             this.buttonCancelarOp.TabIndex = 4;
@@ -337,7 +349,7 @@
             this.textAddQ.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.textAddQ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textAddQ.ForeColor = System.Drawing.SystemColors.Info;
-            this.textAddQ.Location = new System.Drawing.Point(100, 389);
+            this.textAddQ.Location = new System.Drawing.Point(100, 404);
             this.textAddQ.Name = "textAddQ";
             this.textAddQ.ShortcutsEnabled = false;
             this.textAddQ.Size = new System.Drawing.Size(131, 20);
@@ -351,7 +363,7 @@
             this.buttonAddQ.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonAddQ.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAddQ.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonAddQ.Location = new System.Drawing.Point(115, 409);
+            this.buttonAddQ.Location = new System.Drawing.Point(121, 430);
             this.buttonAddQ.Name = "buttonAddQ";
             this.buttonAddQ.Size = new System.Drawing.Size(95, 30);
             this.buttonAddQ.TabIndex = 11;
@@ -366,11 +378,11 @@
             this.labelAddQ.BackColor = System.Drawing.Color.Transparent;
             this.labelAddQ.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAddQ.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelAddQ.Location = new System.Drawing.Point(107, 332);
+            this.labelAddQ.Location = new System.Drawing.Point(141, 332);
             this.labelAddQ.Name = "labelAddQ";
-            this.labelAddQ.Size = new System.Drawing.Size(117, 15);
+            this.labelAddQ.Size = new System.Drawing.Size(52, 15);
             this.labelAddQ.TabIndex = 21;
-            this.labelAddQ.Text = "Código de barras";
+            this.labelAddQ.Text = "Código";
             this.labelAddQ.Visible = false;
             // 
             // labelAddQ2
@@ -380,11 +392,11 @@
             this.labelAddQ2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelAddQ2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAddQ2.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelAddQ2.Location = new System.Drawing.Point(54, 371);
+            this.labelAddQ2.Location = new System.Drawing.Point(97, 378);
             this.labelAddQ2.Name = "labelAddQ2";
-            this.labelAddQ2.Size = new System.Drawing.Size(213, 15);
+            this.labelAddQ2.Size = new System.Drawing.Size(137, 15);
             this.labelAddQ2.TabIndex = 22;
-            this.labelAddQ2.Text = "Quantidade para ser adicionada";
+            this.labelAddQ2.Text = "Quantidade - Adição";
             this.labelAddQ2.Visible = false;
             // 
             // labelRemover
@@ -394,11 +406,11 @@
             this.labelRemover.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelRemover.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelRemover.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelRemover.Location = new System.Drawing.Point(61, 371);
+            this.labelRemover.Location = new System.Drawing.Point(95, 378);
             this.labelRemover.Name = "labelRemover";
-            this.labelRemover.Size = new System.Drawing.Size(206, 15);
+            this.labelRemover.Size = new System.Drawing.Size(155, 15);
             this.labelRemover.TabIndex = 23;
-            this.labelRemover.Text = "Quantidade para ser Removido";
+            this.labelRemover.Text = "Quantidade - Remoção";
             this.labelRemover.Visible = false;
             // 
             // labelTotalestoque
@@ -421,7 +433,7 @@
             this.buttonRmvQuant.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonRmvQuant.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRmvQuant.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonRmvQuant.Location = new System.Drawing.Point(115, 445);
+            this.buttonRmvQuant.Location = new System.Drawing.Point(121, 430);
             this.buttonRmvQuant.Name = "buttonRmvQuant";
             this.buttonRmvQuant.Size = new System.Drawing.Size(95, 30);
             this.buttonRmvQuant.TabIndex = 12;
@@ -466,7 +478,7 @@
             this.buttonEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonEdit.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonEdit.Location = new System.Drawing.Point(115, 373);
+            this.buttonEdit.Location = new System.Drawing.Point(121, 378);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(95, 30);
             this.buttonEdit.TabIndex = 9;
@@ -488,7 +500,7 @@
             // 
             // labelQuantR
             // 
-            this.labelQuantR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelQuantR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelQuantR.AutoSize = true;
             this.labelQuantR.BackColor = System.Drawing.Color.Transparent;
             this.labelQuantR.ForeColor = System.Drawing.SystemColors.ButtonFace;
