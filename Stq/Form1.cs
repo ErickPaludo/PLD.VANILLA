@@ -49,7 +49,6 @@ namespace Stq
                 user = readr["nome"].ToString();
                 pass = readr["pass"].ToString();
                 ver = Convert.ToInt32(readr["ver"]);
-                MessageBox.Show(ver.ToString());
             }
 
            

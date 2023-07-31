@@ -5,12 +5,14 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Stq
 {
@@ -73,7 +75,7 @@ namespace Stq
         private void buttonAlterarSenha_Click(object sender, EventArgs e)
         {
             textCamp1.Focus();
-            textCamp1.Visible = true;
+            textEdit.Visible = true;
             textCamp2.Visible = true;
             comboTipoUser.Visible = true;
             buttonApc.Visible = true;
@@ -87,9 +89,11 @@ namespace Stq
             textCamp2.Visible = false;
             textCamp1.Text = string.Empty;
             textCamp2.Text = string.Empty;
+            comboTipoUser.Text = string.Empty;
             comboTipoUser.Visible = false;
             buttonApc.Visible = false;
             buttonCan.Visible = false;
+            textEdit.Visible = false;
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -156,7 +160,7 @@ namespace Stq
                                 MessageBox.Show("Já existe um usuário com esse nome cadastrado!");
                                 textCamp1.Text = string.Empty;
                             }
-
+                            
                         }
                     }
                 }
@@ -224,6 +228,100 @@ namespace Stq
             else if (where == 3)//confguser
             {
 
+                if (textCamp1.Text != string.Empty && textCamp2.Text != string.Empty && comboTipoUser.Text != string.Empty)
+                {
+                    int ver = Tipouser(comboTipoUser.Text);
+
+                    var strConexao = "server=localhost;uid=root;database=stq";
+                    using (var conexao = new MySqlConnection(strConexao))
+                    {
+
+                        using (MySqlCommand cmd = new MySqlCommand())
+                        {
+                            int verificador = 0;
+                            
+                                if (textEdit.Text == User_)
+                                {
+                                    verificador = 1;
+                                }
+                               
+                            
+                            if (verificador == 0)
+                            {
+                                conexao.Open();
+                                cmd.Connection = conexao;
+                                cmd.CommandType = CommandType.Text;
+                                cmd.CommandText = "Update login set nome = @nome,pass = @p, ver = @v where nome = @n";
+                                cmd.Parameters.AddWithValue("@n", textEdit.Text);
+                                cmd.Parameters.AddWithValue("@nome", textCamp1.Text);
+                                cmd.Parameters.AddWithValue("@p", textCamp2.Text);
+                                cmd.Parameters.AddWithValue("@v", ver);
+                                cmd.ExecuteNonQuery();
+                                reelist();
+                                conexao.Close();
+                            }
+                            else
+                            {
+                                conexao.Open();
+                                cmd.Connection = conexao;
+                                cmd.CommandType = CommandType.Text;
+                                cmd.CommandText = "Update login set nome = @nome,pass = @p, ver = @v where nome = @n";
+                                cmd.Parameters.AddWithValue("@n", textEdit.Text);
+                                cmd.Parameters.AddWithValue("@nome", textCamp1.Text);
+                                cmd.Parameters.AddWithValue("@p", textCamp2.Text);
+                                cmd.Parameters.AddWithValue("@v", ver);
+                                cmd.ExecuteNonQuery();
+                                conexao.Close();
+                                reelist();
+                                MessageBox.Show("Alterações realizadas, estamos encerrando a sessão para " +
+                                    "que as alterações sejam feitas!");
+
+                                System.Windows.Forms.Application.Exit();
+                            }
+                            textEdit.Text = string.Empty;
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Favor prencher todos os campos!");
+                }
+            }
+
+        }
+        
+
+        private void textEdit_KeyPress(object sender, KeyPressEventArgs e)
+        {
+        
+        }
+
+        private void textEdit_KeyUp(object sender, KeyEventArgs e)
+        {
+            dataTabelaUser.Rows.Clear();
+            var strconexao = "server=localhost;uid=root;database=stq";
+            var conexao = new MySqlConnection(strconexao);
+            conexao.Open();
+            var cmd = new MySqlCommand("SELECT * FROM login where nome = @n", conexao);
+            cmd.Parameters.AddWithValue("@n", textEdit.Text);
+            var readr = cmd.ExecuteReader();
+            string user;
+            while (readr.Read())
+            {
+                if (Convert.ToInt32(readr["ver"]) == 0)
+                {
+                    user = "Admin";
+                }
+                else
+                {
+                    user = "Padrão";
+                }
+                dataTabelaUser.Rows.Add(readr["nome"], readr["pass"], user);
+                textCamp2.Text = (readr["pass"]).ToString();
+                comboTipoUser.Text = user;
+                textEdit.Visible = false;
+                textCamp1.Visible = true;
+                textCamp1.Text = readr["nome"].ToString();
             }
         }
     }

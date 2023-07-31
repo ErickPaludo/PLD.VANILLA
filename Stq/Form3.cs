@@ -15,10 +15,12 @@ namespace Stq
     public partial class Form3 : Form
     {
         static List<string> code_bars = new List<string>();
+        static string User;
 
-        public Form3()
+        public Form3(string user)
         {
             InitializeComponent();
+            User = user;
         }
         private void Form3_Load(object sender, EventArgs e)
         {
@@ -66,10 +68,11 @@ namespace Stq
                     conexao.Open();
                     using (MySqlCommand cmd = new MySqlCommand())
                     {
+
                         cmd.Connection = conexao;
                         cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = "INSERT INTO dados (cod, nome, color,peso, peso_kg, quant, preco) " +
-                                          "VALUES (@cod, @nome, @color, @peso, @peso_kg, @quant, @preco)";
+                        cmd.CommandText = "INSERT INTO dados (cod, nome, color,peso, peso_kg, quant, preco, us,dt) " +
+                                          "VALUES (@cod, @nome, @color, @peso, @peso_kg, @quant, @preco,@us,@dt)";
                         cmd.Parameters.AddWithValue("@cod", cod); 
                         cmd.Parameters.AddWithValue("@nome", textProd.Text);
                         cmd.Parameters.AddWithValue("@color", comboColor.Text);
@@ -77,6 +80,9 @@ namespace Stq
                         cmd.Parameters.AddWithValue("@peso_kg", comboPesoName.Text);
                         cmd.Parameters.AddWithValue("@quant", textQuant.Text);
                         cmd.Parameters.AddWithValue("@preco", textPreco.Text);
+                        DateTime data = DateTime.Now;
+                        cmd.Parameters.AddWithValue("@us", User);
+                        cmd.Parameters.AddWithValue("@dt", data);
                         cmd.ExecuteNonQuery();
                     }
                 }

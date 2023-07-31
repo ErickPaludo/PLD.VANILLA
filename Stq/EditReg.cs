@@ -17,15 +17,16 @@ namespace Stq
         static bool tru = false;
         private bool commaEntered = false;
         private static List<Listagem> list_tab = new List<Listagem>();
-        static string Bars;
+        static string Bars, User;
         public EditReg()
         {
             InitializeComponent();
         }
-        public EditReg(string bars)
+        public EditReg(string bars,string user)
         {
             InitializeComponent();
             Bars = bars;
+            User = user;
             var strConexao = "server=localhost;uid=root;database=stq"; // loga banco
             var conexao = new MySqlConnection(strConexao);
             conexao.Open(); // abre banco
@@ -65,8 +66,8 @@ namespace Stq
                     {
                         cmd.Connection = conexao;
                         cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = "update dados SET nome = @nome , color = @color,peso = @peso," +
-                            " peso_kg = @peso_kg, preco = @preco where cod = @cod";
+                        cmd.CommandText = "Insert Into dados Value( nome = @nome , color = @color,peso = @peso," +
+                            " peso_kg = @peso_kg, preco = @preco, us = @us, dt =@dt where cod = @cod";
                        
                         cmd.Parameters.AddWithValue("@nome", textProduto.Text);
                         cmd.Parameters.AddWithValue("@color", comboColor.Text);
@@ -74,6 +75,9 @@ namespace Stq
                         cmd.Parameters.AddWithValue("@peso_kg", comboPesoN.Text);
                         cmd.Parameters.AddWithValue("@preco", textNewValue.Text);
                         cmd.Parameters.AddWithValue("@cod",Bars);
+                        DateTime data = DateTime.Now;
+                        cmd.Parameters.AddWithValue("@us", User);
+                        cmd.Parameters.AddWithValue("@dt", data);
                         cmd.ExecuteNonQuery();
                     }
 

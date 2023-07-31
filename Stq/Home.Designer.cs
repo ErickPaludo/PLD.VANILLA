@@ -37,13 +37,6 @@
             this.buttonExit = new System.Windows.Forms.Button();
             this.buttonConfig = new System.Windows.Forms.Button();
             this.dataTabela = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NOME = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.COR = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PESO = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QUANTIDADE = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VALOR = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TOTAL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonRmvF = new System.Windows.Forms.Button();
             this.buttonPesquisar = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
@@ -64,6 +57,15 @@
             this.buttonEdit = new System.Windows.Forms.Button();
             this.Pesq = new System.Windows.Forms.TextBox();
             this.labelQuantR = new System.Windows.Forms.Label();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NOME = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.COR = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PESO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QUANTIDADE = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VALOR = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TOTAL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.User_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataTabela)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -75,9 +77,9 @@
             this.buttonRegistro.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonRegistro.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRegistro.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonRegistro.Location = new System.Drawing.Point(24, 61);
+            this.buttonRegistro.Location = new System.Drawing.Point(24, 21);
             this.buttonRegistro.Name = "buttonRegistro";
-            this.buttonRegistro.Size = new System.Drawing.Size(284, 57);
+            this.buttonRegistro.Size = new System.Drawing.Size(290, 57);
             this.buttonRegistro.TabIndex = 1;
             this.buttonRegistro.Text = "Registros";
             this.buttonRegistro.UseVisualStyleBackColor = false;
@@ -144,7 +146,9 @@
             this.PESO,
             this.QUANTIDADE,
             this.VALOR,
-            this.TOTAL});
+            this.TOTAL,
+            this.User_,
+            this.DateT});
             this.dataTabela.Cursor = System.Windows.Forms.Cursors.Hand;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.Gray;
@@ -172,53 +176,6 @@
             this.dataTabela.Size = new System.Drawing.Size(966, 568);
             this.dataTabela.TabIndex = 17;
             this.dataTabela.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataTabela_CellContentClick);
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "Código de Barras";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            // 
-            // NOME
-            // 
-            this.NOME.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.NOME.HeaderText = "Produto";
-            this.NOME.Name = "NOME";
-            this.NOME.ReadOnly = true;
-            // 
-            // COR
-            // 
-            this.COR.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.COR.HeaderText = "Cor";
-            this.COR.Name = "COR";
-            this.COR.ReadOnly = true;
-            // 
-            // PESO
-            // 
-            this.PESO.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.PESO.HeaderText = "Peso";
-            this.PESO.Name = "PESO";
-            this.PESO.ReadOnly = true;
-            // 
-            // QUANTIDADE
-            // 
-            this.QUANTIDADE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.QUANTIDADE.HeaderText = "Quantidade";
-            this.QUANTIDADE.Name = "QUANTIDADE";
-            this.QUANTIDADE.ReadOnly = true;
-            // 
-            // VALOR
-            // 
-            this.VALOR.HeaderText = "Preço";
-            this.VALOR.Name = "VALOR";
-            this.VALOR.ReadOnly = true;
-            // 
-            // TOTAL
-            // 
-            this.TOTAL.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.TOTAL.HeaderText = "Total";
-            this.TOTAL.Name = "TOTAL";
-            this.TOTAL.ReadOnly = true;
             // 
             // buttonRmvF
             // 
@@ -257,7 +214,7 @@
             this.buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAdd.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonAdd.Location = new System.Drawing.Point(24, 151);
+            this.buttonAdd.Location = new System.Drawing.Point(24, 134);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(136, 33);
             this.buttonAdd.TabIndex = 2;
@@ -273,7 +230,7 @@
             this.buttonRem.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonRem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRem.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonRem.Location = new System.Drawing.Point(178, 151);
+            this.buttonRem.Location = new System.Drawing.Point(178, 134);
             this.buttonRem.Name = "buttonRem";
             this.buttonRem.Size = new System.Drawing.Size(136, 33);
             this.buttonRem.TabIndex = 3;
@@ -289,7 +246,7 @@
             this.buttonCancelarOp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonCancelarOp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCancelarOp.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonCancelarOp.Location = new System.Drawing.Point(121, 190);
+            this.buttonCancelarOp.Location = new System.Drawing.Point(121, 358);
             this.buttonCancelarOp.Name = "buttonCancelarOp";
             this.buttonCancelarOp.Size = new System.Drawing.Size(92, 20);
             this.buttonCancelarOp.TabIndex = 4;
@@ -303,9 +260,9 @@
             this.buttonAddProd.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.buttonAddProd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonAddProd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonAddProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAddProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAddProd.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonAddProd.Location = new System.Drawing.Point(24, 276);
+            this.buttonAddProd.Location = new System.Drawing.Point(24, 173);
             this.buttonAddProd.Name = "buttonAddProd";
             this.buttonAddProd.Size = new System.Drawing.Size(136, 45);
             this.buttonAddProd.TabIndex = 6;
@@ -319,9 +276,9 @@
             this.buttonRemProd.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.buttonRemProd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonRemProd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonRemProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRemProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRemProd.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonRemProd.Location = new System.Drawing.Point(178, 276);
+            this.buttonRemProd.Location = new System.Drawing.Point(178, 173);
             this.buttonRemProd.Name = "buttonRemProd";
             this.buttonRemProd.Size = new System.Drawing.Size(136, 45);
             this.buttonRemProd.TabIndex = 7;
@@ -335,7 +292,7 @@
             this.textCodAddQ.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.textCodAddQ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textCodAddQ.ForeColor = System.Drawing.SystemColors.Info;
-            this.textCodAddQ.Location = new System.Drawing.Point(100, 350);
+            this.textCodAddQ.Location = new System.Drawing.Point(100, 242);
             this.textCodAddQ.Name = "textCodAddQ";
             this.textCodAddQ.Size = new System.Drawing.Size(131, 20);
             this.textCodAddQ.TabIndex = 8;
@@ -349,7 +306,7 @@
             this.textAddQ.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.textAddQ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textAddQ.ForeColor = System.Drawing.SystemColors.Info;
-            this.textAddQ.Location = new System.Drawing.Point(100, 404);
+            this.textAddQ.Location = new System.Drawing.Point(100, 296);
             this.textAddQ.Name = "textAddQ";
             this.textAddQ.ShortcutsEnabled = false;
             this.textAddQ.Size = new System.Drawing.Size(131, 20);
@@ -363,7 +320,7 @@
             this.buttonAddQ.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonAddQ.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAddQ.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonAddQ.Location = new System.Drawing.Point(121, 430);
+            this.buttonAddQ.Location = new System.Drawing.Point(121, 322);
             this.buttonAddQ.Name = "buttonAddQ";
             this.buttonAddQ.Size = new System.Drawing.Size(95, 30);
             this.buttonAddQ.TabIndex = 11;
@@ -378,7 +335,7 @@
             this.labelAddQ.BackColor = System.Drawing.Color.Transparent;
             this.labelAddQ.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAddQ.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelAddQ.Location = new System.Drawing.Point(141, 332);
+            this.labelAddQ.Location = new System.Drawing.Point(141, 224);
             this.labelAddQ.Name = "labelAddQ";
             this.labelAddQ.Size = new System.Drawing.Size(52, 15);
             this.labelAddQ.TabIndex = 21;
@@ -392,7 +349,7 @@
             this.labelAddQ2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelAddQ2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAddQ2.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelAddQ2.Location = new System.Drawing.Point(97, 378);
+            this.labelAddQ2.Location = new System.Drawing.Point(97, 270);
             this.labelAddQ2.Name = "labelAddQ2";
             this.labelAddQ2.Size = new System.Drawing.Size(137, 15);
             this.labelAddQ2.TabIndex = 22;
@@ -406,7 +363,7 @@
             this.labelRemover.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelRemover.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelRemover.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelRemover.Location = new System.Drawing.Point(95, 378);
+            this.labelRemover.Location = new System.Drawing.Point(95, 270);
             this.labelRemover.Name = "labelRemover";
             this.labelRemover.Size = new System.Drawing.Size(155, 15);
             this.labelRemover.TabIndex = 23;
@@ -433,7 +390,7 @@
             this.buttonRmvQuant.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonRmvQuant.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRmvQuant.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonRmvQuant.Location = new System.Drawing.Point(121, 430);
+            this.buttonRmvQuant.Location = new System.Drawing.Point(121, 322);
             this.buttonRmvQuant.Name = "buttonRmvQuant";
             this.buttonRmvQuant.Size = new System.Drawing.Size(95, 30);
             this.buttonRmvQuant.TabIndex = 12;
@@ -449,7 +406,7 @@
             this.buttonAlterarReg.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonAlterarReg.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAlterarReg.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonAlterarReg.Location = new System.Drawing.Point(24, 216);
+            this.buttonAlterarReg.Location = new System.Drawing.Point(24, 84);
             this.buttonAlterarReg.Name = "buttonAlterarReg";
             this.buttonAlterarReg.Size = new System.Drawing.Size(290, 44);
             this.buttonAlterarReg.TabIndex = 5;
@@ -478,7 +435,7 @@
             this.buttonEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonEdit.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonEdit.Location = new System.Drawing.Point(121, 378);
+            this.buttonEdit.Location = new System.Drawing.Point(121, 270);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(95, 30);
             this.buttonEdit.TabIndex = 9;
@@ -509,6 +466,69 @@
             this.labelQuantR.Size = new System.Drawing.Size(113, 13);
             this.labelQuantR.TabIndex = 26;
             this.labelQuantR.Text = "Registros no estoque: ";
+            // 
+            // ID
+            // 
+            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ID.HeaderText = "Código de Barras";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            // 
+            // NOME
+            // 
+            this.NOME.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.NOME.HeaderText = "Produto";
+            this.NOME.Name = "NOME";
+            this.NOME.ReadOnly = true;
+            // 
+            // COR
+            // 
+            this.COR.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.COR.HeaderText = "Cor";
+            this.COR.Name = "COR";
+            this.COR.ReadOnly = true;
+            // 
+            // PESO
+            // 
+            this.PESO.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PESO.HeaderText = "Peso";
+            this.PESO.Name = "PESO";
+            this.PESO.ReadOnly = true;
+            // 
+            // QUANTIDADE
+            // 
+            this.QUANTIDADE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.QUANTIDADE.HeaderText = "Quantidade";
+            this.QUANTIDADE.Name = "QUANTIDADE";
+            this.QUANTIDADE.ReadOnly = true;
+            // 
+            // VALOR
+            // 
+            this.VALOR.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.VALOR.HeaderText = "Preço";
+            this.VALOR.Name = "VALOR";
+            this.VALOR.ReadOnly = true;
+            // 
+            // TOTAL
+            // 
+            this.TOTAL.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.TOTAL.HeaderText = "Total";
+            this.TOTAL.Name = "TOTAL";
+            this.TOTAL.ReadOnly = true;
+            // 
+            // User_
+            // 
+            this.User_.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.User_.HeaderText = "Alterado por:";
+            this.User_.Name = "User_";
+            this.User_.ReadOnly = true;
+            // 
+            // DateT
+            // 
+            this.DateT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DateT.HeaderText = "Data da Alteração";
+            this.DateT.Name = "DateT";
+            this.DateT.ReadOnly = true;
             // 
             // Home
             // 
@@ -558,13 +578,6 @@
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.Button buttonConfig;
         private System.Windows.Forms.DataGridView dataTabela;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NOME;
-        private System.Windows.Forms.DataGridViewTextBoxColumn COR;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PESO;
-        private System.Windows.Forms.DataGridViewTextBoxColumn QUANTIDADE;
-        private System.Windows.Forms.DataGridViewTextBoxColumn VALOR;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TOTAL;
         private System.Windows.Forms.Button buttonRmvF;
         private System.Windows.Forms.Button buttonPesquisar;
         private System.Windows.Forms.Button buttonAdd;
@@ -585,5 +598,14 @@
         private System.Windows.Forms.Button buttonEdit;
         private System.Windows.Forms.TextBox Pesq;
         private System.Windows.Forms.Label labelQuantR;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NOME;
+        private System.Windows.Forms.DataGridViewTextBoxColumn COR;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PESO;
+        private System.Windows.Forms.DataGridViewTextBoxColumn QUANTIDADE;
+        private System.Windows.Forms.DataGridViewTextBoxColumn VALOR;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TOTAL;
+        private System.Windows.Forms.DataGridViewTextBoxColumn User_;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateT;
     }
 }

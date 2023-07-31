@@ -20,7 +20,7 @@ namespace Stq
     {
         private static int lim = -1;
         private static List<Listagem> list_tab = new List<Listagem>();
-        private static string code, User;
+        private static string code, User = "Gh0st";
         private static int Ver = 0;
 
         public Home(int ver,string user)
@@ -49,7 +49,7 @@ namespace Stq
             var strConexao = "server=localhost;uid=root;database=stq"; // loga banco
             var conexao = new MySqlConnection(strConexao);
             conexao.Open(); // abre banco
-            var cmd = new MySqlCommand("SELECT * FROM dados", conexao); //mostrar
+            var cmd = new MySqlCommand("SELECT * FROM dados where visibl = 0", conexao); //mostrar
             var readr = cmd.ExecuteReader();
             int cont = 0;
             decimal Tsystem = 0;
@@ -63,7 +63,7 @@ namespace Stq
                 if (quant <= lim)
                 {
                     dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
-                    Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
+                    Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
                     dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.BackColor = Color.Red;
                     dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.ForeColor = Color.White;
                     Tsystem = Tsystem + total;
@@ -71,7 +71,7 @@ namespace Stq
                 else
                 {
                     dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
-                     Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
+                    Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
                     Tsystem = Tsystem + total;
                 }
             }
@@ -109,7 +109,6 @@ namespace Stq
 
                     buttonRemProd.Visible = true;
                     buttonAddProd.Visible = true;
-                    buttonAlterarReg.Visible = true;
 
                 }
                 else
@@ -118,7 +117,6 @@ namespace Stq
                     buttonRem.Enabled = false;
                     buttonRemProd.Visible = false;
                     buttonAddProd.Visible = false;
-                    buttonAlterarReg.Visible = false;
                 }
                 cmd.Connection.Close();
             }
@@ -148,7 +146,7 @@ namespace Stq
         } //faz com que alguns elementos desapareçam
         private void buttonExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            System.Windows.Forms.Application.Exit();
         } //fecha sistema
         private void buttonRegistro_Click(object sender, EventArgs e)
         {
@@ -171,7 +169,7 @@ namespace Stq
         private void buttonAdd_Click(object sender, EventArgs e)
         {
 
-            Form3 add = new Form3();
+            Form3 add = new Form3(User);
             add.ShowDialog();
             buttonAlterarReg.Enabled = true;
             buttonRemProd.Enabled = true;
@@ -231,18 +229,20 @@ namespace Stq
                 var readr = cmd.ExecuteReader();
 
                 decimal Tsystem = 0;
+                int cont = 0;
                 while (readr.Read())
                 {
+                    cont++;
 
                     int quant = Convert.ToInt32(readr["quant"]);
 
                     decimal preco = Convert.ToDecimal(readr["preco"]);
-
+                   
                     decimal total = quant * preco;
                     if (quant <= lim)
                     {
                         dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
-                        Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
+                Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
                         dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.BackColor = Color.Red;
                         dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.ForeColor = Color.White;
                         Tsystem = Tsystem + total;
@@ -250,13 +250,13 @@ namespace Stq
                     else
                     {
                         dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
-                         Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
+   Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
                         Tsystem = Tsystem + total;
                     }
                 }
 
                 labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
-
+                labelQuantR.Text = "Registros no estoque: " + cont;
                 readr.Close();
 
                 buttonPesquisar.Visible = false;
@@ -344,8 +344,12 @@ namespace Stq
 
                 conexao.Open();
                 cmd_.CommandType = CommandType.Text;
-                cmd_.CommandText = "UPDATE dados set quant = @quant where cod =@cod";
+                cmd_.CommandText = "UPDATE dados set quant = @quant, us = @us, dt = @dt  where cod =@cod";
                 cmd_.Parameters.AddWithValue("@quant", quant);
+                DateTime data = DateTime.Now;
+                cmd_.Parameters.AddWithValue("@us", User);
+                cmd_.Parameters.AddWithValue("@dt", data);
+
                 cmd_.ExecuteNonQuery();
                 conexao.Close();
                 reelist();
@@ -411,8 +415,11 @@ namespace Stq
 
                     conexao.Open();
                     cmd_.CommandType = CommandType.Text;
-                    cmd_.CommandText = "UPDATE dados set quant = @quant where cod =@cod";
+                    cmd_.CommandText = "UPDATE dados set quant = @quant,us = @us, dt = @dt where cod =@cod";
                     cmd_.Parameters.AddWithValue("@quant", quant);
+                    DateTime data = DateTime.Now;
+                    cmd_.Parameters.AddWithValue("@us", User);
+                    cmd_.Parameters.AddWithValue("@dt", data);
                     cmd_.ExecuteNonQuery();
                     conexao.Close();
                     reelist();
@@ -476,22 +483,24 @@ namespace Stq
                 {
 
                     int quant = Convert.ToInt32(readr["quant"]);
-                    decimal total = Convert.ToDecimal(readr["total"]);
+                    decimal total = quant * Convert.ToDecimal(readr["preco"]);
                     if (quant <= lim)
                     {
-                        dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], readr["quant"], "R$ " +
-                        Convert.ToDecimal(readr["quant"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + Convert.ToDecimal(readr["total"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
-                        dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.BackColor = Color.Red;
+                        dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
+                   Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString());
+
+                       dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.BackColor = Color.Red;
                         dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.ForeColor = Color.White;
                         Tsystem = Tsystem + total;
                     }
                     else
                     {
-                        dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], readr["quant"], "R$ " +
-                       Convert.ToDecimal(readr["quant"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + Convert.ToDecimal(readr["total"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
-                        Tsystem = Tsystem + total;
+                        dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
+                   Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString());
+
+                       Tsystem = Tsystem + total;
                     }
-                    EditReg env = new EditReg(textCodAddQ.Text);
+                    EditReg env = new EditReg(textCodAddQ.Text,User);
                     env.ShowDialog();
                     cancop();
                 }
@@ -537,9 +546,10 @@ namespace Stq
                 var readr = cmd.ExecuteReader();
 
                 decimal Tsystem = 0;
+                int cont = 0;
                 while (readr.Read())
                 {
-
+                    cont++;
                     int quant = Convert.ToInt32(readr["quant"]);
 
                     decimal preco = Convert.ToDecimal(readr["preco"]);
@@ -548,7 +558,7 @@ namespace Stq
                     if (quant <= lim)
                     {
                         dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
-                        Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
+                   Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
                         dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.BackColor = Color.Red;
                         dataTabela.Rows[dataTabela.Rows.Count - 2].Cells["QUANTIDADE"].Style.ForeColor = Color.White;
                         Tsystem = Tsystem + total;
@@ -556,13 +566,13 @@ namespace Stq
                     else
                     {
                         dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
-                         Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")));
+                 Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
                         Tsystem = Tsystem + total;
                     }
                 }
 
                 labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
-
+                labelQuantR.Text = "Registros no estoque: " + cont;
                 readr.Close();
             }
         }
