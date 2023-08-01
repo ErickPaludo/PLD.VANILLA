@@ -37,6 +37,15 @@
             this.buttonExit = new System.Windows.Forms.Button();
             this.buttonConfig = new System.Windows.Forms.Button();
             this.dataTabela = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NOME = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.COR = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PESO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QUANTIDADE = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VALOR = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TOTAL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.User_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonRmvF = new System.Windows.Forms.Button();
             this.buttonPesquisar = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
@@ -57,15 +66,7 @@
             this.buttonEdit = new System.Windows.Forms.Button();
             this.Pesq = new System.Windows.Forms.TextBox();
             this.labelQuantR = new System.Windows.Forms.Label();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NOME = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.COR = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PESO = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QUANTIDADE = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VALOR = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TOTAL = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.User_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.checkHist = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataTabela)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -175,7 +176,70 @@
             this.dataTabela.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataTabela.Size = new System.Drawing.Size(966, 568);
             this.dataTabela.TabIndex = 17;
-            this.dataTabela.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataTabela_CellContentClick);
+            this.dataTabela.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataTabela_CellClick);
+            // 
+            // ID
+            // 
+            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ID.HeaderText = "Código de Barras";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            // 
+            // NOME
+            // 
+            this.NOME.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.NOME.HeaderText = "Produto";
+            this.NOME.Name = "NOME";
+            this.NOME.ReadOnly = true;
+            // 
+            // COR
+            // 
+            this.COR.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.COR.HeaderText = "Cor";
+            this.COR.Name = "COR";
+            this.COR.ReadOnly = true;
+            // 
+            // PESO
+            // 
+            this.PESO.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PESO.HeaderText = "Peso";
+            this.PESO.Name = "PESO";
+            this.PESO.ReadOnly = true;
+            // 
+            // QUANTIDADE
+            // 
+            this.QUANTIDADE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.QUANTIDADE.HeaderText = "Quantidade";
+            this.QUANTIDADE.Name = "QUANTIDADE";
+            this.QUANTIDADE.ReadOnly = true;
+            // 
+            // VALOR
+            // 
+            this.VALOR.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.VALOR.HeaderText = "Preço";
+            this.VALOR.Name = "VALOR";
+            this.VALOR.ReadOnly = true;
+            // 
+            // TOTAL
+            // 
+            this.TOTAL.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.TOTAL.HeaderText = "Total";
+            this.TOTAL.Name = "TOTAL";
+            this.TOTAL.ReadOnly = true;
+            // 
+            // User_
+            // 
+            this.User_.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.User_.HeaderText = "Alterado por:";
+            this.User_.Name = "User_";
+            this.User_.ReadOnly = true;
+            // 
+            // DateT
+            // 
+            this.DateT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DateT.HeaderText = "Data da Alteração";
+            this.DateT.Name = "DateT";
+            this.DateT.ReadOnly = true;
             // 
             // buttonRmvF
             // 
@@ -390,7 +454,7 @@
             this.buttonRmvQuant.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonRmvQuant.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRmvQuant.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonRmvQuant.Location = new System.Drawing.Point(121, 322);
+            this.buttonRmvQuant.Location = new System.Drawing.Point(222, 322);
             this.buttonRmvQuant.Name = "buttonRmvQuant";
             this.buttonRmvQuant.Size = new System.Drawing.Size(95, 30);
             this.buttonRmvQuant.TabIndex = 12;
@@ -467,68 +531,20 @@
             this.labelQuantR.TabIndex = 26;
             this.labelQuantR.Text = "Registros no estoque: ";
             // 
-            // ID
+            // checkHist
             // 
-            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ID.HeaderText = "Código de Barras";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            // 
-            // NOME
-            // 
-            this.NOME.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.NOME.HeaderText = "Produto";
-            this.NOME.Name = "NOME";
-            this.NOME.ReadOnly = true;
-            // 
-            // COR
-            // 
-            this.COR.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.COR.HeaderText = "Cor";
-            this.COR.Name = "COR";
-            this.COR.ReadOnly = true;
-            // 
-            // PESO
-            // 
-            this.PESO.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.PESO.HeaderText = "Peso";
-            this.PESO.Name = "PESO";
-            this.PESO.ReadOnly = true;
-            // 
-            // QUANTIDADE
-            // 
-            this.QUANTIDADE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.QUANTIDADE.HeaderText = "Quantidade";
-            this.QUANTIDADE.Name = "QUANTIDADE";
-            this.QUANTIDADE.ReadOnly = true;
-            // 
-            // VALOR
-            // 
-            this.VALOR.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.VALOR.HeaderText = "Preço";
-            this.VALOR.Name = "VALOR";
-            this.VALOR.ReadOnly = true;
-            // 
-            // TOTAL
-            // 
-            this.TOTAL.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.TOTAL.HeaderText = "Total";
-            this.TOTAL.Name = "TOTAL";
-            this.TOTAL.ReadOnly = true;
-            // 
-            // User_
-            // 
-            this.User_.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.User_.HeaderText = "Alterado por:";
-            this.User_.Name = "User_";
-            this.User_.ReadOnly = true;
-            // 
-            // DateT
-            // 
-            this.DateT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.DateT.HeaderText = "Data da Alteração";
-            this.DateT.Name = "DateT";
-            this.DateT.ReadOnly = true;
+            this.checkHist.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkHist.AutoSize = true;
+            this.checkHist.BackColor = System.Drawing.Color.Transparent;
+            this.checkHist.ForeColor = System.Drawing.SystemColors.Control;
+            this.checkHist.Location = new System.Drawing.Point(380, 660);
+            this.checkHist.Name = "checkHist";
+            this.checkHist.Size = new System.Drawing.Size(95, 17);
+            this.checkHist.TabIndex = 27;
+            this.checkHist.Text = "Exibir Histórico";
+            this.checkHist.UseVisualStyleBackColor = false;
+            this.checkHist.Visible = false;
+            this.checkHist.CheckedChanged += new System.EventHandler(this.checkHist_CheckedChanged);
             // 
             // Home
             // 
@@ -536,6 +552,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Stq.Properties.Resources.BackgroundInic_;
             this.ClientSize = new System.Drawing.Size(1370, 689);
+            this.Controls.Add(this.checkHist);
             this.Controls.Add(this.labelQuantR);
             this.Controls.Add(this.Pesq);
             this.Controls.Add(this.buttonEdit);
@@ -555,11 +572,11 @@
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.buttonPesquisar);
             this.Controls.Add(this.buttonRmvF);
-            this.Controls.Add(this.dataTabela);
             this.Controls.Add(this.buttonConfig);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.buttonRegistro);
             this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.dataTabela);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "Home";
@@ -607,5 +624,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TOTAL;
         private System.Windows.Forms.DataGridViewTextBoxColumn User_;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateT;
+        private System.Windows.Forms.CheckBox checkHist;
     }
 }

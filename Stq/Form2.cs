@@ -32,6 +32,7 @@ namespace Stq
                 cmd.Parameters.Clear();
                 cmd.Parameters.Add("@cod",MySqlDbType.String).Value = textRemovedor_Reg.Text;
                 cmd.CommandType = CommandType.Text;
+                cmd = new MySqlCommand("DELETE FROM historico WHERE cod = @cod", conexao);
                 cmd.ExecuteNonQuery();
                 conexao.Close();
                 this.Close();
@@ -66,6 +67,14 @@ namespace Stq
         private void Form2_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void textRemovedor_Reg_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

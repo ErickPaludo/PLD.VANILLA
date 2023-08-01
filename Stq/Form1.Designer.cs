@@ -59,7 +59,7 @@
             this.textPass.Cursor = System.Windows.Forms.Cursors.Hand;
             this.textPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textPass.Location = new System.Drawing.Point(523, 252);
-            this.textPass.MaxLength = 7;
+            this.textPass.MaxLength = 8;
             this.textPass.Name = "textPass";
             this.textPass.ShortcutsEnabled = false;
             this.textPass.Size = new System.Drawing.Size(171, 19);

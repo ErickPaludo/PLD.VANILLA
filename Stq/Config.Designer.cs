@@ -216,10 +216,12 @@
             this.textCamp2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textCamp2.ForeColor = System.Drawing.SystemColors.Window;
             this.textCamp2.Location = new System.Drawing.Point(46, 198);
+            this.textCamp2.MaxLength = 8;
             this.textCamp2.Name = "textCamp2";
             this.textCamp2.Size = new System.Drawing.Size(131, 20);
             this.textCamp2.TabIndex = 27;
             this.textCamp2.Visible = false;
+            this.textCamp2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textCamp2_KeyPress);
             // 
             // textCamp1
             // 
@@ -238,10 +240,12 @@
             this.textEdit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textEdit.ForeColor = System.Drawing.SystemColors.Window;
             this.textEdit.Location = new System.Drawing.Point(46, 172);
+            this.textEdit.MaxLength = 10;
             this.textEdit.Name = "textEdit";
             this.textEdit.Size = new System.Drawing.Size(131, 20);
             this.textEdit.TabIndex = 29;
             this.textEdit.Visible = false;
+            this.textEdit.TextChanged += new System.EventHandler(this.textEdit_TextChanged);
             this.textEdit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textEdit_KeyPress);
             this.textEdit.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textEdit_KeyUp);
             // 

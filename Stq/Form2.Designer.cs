@@ -73,6 +73,7 @@
             this.textRemovedor_Reg.Name = "textRemovedor_Reg";
             this.textRemovedor_Reg.Size = new System.Drawing.Size(133, 20);
             this.textRemovedor_Reg.TabIndex = 2;
+            this.textRemovedor_Reg.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textRemovedor_Reg_KeyPress);
             // 
             // textPassR
             // 

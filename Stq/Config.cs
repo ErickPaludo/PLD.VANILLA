@@ -18,12 +18,15 @@ namespace Stq
 {
     public partial class buttonAplic : Form
     {
-        private static int where = 0;
+        private static int where = 0, Admlenght = 0;
         private static string User_;
+
         public buttonAplic(string user)
         {
             User_ = user;
             InitializeComponent();
+            adml();
+            MessageBox.Show(Admlenght.ToString());
             reelist();
         }
         private void reelist()
@@ -43,9 +46,27 @@ namespace Stq
                 {
                     user = "Admin";
                 }
-                else { user = "Padrão"; }
+                else
+                {
+                    user = "Padrão";
+                }
                 dataTabelaUser.Rows.Add(readr["nome"], readr["pass"], user);
             }
+        }
+        private void adml()
+        {
+            dataTabelaUser.Rows.Clear();
+            var strconexao = "server=localhost;uid=root;database=stq";
+            var conexao = new MySqlConnection(strconexao);
+            conexao.Open();
+            var cmd = new MySqlCommand("SELECT * FROM login where ver = 0", conexao);
+            var readr = cmd.ExecuteReader();
+            int cont = 0;
+            while (readr.Read())
+            {
+                cont++;
+            }
+            Admlenght = cont;
         }
 
 
@@ -59,6 +80,7 @@ namespace Stq
             textCamp2.Visible = true;
             textCamp1.Focus();
             comboTipoUser.Visible = true;
+            comboTipoUser.Enabled = true;
             buttonApc.Visible = true;
             buttonCan.Visible = true;
             where = 1;
@@ -70,6 +92,7 @@ namespace Stq
             textCamp1.Visible = true;
             buttonApc.Visible = true;
             buttonCan.Visible = true;
+            comboTipoUser.Enabled = true;
             where = 2;
         }
         private void buttonAlterarSenha_Click(object sender, EventArgs e)
@@ -78,6 +101,7 @@ namespace Stq
             textEdit.Visible = true;
             textCamp2.Visible = true;
             comboTipoUser.Visible = true;
+            comboTipoUser.Enabled = true;
             buttonApc.Visible = true;
             buttonCan.Visible = true;
             where = 3;
@@ -89,15 +113,19 @@ namespace Stq
             textCamp2.Visible = false;
             textCamp1.Text = string.Empty;
             textCamp2.Text = string.Empty;
-            comboTipoUser.Text = string.Empty;
+            textEdit.Text = string.Empty;
             comboTipoUser.Visible = false;
+            comboTipoUser.Enabled = true;
             buttonApc.Visible = false;
             buttonCan.Visible = false;
             textEdit.Visible = false;
+            textCamp1.Text = string.Empty;
+            
         }
         private void button1_Click(object sender, EventArgs e)
         {
             reset();
+            reelist();
         }
         private int Tipouser(string tipo)
         {
@@ -116,8 +144,7 @@ namespace Stq
 
             if (where == 1) //adduser
             {
-                MessageBox.Show("ADD");
-                if (textCamp1.Text != string.Empty && textCamp2.Text != string.Empty && comboTipoUser.Text != string.Empty)
+                if (textCamp1.Text != string.Empty && textCamp2.Text != string.Empty && comboTipoUser.Text != string.Empty && (textCamp2.Text).Length <= 8 && (textCamp2.Text).Length >= 6 && (textCamp1.Text).Length <= 10 && (textCamp1.Text).Length >= 3)
                 {
                     int ver = Tipouser(comboTipoUser.Text);
 
@@ -153,21 +180,22 @@ namespace Stq
                                 cmd.Parameters.AddWithValue("@p", textCamp2.Text);
                                 cmd.Parameters.AddWithValue("@v", ver);
                                 cmd.ExecuteNonQuery();
-                                reelist();
                             }
                             else
                             {
                                 MessageBox.Show("Já existe um usuário com esse nome cadastrado!");
                                 textCamp1.Text = string.Empty;
                             }
-                            
+
                         }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Favor prencher todos os campos!");
+                    MessageBox.Show("Verifique se todos os campos estão preenchidos, a senha deve conter de 6 a 8 caractres e o User deve conter de 3 a 10 caracteres!");
                 }
+                adml();
+                reelist();
             }
 
             else if (where == 2)//remuser
@@ -189,7 +217,7 @@ namespace Stq
                             verificador = 2;
                             break;
                         }
-                        else if(readr["nome"].ToString() == textCamp1.Text)
+                        else if (readr["nome"].ToString() == textCamp1.Text)
                         {
                             verificador = 1;
                             tipo = readr["ver"].ToString();
@@ -197,7 +225,10 @@ namespace Stq
                             {
                                 tipo = "Admin";
                             }
-                            else { tipo = "Padrão"; }
+                            else
+                            {
+                                tipo = "Padrão";
+                            }
 
                             break;
                         }
@@ -217,18 +248,23 @@ namespace Stq
                     {
                         MessageBox.Show("Usuário em operação!");
                     }
-                    else { MessageBox.Show("Usuário não encontrado!"); }
-                    reelist();
+                    else
+                    {
+                        MessageBox.Show("Usuário não encontrado!");
+                    }
+                    
                 }
                 else
                 {
-                    MessageBox.Show("Favor prencher o campo acima!");
+                    MessageBox.Show("Verifique se todos os campos estão preenchidos, a senha deve conter de 6 a 8 caractres e o User deve conter de 3 a 10 caracteres!");
                 }
+                adml();
+                reelist();
             }
             else if (where == 3)//confguser
             {
 
-                if (textCamp1.Text != string.Empty && textCamp2.Text != string.Empty && comboTipoUser.Text != string.Empty)
+                if (textCamp1.Text != string.Empty && textCamp2.Text != string.Empty && comboTipoUser.Text != string.Empty && (textCamp2.Text).Length <= 8 && (textCamp2.Text).Length >= 6 && (textCamp1.Text).Length <= 10 && (textCamp1.Text).Length >= 3)
                 {
                     int ver = Tipouser(comboTipoUser.Text);
 
@@ -239,13 +275,13 @@ namespace Stq
                         using (MySqlCommand cmd = new MySqlCommand())
                         {
                             int verificador = 0;
-                            
-                                if (textEdit.Text == User_)
-                                {
-                                    verificador = 1;
-                                }
-                               
-                            
+
+                            if (textEdit.Text == User_)
+                            {
+                                verificador = 1;
+                            }
+
+
                             if (verificador == 0)
                             {
                                 conexao.Open();
@@ -272,7 +308,6 @@ namespace Stq
                                 cmd.Parameters.AddWithValue("@v", ver);
                                 cmd.ExecuteNonQuery();
                                 conexao.Close();
-                                reelist();
                                 MessageBox.Show("Alterações realizadas, estamos encerrando a sessão para " +
                                     "que as alterações sejam feitas!");
 
@@ -284,16 +319,18 @@ namespace Stq
                 }
                 else
                 {
-                    MessageBox.Show("Favor prencher todos os campos!");
+                    MessageBox.Show("Verifique se todos os campos estão preenchidos, a senha deve conter de 6 a 8 caractres!");
                 }
+                adml();
+                reelist();
             }
 
         }
-        
+
 
         private void textEdit_KeyPress(object sender, KeyPressEventArgs e)
         {
-        
+
         }
 
         private void textEdit_KeyUp(object sender, KeyEventArgs e)
@@ -318,10 +355,31 @@ namespace Stq
                 }
                 dataTabelaUser.Rows.Add(readr["nome"], readr["pass"], user);
                 textCamp2.Text = (readr["pass"]).ToString();
-                comboTipoUser.Text = user;
+                if (user == "Admin" && Admlenght == 1)
+                {
+                    comboTipoUser.Text = user;
+                    comboTipoUser.Enabled = false;
+                }
+                else
+                {
+                    comboTipoUser.Text = user;
+                }     
                 textEdit.Visible = false;
                 textCamp1.Visible = true;
                 textCamp1.Text = readr["nome"].ToString();
+            }
+        }
+
+        private void textEdit_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textCamp2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
     }
