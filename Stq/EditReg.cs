@@ -22,7 +22,7 @@ namespace Stq
         {
             InitializeComponent();
         }
-        public EditReg(string bars,string user)
+        public EditReg(string bars, string user)
         {
             InitializeComponent();
             Bars = bars;
@@ -57,32 +57,75 @@ namespace Stq
         {
 
             if (comboPesoN.Text != string.Empty || textProduto.Text != string.Empty && textNewPeso.Text != string.Empty && textNewValue.Text != string.Empty)
-            { 
-                var strConexao = "server=localhost;uid=root;database=stq";
-                using (var conexao = new MySqlConnection(strConexao))
-                {
-                    conexao.Open();
-                    using (MySqlCommand cmd = new MySqlCommand())
-                    {
-                        cmd.Connection = conexao;
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = "Insert Into dados Value( nome = @nome , color = @color,peso = @peso," +
-                            " peso_kg = @peso_kg, preco = @preco, us = @us, dt =@dt where cod = @cod";
-                       
-                        cmd.Parameters.AddWithValue("@nome", textProduto.Text);
-                        cmd.Parameters.AddWithValue("@color", comboColor.Text);
-                        cmd.Parameters.AddWithValue("@peso", textNewPeso.Text);
-                        cmd.Parameters.AddWithValue("@peso_kg", comboPesoN.Text);
-                        cmd.Parameters.AddWithValue("@preco", textNewValue.Text);
-                        cmd.Parameters.AddWithValue("@cod",Bars);
-                        DateTime data = DateTime.Now;
-                        cmd.Parameters.AddWithValue("@us", User);
-                        cmd.Parameters.AddWithValue("@dt", data);
-                        cmd.ExecuteNonQuery();
-                    }
+            {
+                var strConexao = "server=localhost;uid=root;database=stq"; // loga banco
+                var conexao = new MySqlConnection(strConexao);
+                conexao.Open(); // abre banco
+                var cmd = new MySqlCommand("SELECT * FROM dados where cod = @cod", conexao);
+                cmd.Parameters.AddWithValue("@cod", Bars);
 
-                    this.Close();
+                int old_quant = 0;
+                var leitor = cmd.ExecuteReader();
+                string cod = string.Empty;
+                string prod = string.Empty;
+                string color = string.Empty;
+                decimal peso = 0;
+                string peso_kg = string.Empty;
+                decimal preco = 0;
+                string us = string.Empty;
+                DateTime dta = DateTime.Now;
+
+                while (leitor.Read())
+                {
+                    prod = leitor["nome"].ToString();
+                    old_quant = Convert.ToInt32(leitor["quant"]);
+                    color = leitor["color"].ToString();
+                    peso = Convert.ToDecimal(leitor["peso"]);
+                    peso_kg = leitor["peso_kg"].ToString();
+                    preco = Convert.ToDecimal(leitor["preco"]);
+                    us = leitor["us"].ToString();
+                    dta = Convert.ToDateTime(leitor["dt"]);
                 }
+                conexao.Close();
+
+
+                conexao.Open();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "INSERT INTO historico (cod, nome, color,peso, peso_kg, quant, preco, us,dt) " +
+                         "VALUES (@cod, @nome, @color, @peso, @peso_kg, @quant, @preco,@us1,@dt1)";
+                cmd.Parameters.AddWithValue("@nome", prod);
+                cmd.Parameters.AddWithValue("@color", color);
+                cmd.Parameters.AddWithValue("@peso", peso);
+                cmd.Parameters.AddWithValue("@peso_kg", peso_kg);
+                cmd.Parameters.AddWithValue("@quant", old_quant);
+                cmd.Parameters.AddWithValue("@preco", preco);
+                cmd.Parameters.AddWithValue("@us1", us);
+                cmd.Parameters.AddWithValue("@dt1", dta);
+                cmd.ExecuteNonQuery();
+                conexao.Close();
+
+                conexao.Open();
+
+                cmd.Connection = conexao;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "Update dados Set nome = @no , color = @co,peso = @pe," +
+                    " peso_kg = @kg, preco = @pre, us = @us, dt =@dt where cod = @cod";
+
+                cmd.Parameters.AddWithValue("@no", textProduto.Text);
+                cmd.Parameters.AddWithValue("@co", comboColor.Text);
+                cmd.Parameters.AddWithValue("@pe", textNewPeso.Text);
+                cmd.Parameters.AddWithValue("@kg", comboPesoN.Text);
+                cmd.Parameters.AddWithValue("@pre", textNewValue.Text); 
+                DateTime data = DateTime.Now;
+                cmd.Parameters.AddWithValue("@us", User);
+                cmd.Parameters.AddWithValue("@dt", data);
+                cmd.ExecuteNonQuery();
+
+                conexao.Close();
+
+
+                this.Close();
+
             }
             else
             {
@@ -95,6 +138,9 @@ namespace Stq
 
             }
         }
+
+
+
 
         private void textProduto_KeyPress(object sender, KeyPressEventArgs e)
         {

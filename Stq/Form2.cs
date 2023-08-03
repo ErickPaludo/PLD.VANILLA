@@ -28,21 +28,25 @@ namespace Stq
                 var strConexao = "server=localhost;uid=root;database=stq"; // loga banco
                 var conexao = new MySqlConnection(strConexao);
                 conexao.Open(); // abre banco
-                MySqlCommand cmd = new MySqlCommand("DELETE FROM dados WHERE cod = @cod",conexao); //deletar
-                cmd.Parameters.Clear();
-                cmd.Parameters.Add("@cod",MySqlDbType.String).Value = textRemovedor_Reg.Text;
+                var cmd = new MySqlCommand("DELETE FROM dados WHERE cod = @bar", conexao);
+                cmd.Parameters.Add("@bar", MySqlDbType.String).Value = textRemovedor_Reg.Text;//deletar
+                cmd.ExecuteNonQuery();
+                conexao.Close();
+                conexao.Open();
+                cmd.Parameters.Add("@cod", MySqlDbType.String).Value = textRemovedor_Reg.Text;
                 cmd.CommandType = CommandType.Text;
                 cmd = new MySqlCommand("DELETE FROM historico WHERE cod = @cod", conexao);
+                cmd.Parameters.Add("@cod", MySqlDbType.String).Value = textRemovedor_Reg.Text;
                 cmd.ExecuteNonQuery();
                 conexao.Close();
                 this.Close();
-                
+
             }
             else
             {
-                
+
                 MessageBox.Show("Senha Incorreta!");
-                
+
                 textPassR.Text = string.Empty;
                 textRemovedor_Reg.Text = string.Empty;
                 textRemovedor_Reg.Focus();

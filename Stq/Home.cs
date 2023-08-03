@@ -29,6 +29,14 @@ namespace Stq
             User = user;
             InitializeComponent();
             reelist();
+            var strconexão = "server=localhost;uid=root;database=stq";
+            var conexao = new MySqlConnection(strconexão);
+            conexao.Open();
+
+            var cmd = new MySqlCommand("Update login Set bloq = 0 where nome =@n", conexao);
+            cmd.Parameters.AddWithValue("@n", User);
+            cmd.ExecuteNonQuery();
+            conexao.Close();
         }
         public Home()
         {
@@ -80,8 +88,6 @@ namespace Stq
                     buttonRemProd.Visible = true;
                     buttonAddProd.Visible = true;
                     buttonAlterarReg.Visible = true;
-
-
                 }
                 else
                 {

@@ -247,9 +247,9 @@
             this.buttonRmvF.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonRmvF.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRmvF.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonRmvF.Location = new System.Drawing.Point(834, 13);
+            this.buttonRmvF.Location = new System.Drawing.Point(570, 21);
             this.buttonRmvF.Name = "buttonRmvF";
-            this.buttonRmvF.Size = new System.Drawing.Size(175, 34);
+            this.buttonRmvF.Size = new System.Drawing.Size(158, 27);
             this.buttonRmvF.TabIndex = 8;
             this.buttonRmvF.Text = "Remover Filtro";
             this.buttonRmvF.UseVisualStyleBackColor = false;
@@ -263,9 +263,9 @@
             this.buttonPesquisar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonPesquisar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonPesquisar.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonPesquisar.Location = new System.Drawing.Point(834, 14);
+            this.buttonPesquisar.Location = new System.Drawing.Point(570, 21);
             this.buttonPesquisar.Name = "buttonPesquisar";
-            this.buttonPesquisar.Size = new System.Drawing.Size(175, 33);
+            this.buttonPesquisar.Size = new System.Drawing.Size(158, 27);
             this.buttonPesquisar.TabIndex = 16;
             this.buttonPesquisar.Text = "Pesquisar";
             this.buttonPesquisar.UseVisualStyleBackColor = false;
@@ -310,7 +310,7 @@
             this.buttonCancelarOp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonCancelarOp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCancelarOp.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonCancelarOp.Location = new System.Drawing.Point(121, 358);
+            this.buttonCancelarOp.Location = new System.Drawing.Point(121, 224);
             this.buttonCancelarOp.Name = "buttonCancelarOp";
             this.buttonCancelarOp.Size = new System.Drawing.Size(92, 20);
             this.buttonCancelarOp.TabIndex = 4;
@@ -356,7 +356,7 @@
             this.textCodAddQ.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.textCodAddQ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textCodAddQ.ForeColor = System.Drawing.SystemColors.Info;
-            this.textCodAddQ.Location = new System.Drawing.Point(100, 242);
+            this.textCodAddQ.Location = new System.Drawing.Point(100, 267);
             this.textCodAddQ.Name = "textCodAddQ";
             this.textCodAddQ.Size = new System.Drawing.Size(131, 20);
             this.textCodAddQ.TabIndex = 8;
@@ -370,7 +370,7 @@
             this.textAddQ.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.textAddQ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textAddQ.ForeColor = System.Drawing.SystemColors.Info;
-            this.textAddQ.Location = new System.Drawing.Point(100, 296);
+            this.textAddQ.Location = new System.Drawing.Point(100, 321);
             this.textAddQ.Name = "textAddQ";
             this.textAddQ.ShortcutsEnabled = false;
             this.textAddQ.Size = new System.Drawing.Size(131, 20);
@@ -384,7 +384,7 @@
             this.buttonAddQ.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonAddQ.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAddQ.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonAddQ.Location = new System.Drawing.Point(121, 322);
+            this.buttonAddQ.Location = new System.Drawing.Point(121, 347);
             this.buttonAddQ.Name = "buttonAddQ";
             this.buttonAddQ.Size = new System.Drawing.Size(95, 30);
             this.buttonAddQ.TabIndex = 11;
@@ -399,7 +399,7 @@
             this.labelAddQ.BackColor = System.Drawing.Color.Transparent;
             this.labelAddQ.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAddQ.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelAddQ.Location = new System.Drawing.Point(141, 224);
+            this.labelAddQ.Location = new System.Drawing.Point(141, 249);
             this.labelAddQ.Name = "labelAddQ";
             this.labelAddQ.Size = new System.Drawing.Size(52, 15);
             this.labelAddQ.TabIndex = 21;
@@ -413,7 +413,7 @@
             this.labelAddQ2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelAddQ2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAddQ2.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelAddQ2.Location = new System.Drawing.Point(97, 270);
+            this.labelAddQ2.Location = new System.Drawing.Point(97, 295);
             this.labelAddQ2.Name = "labelAddQ2";
             this.labelAddQ2.Size = new System.Drawing.Size(137, 15);
             this.labelAddQ2.TabIndex = 22;
@@ -427,7 +427,7 @@
             this.labelRemover.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelRemover.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelRemover.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelRemover.Location = new System.Drawing.Point(95, 270);
+            this.labelRemover.Location = new System.Drawing.Point(95, 295);
             this.labelRemover.Name = "labelRemover";
             this.labelRemover.Size = new System.Drawing.Size(155, 15);
             this.labelRemover.TabIndex = 23;
@@ -436,11 +436,11 @@
             // 
             // labelTotalestoque
             // 
-            this.labelTotalestoque.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelTotalestoque.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelTotalestoque.AutoSize = true;
             this.labelTotalestoque.BackColor = System.Drawing.Color.Transparent;
             this.labelTotalestoque.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.labelTotalestoque.Location = new System.Drawing.Point(1172, 632);
+            this.labelTotalestoque.Location = new System.Drawing.Point(377, 645);
             this.labelTotalestoque.Name = "labelTotalestoque";
             this.labelTotalestoque.Size = new System.Drawing.Size(153, 13);
             this.labelTotalestoque.TabIndex = 24;
@@ -454,7 +454,7 @@
             this.buttonRmvQuant.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonRmvQuant.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRmvQuant.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonRmvQuant.Location = new System.Drawing.Point(222, 322);
+            this.buttonRmvQuant.Location = new System.Drawing.Point(121, 347);
             this.buttonRmvQuant.Name = "buttonRmvQuant";
             this.buttonRmvQuant.Size = new System.Drawing.Size(95, 30);
             this.buttonRmvQuant.TabIndex = 12;
@@ -499,7 +499,7 @@
             this.buttonEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonEdit.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonEdit.Location = new System.Drawing.Point(121, 270);
+            this.buttonEdit.Location = new System.Drawing.Point(121, 295);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(95, 30);
             this.buttonEdit.TabIndex = 9;
@@ -514,8 +514,9 @@
             this.Pesq.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Pesq.ForeColor = System.Drawing.SystemColors.Window;
             this.Pesq.Location = new System.Drawing.Point(380, 21);
+            this.Pesq.Multiline = true;
             this.Pesq.Name = "Pesq";
-            this.Pesq.Size = new System.Drawing.Size(448, 20);
+            this.Pesq.Size = new System.Drawing.Size(184, 27);
             this.Pesq.TabIndex = 25;
             this.Pesq.TextChanged += new System.EventHandler(this.Pesq_TextChanged);
             // 
@@ -533,11 +534,10 @@
             // 
             // checkHist
             // 
-            this.checkHist.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkHist.AutoSize = true;
             this.checkHist.BackColor = System.Drawing.Color.Transparent;
             this.checkHist.ForeColor = System.Drawing.SystemColors.Control;
-            this.checkHist.Location = new System.Drawing.Point(380, 660);
+            this.checkHist.Location = new System.Drawing.Point(734, 27);
             this.checkHist.Name = "checkHist";
             this.checkHist.Size = new System.Drawing.Size(95, 17);
             this.checkHist.TabIndex = 27;
