@@ -178,6 +178,7 @@ namespace Stq
             comboBloq.Visible = false;
             comboBloq.Text = string.Empty;
             textEdit.Visible = false;
+            textEdit.Text = string.Empty;
 
         }
         private void button1_Click(object sender, EventArgs e) //cancelar op

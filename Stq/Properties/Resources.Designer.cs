@@ -193,6 +193,16 @@ namespace Stq.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap iconfinder_print_4341315_120555 {
+            get {
+                object obj = ResourceManager.GetObject("iconfinder-print-4341315_120555", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LateralInc {
             get {
                 object obj = ResourceManager.GetObject("LateralInc", resourceCulture);
@@ -216,6 +226,26 @@ namespace Stq.Properties {
         internal static System.Drawing.Bitmap pngtree_vector_house_icon_png_image_695726 {
             get {
                 object obj = ResourceManager.GetObject("pngtree-vector-house-icon-png-image_695726", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap print_printer_icon_131508 {
+            get {
+                object obj = ResourceManager.GetObject("print_printer_icon_131508", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap print_printer_icon_1315081 {
+            get {
+                object obj = ResourceManager.GetObject("print_printer_icon_1315081", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -13,6 +13,9 @@ using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using MySql.Data.MySqlClient;
 using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Interop.Excel;
+using System.Diagnostics;
+using MySqlX.XDevAPI;
 
 
 namespace Stq
@@ -159,6 +162,15 @@ namespace Stq
         } // mostra as opções de registros
         private void reset_pesq()
         {
+            labelMin.Visible = false;
+            labelMax.Visible = false;
+            textMin.Visible = false;
+            textMax.Visible = false;
+            textMin.Text = string.Empty;
+            textMax.Text = string.Empty;
+
+            Pesq.Visible = true;
+
             checkHist.Visible = false;
             checkHist.Checked = false;
             reelist();
@@ -172,7 +184,9 @@ namespace Stq
         }
         private void buttonRmvF_Click(object sender, EventArgs e)
         {
+            Pesq_ = 0;
             reset_pesq();
+            reelist();
         } //remove o filtro
         private void buttonAdd_Click(object sender, EventArgs e)
         {
@@ -204,8 +218,7 @@ namespace Stq
 
             dataTabela.Rows.Clear(); // limpa tabela
 
-            if (Pesq.Text != string.Empty)
-            {
+         
                 buttonRmvF.Visible = true;
                 var strConexao = "server=localhost;uid=root;database=stq"; // loga banco
                 var conexao = new MySqlConnection(strConexao);
@@ -276,8 +289,9 @@ namespace Stq
                 }
                 else if(Pesq_ == 2)
                 {
-                    var cmd = new MySqlCommand("SELECT * FROM dados where quant = @quant ", conexao); //mostrar
-                    cmd.Parameters.AddWithValue("@quant", Pesq.Text);
+                    var cmd = new MySqlCommand("SELECT * FROM dados where quant >= @quant and quant <= @quant2 ", conexao); //mostrar
+                    cmd.Parameters.AddWithValue("@quant", textMin.Text);
+                    cmd.Parameters.AddWithValue("@quant2", textMax.Text);
 
                     var readr = cmd.ExecuteReader();
 
@@ -303,13 +317,7 @@ namespace Stq
                     labelQuantR.Text = "Registros no estoque: " + cont;
                     readr.Close();
                 }
-            }
-            else
-            {
-                MessageBox.Show("Campo de pesquisa está vazio!");
-                Pesq.Focus();
-                reelist();
-            }
+          
 
         }//pesquisa registro
         private void buttonConfig_Click(object sender, EventArgs e)
@@ -649,6 +657,7 @@ namespace Stq
             {
                 reset_pesq();
                 Pesq_ = 0;
+                reelist();
             }
         }
 
@@ -656,6 +665,12 @@ namespace Stq
         {
             if (checkQuant.Checked == true)
             {
+                labelMin.Visible = true;
+                labelMax.Visible = true;
+                Pesq.Text = string.Empty;
+                Pesq.Visible = false;
+                textMin.Visible = true;
+                textMax.Visible = true;
                 Pesq_ = 2;
                 checkColor.Checked = false;
                 checkHist.Checked = false;
@@ -665,15 +680,12 @@ namespace Stq
             {
                 reset_pesq();
                 Pesq_ = 0;
+                reelist();
             }
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            excel_save();
-        }
 
-        private void excel_save()
+        private void excel_save(bool val)
         {
             Excel.Application app = new Excel.Application();
             Excel.Workbook pasta = app.Workbooks.Add();
@@ -748,8 +760,9 @@ namespace Stq
             }
             else if (Pesq_ == 2)
             {
-                var cmd = new MySqlCommand("SELECT * FROM dados where quant = @quant ", conexao); //mostrar
-                cmd.Parameters.AddWithValue("@quant", Pesq.Text);
+                var cmd = new MySqlCommand("SELECT * FROM dados where quant >= @quant and quant <= @quant2", conexao); //mostrar
+                cmd.Parameters.AddWithValue("@quant", textMin.Text);
+                cmd.Parameters.AddWithValue("@quant2", textMax.Text);
 
                 var readr = cmd.ExecuteReader();
 
@@ -865,14 +878,50 @@ namespace Stq
             plan.Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             plan.Columns.AutoFit();
 
-            app.Visible = true;
+
+            if (val == true)
+            {
+                app.Visible = true;
+            }
+            else
+            {
+                plan.PageSetup.Orientation = Excel.XlPageOrientation.xlLandscape;
+                string pdfFilePath = @"C:\Users\erick\Documents\arquivo.pdf";
+                plan.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, pdfFilePath);
+                Process.Start(pdfFilePath);
+            }
+           
 
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Executando Excel");
-            excel_save();
+            bool val = true;
+            excel_save(val);
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Executando PDF");
+            bool val = false;
+            excel_save(val);
+        }
+
+        private void textAddQ_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textMin_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
 
         private void checkHist_CheckedChanged(object sender, EventArgs e)
@@ -920,14 +969,15 @@ namespace Stq
                 else
                 {
                     MessageBox.Show("Campo de pesquisa está vazio!");
-                    Pesq_ = 0;
                     Pesq.Focus();
+                    Pesq_ = 0;
                     reelist();
                 }
             }
             else
             {
                 reelist();
+                Pesq_ = 0;
                 checkHist.Visible = false;
                 buttonRmvF.Visible = false;
                 buttonPesquisar.Visible = true;
