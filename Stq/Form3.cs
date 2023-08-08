@@ -22,6 +22,26 @@ namespace Stq
             InitializeComponent();
             User = user;
         }
+        private void verificado()
+        {
+            var strc = "server=localhost;uid=root;database=stq";
+            var conexao = new MySqlConnection(strc);
+            var cmd = new MySqlCommand(("SELECT * FROM dados"), conexao);
+            conexao.Open();
+            var read = cmd.ExecuteReader();
+            while (read.Read())
+            {
+                if (read["nome"].ToString() == textProd.Text)
+                {
+                    {
+                        MessageBox.Show("Falha na operação! Nome já cadastrado!");
+                        textProd.Text = string.Empty;
+                        textProd.Focus();
+                        break;
+                    }
+                }
+            }
+        }
         private void Form3_Load(object sender, EventArgs e)
         {
 
@@ -29,6 +49,7 @@ namespace Stq
 
         private int null_error()
         {
+            verificado();
             if (comboPesoName.Text == string.Empty || textProd.Text == string.Empty || textPreco.Text == string.Empty || textPeso.Text == string.Empty || textQuant.Text == string.Empty)
             {
                 textProd.Focus();
@@ -40,6 +61,7 @@ namespace Stq
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            
             int ver = null_error();
             if (ver == 1)
             {
@@ -61,7 +83,6 @@ namespace Stq
                     }
 
                 } while (v != 0);
-
                 var strConexao = "server=localhost;uid=root;database=stq";
                 using (var conexao = new MySqlConnection(strConexao))
                 {
@@ -76,10 +97,10 @@ namespace Stq
                         cmd.Parameters.AddWithValue("@cod", cod); 
                         cmd.Parameters.AddWithValue("@nome", textProd.Text);
                         cmd.Parameters.AddWithValue("@color", comboColor.Text);
-                        cmd.Parameters.AddWithValue("@peso", textPeso.Text);
+                        cmd.Parameters.AddWithValue("@peso", Convert.ToDecimal(textPeso.Text));
                         cmd.Parameters.AddWithValue("@peso_kg", comboPesoName.Text);
                         cmd.Parameters.AddWithValue("@quant", textQuant.Text);
-                        cmd.Parameters.AddWithValue("@preco", textPreco.Text);
+                        cmd.Parameters.AddWithValue("@preco", Convert.ToDecimal(textPreco.Text));
                         DateTime data = DateTime.Now;
                         cmd.Parameters.AddWithValue("@us", User);
                         cmd.Parameters.AddWithValue("@dt", data);
@@ -89,7 +110,7 @@ namespace Stq
 
                 MessageBox.Show("Produto " + textProd.Text + " adicionado com sucesso!");
                 this.Close();
-
+                MessageBox.Show(textPreco.Text);
             }
         }
 
@@ -185,6 +206,11 @@ namespace Stq
         }
 
         private void comboColor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textProd_KeyUp(object sender, KeyEventArgs e)
         {
 
         }

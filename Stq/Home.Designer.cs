@@ -67,6 +67,9 @@
             this.Pesq = new System.Windows.Forms.TextBox();
             this.labelQuantR = new System.Windows.Forms.Label();
             this.checkHist = new System.Windows.Forms.CheckBox();
+            this.checkColor = new System.Windows.Forms.CheckBox();
+            this.checkQuant = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataTabela)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -78,7 +81,7 @@
             this.buttonRegistro.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonRegistro.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRegistro.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonRegistro.Location = new System.Drawing.Point(24, 21);
+            this.buttonRegistro.Location = new System.Drawing.Point(24, 12);
             this.buttonRegistro.Name = "buttonRegistro";
             this.buttonRegistro.Size = new System.Drawing.Size(290, 57);
             this.buttonRegistro.TabIndex = 1;
@@ -245,13 +248,13 @@
             // 
             this.buttonRmvF.BackColor = System.Drawing.SystemColors.GrayText;
             this.buttonRmvF.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonRmvF.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRmvF.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonRmvF.Location = new System.Drawing.Point(570, 21);
+            this.buttonRmvF.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRmvF.ForeColor = System.Drawing.Color.Red;
+            this.buttonRmvF.Location = new System.Drawing.Point(689, 6);
             this.buttonRmvF.Name = "buttonRmvF";
-            this.buttonRmvF.Size = new System.Drawing.Size(158, 27);
+            this.buttonRmvF.Size = new System.Drawing.Size(33, 31);
             this.buttonRmvF.TabIndex = 8;
-            this.buttonRmvF.Text = "Remover Filtro";
+            this.buttonRmvF.Text = "X";
             this.buttonRmvF.UseVisualStyleBackColor = false;
             this.buttonRmvF.Visible = false;
             this.buttonRmvF.Click += new System.EventHandler(this.buttonRmvF_Click);
@@ -263,9 +266,9 @@
             this.buttonPesquisar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonPesquisar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonPesquisar.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonPesquisar.Location = new System.Drawing.Point(570, 21);
+            this.buttonPesquisar.Location = new System.Drawing.Point(597, 6);
             this.buttonPesquisar.Name = "buttonPesquisar";
-            this.buttonPesquisar.Size = new System.Drawing.Size(158, 27);
+            this.buttonPesquisar.Size = new System.Drawing.Size(86, 31);
             this.buttonPesquisar.TabIndex = 16;
             this.buttonPesquisar.Text = "Pesquisar";
             this.buttonPesquisar.UseVisualStyleBackColor = false;
@@ -513,10 +516,10 @@
             this.Pesq.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.Pesq.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Pesq.ForeColor = System.Drawing.SystemColors.Window;
-            this.Pesq.Location = new System.Drawing.Point(380, 21);
-            this.Pesq.Multiline = true;
+            this.Pesq.Location = new System.Drawing.Point(380, 11);
+            this.Pesq.MaxLength = 30;
             this.Pesq.Name = "Pesq";
-            this.Pesq.Size = new System.Drawing.Size(184, 27);
+            this.Pesq.Size = new System.Drawing.Size(211, 20);
             this.Pesq.TabIndex = 25;
             this.Pesq.TextChanged += new System.EventHandler(this.Pesq_TextChanged);
             // 
@@ -537,7 +540,7 @@
             this.checkHist.AutoSize = true;
             this.checkHist.BackColor = System.Drawing.Color.Transparent;
             this.checkHist.ForeColor = System.Drawing.SystemColors.Control;
-            this.checkHist.Location = new System.Drawing.Point(734, 27);
+            this.checkHist.Location = new System.Drawing.Point(607, 41);
             this.checkHist.Name = "checkHist";
             this.checkHist.Size = new System.Drawing.Size(95, 17);
             this.checkHist.TabIndex = 27;
@@ -546,12 +549,51 @@
             this.checkHist.Visible = false;
             this.checkHist.CheckedChanged += new System.EventHandler(this.checkHist_CheckedChanged);
             // 
+            // checkColor
+            // 
+            this.checkColor.AutoSize = true;
+            this.checkColor.BackColor = System.Drawing.Color.Transparent;
+            this.checkColor.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.checkColor.Location = new System.Drawing.Point(380, 41);
+            this.checkColor.Name = "checkColor";
+            this.checkColor.Size = new System.Drawing.Size(88, 17);
+            this.checkColor.TabIndex = 30;
+            this.checkColor.Text = "Filtrar por Cor";
+            this.checkColor.UseVisualStyleBackColor = false;
+            this.checkColor.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // checkQuant
+            // 
+            this.checkQuant.AutoSize = true;
+            this.checkQuant.BackColor = System.Drawing.Color.Transparent;
+            this.checkQuant.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.checkQuant.Location = new System.Drawing.Point(474, 41);
+            this.checkQuant.Name = "checkQuant";
+            this.checkQuant.Size = new System.Drawing.Size(127, 17);
+            this.checkQuant.TabIndex = 31;
+            this.checkQuant.Text = "Filtrar por Quantidade";
+            this.checkQuant.UseVisualStyleBackColor = false;
+            this.checkQuant.CheckedChanged += new System.EventHandler(this.checkQuant_CheckedChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1272, 632);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 32;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Stq.Properties.Resources.BackgroundInic_;
             this.ClientSize = new System.Drawing.Size(1370, 689);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.checkQuant);
+            this.Controls.Add(this.checkColor);
             this.Controls.Add(this.checkHist);
             this.Controls.Add(this.labelQuantR);
             this.Controls.Add(this.Pesq);
@@ -625,5 +667,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn User_;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateT;
         private System.Windows.Forms.CheckBox checkHist;
+        private System.Windows.Forms.CheckBox checkColor;
+        private System.Windows.Forms.CheckBox checkQuant;
+        private System.Windows.Forms.Button button1;
     }
 }

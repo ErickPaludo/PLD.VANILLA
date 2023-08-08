@@ -34,7 +34,7 @@ namespace Stq
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            if (textPass.Text.Length > 4)
+            if (textPass.Text.Length >= 4)
             {
 
                 var strconexao = "server=localhost;uid=root;database=stq";
@@ -96,7 +96,7 @@ namespace Stq
                             textPass.Text = string.Empty;
                             labelPass.Visible = true;
                             labelPass.Enabled = false;
-                            textUser.Focus();
+                            textPass.Focus();
                             MessageBox.Show("Tentativas de acesso: " + Bloq + "/5");
                         }
                         else

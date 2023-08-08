@@ -209,5 +209,17 @@
   <ItemGroup>
     <None Include="Resources\Butoon_reg1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Grupo 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Componente 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Componente 11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pngtree-vector-house-icon-png-image_695726.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

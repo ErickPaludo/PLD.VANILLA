@@ -13,13 +13,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Stq
 {
     public partial class buttonAplic : Form
     {
         private static int where = 0, Admlenght = 0;
-        private static string User_,Bloq;
+        private static string User_;
 
         public buttonAplic(string user)
         {
@@ -59,7 +61,19 @@ namespace Stq
                 {
                     bloq = "Sim";
                 }
-                dataTabelaUser.Rows.Add(readr["nome"], readr["pass"], user,bloq);
+                dataTabelaUser.Rows.Add(readr["nome"], readr["pass"], user, bloq);
+
+                // Obtém o índice da última linha adicionada ao DataGridView
+                int lastRowIndex = dataTabelaUser.Rows.Count - 1;
+
+                // Verificar o valor da variável "bloq" e definir a cor do texto da célula "Blocked" na última linha
+                if (bloq == "Sim")
+                {
+                    dataTabelaUser.Rows[lastRowIndex].Cells["Blocked"].Style.BackColor = Color.IndianRed;
+                    dataTabelaUser.Rows[lastRowIndex].Cells["Blocked"].Style.ForeColor = Color.White;
+                }
+
+
             }
         }
         private void adml()
@@ -85,8 +99,15 @@ namespace Stq
         }
         private void buttonAdduser_Click(object sender, EventArgs e)
         {
+            labelB.Visible = true;
+            labelP.Visible = true;
+            buttonAdduser.Enabled = false;
+            buttonRemuser.Enabled = false;
+            buttonAlterarSenha.Enabled = false;
+            labelName.Visible = true;
             textCamp1.Visible = true;
             textCamp2.Visible = true;
+            labelSenha.Visible = true;
             textCamp1.Focus();
             comboTipoUser.Visible = true;
             comboTipoUser.Enabled = true;
@@ -100,6 +121,10 @@ namespace Stq
         private void buttonRemuser_Click(object sender, EventArgs e)
         {
             textCamp1.Focus();
+            buttonAdduser.Enabled = false;
+            buttonRemuser.Enabled = false;
+            buttonAlterarSenha.Enabled = false;
+            labelName.Visible = true;
             textCamp1.Visible = true;
             buttonApc.Visible = true;
             buttonCan.Visible = true;
@@ -109,8 +134,17 @@ namespace Stq
         private void buttonAlterarSenha_Click(object sender, EventArgs e)
         {
             textCamp1.Focus();
+            labelB.Visible = true;
+            labelP.Visible = true;
+            buttonAdduser.Enabled = false;
+            buttonRemuser.Enabled = false;
+            buttonAlterarSenha.Enabled = false;
+            labelName.Visible = true;
+            labelNewName.Visible = true;
             textEdit.Visible = true;
+            textCamp1.Visible = true;
             textCamp2.Visible = true;
+            labelSenha.Visible = true;
             comboTipoUser.Visible = true;
             comboTipoUser.Enabled = true;
             comboBloq.Visible = true;
@@ -124,22 +158,29 @@ namespace Stq
 
         private void reset()
         {
+            labelB.Visible = false;
+            labelP.Visible = false;
+            buttonAdduser.Enabled = true;
+            buttonRemuser.Enabled = true;
+            buttonAlterarSenha.Enabled = true;
+            labelName.Visible = false;
             textCamp1.Visible = false;
             textCamp2.Visible = false;
             textCamp1.Text = string.Empty;
             textCamp2.Text = string.Empty;
-            textEdit.Text = string.Empty;
+            labelNewName.Visible = false;
+            labelSenha.Visible = false;
             comboTipoUser.Visible = false;
             comboTipoUser.Enabled = true;
             buttonApc.Visible = false;
             buttonCan.Visible = false;
-            textEdit.Visible = false;
             textCamp1.Text = string.Empty;
             comboBloq.Visible = false;
             comboBloq.Text = string.Empty;
+            textEdit.Visible = false;
 
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) //cancelar op
         {
             reset();
             reelist();
@@ -157,11 +198,9 @@ namespace Stq
         }
         private void buttonApc_Click(object sender, EventArgs e)
         {
-
-
             if (where == 1) //adduser
             {
-                if (textCamp1.Text != string.Empty && textCamp2.Text != string.Empty && comboTipoUser.Text != string.Empty && (textCamp2.Text).Length <= 8 && (textCamp2.Text).Length >= 6 && (textCamp1.Text).Length <= 6 && (textCamp1.Text).Length >= 3)
+                if (textCamp1.Text != string.Empty && textCamp2.Text != string.Empty && comboTipoUser.Text != string.Empty && (textCamp2.Text).Length <= 8 && (textCamp2.Text).Length >= 6 && (textCamp1.Text).Length <= 10 && (textCamp1.Text).Length >= 3)
                 {
                     int ver = Tipouser(comboTipoUser.Text);
 
@@ -224,7 +263,6 @@ namespace Stq
                 adml();
                 reelist();
             }
-
             else if (where == 2)//remuser
             {
                 int verificador = 0;
@@ -279,7 +317,7 @@ namespace Stq
                     {
                         MessageBox.Show("Usuário não encontrado!");
                     }
-                    
+
                 }
                 else
                 {
@@ -291,10 +329,9 @@ namespace Stq
             else if (where == 3)//confguser
             {
 
-                if (textCamp1.Text != string.Empty && textCamp2.Text != string.Empty && comboTipoUser.Text != string.Empty && (textCamp2.Text).Length <= 8 && (textCamp2.Text).Length >= 6 && (textCamp1.Text).Length <= 10 && (textCamp1.Text).Length >= 3)
+                if (textEdit.Text != string.Empty && textCamp2.Text != string.Empty && comboTipoUser.Text != string.Empty && (textCamp2.Text).Length <= 8 && (textCamp2.Text).Length >= 6 && (textCamp1.Text).Length <= 10 && (textCamp1.Text).Length >= 3)
                 {
                     int ver = Tipouser(comboTipoUser.Text);
-
                     var strConexao = "server=localhost;uid=root;database=stq";
                     using (var conexao = new MySqlConnection(strConexao))
                     {
@@ -313,7 +350,7 @@ namespace Stq
                                 bloq = 0;
                             }
 
-                            if (textEdit.Text == User_)
+                            if (textCamp1.Text == User_)
                             {
                                 verificador = 1;
                             }
@@ -325,8 +362,8 @@ namespace Stq
                                 cmd.Connection = conexao;
                                 cmd.CommandType = CommandType.Text;
                                 cmd.CommandText = "Update login set nome = @nome,pass = @p, ver = @v, bloq = @b where nome = @n";
-                                cmd.Parameters.AddWithValue("@n", textEdit.Text);
-                                cmd.Parameters.AddWithValue("@nome", textCamp1.Text);
+                                cmd.Parameters.AddWithValue("@n", textCamp1.Text);
+                                cmd.Parameters.AddWithValue("@nome", textEdit.Text);
                                 cmd.Parameters.AddWithValue("@p", textCamp2.Text);
                                 cmd.Parameters.AddWithValue("@v", ver);
                                 cmd.Parameters.AddWithValue("@b", bloq);
@@ -336,16 +373,16 @@ namespace Stq
                             }
                             else
                             {
-                                
+
                                 conexao.Open();
                                 cmd.Connection = conexao;
                                 cmd.CommandType = CommandType.Text;
                                 cmd.CommandText = "Update login set nome = @nome,pass = @p, ver = @v where nome = @n";
-                                cmd.Parameters.AddWithValue("@n", textEdit.Text);
-                                cmd.Parameters.AddWithValue("@nome", textCamp1.Text);
+                                cmd.Parameters.AddWithValue("@n", textCamp1.Text);
+                                cmd.Parameters.AddWithValue("@nome", textEdit.Text);
                                 cmd.Parameters.AddWithValue("@p", textCamp2.Text);
                                 cmd.Parameters.AddWithValue("@v", ver);
-                                
+
                                 cmd.ExecuteNonQuery();
                                 conexao.Close();
                                 MessageBox.Show("Alterações realizadas, estamos encerrando a sessão para " +
@@ -364,8 +401,7 @@ namespace Stq
                 adml();
                 reelist();
             }
-
-        }
+        } //todos botões
 
 
         private void textEdit_KeyPress(object sender, KeyPressEventArgs e)
@@ -375,12 +411,32 @@ namespace Stq
 
         private void textEdit_KeyUp(object sender, KeyEventArgs e)
         {
+        }
+
+        private void textEdit_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textCamp1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textCamp1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void textCamp1_KeyUp(object sender, KeyEventArgs e)
+        {
+            textEdit.Text = textCamp1.Text;
             dataTabelaUser.Rows.Clear();
             var strconexao = "server=localhost;uid=root;database=stq";
             var conexao = new MySqlConnection(strconexao);
             conexao.Open();
             var cmd = new MySqlCommand("SELECT * FROM login where nome = @n", conexao);
-            cmd.Parameters.AddWithValue("@n", textEdit.Text);
+            cmd.Parameters.AddWithValue("@n", textCamp1.Text);
             var readr = cmd.ExecuteReader();
             string user;
             string bloq = string.Empty;
@@ -402,7 +458,15 @@ namespace Stq
                 {
                     bloq = "Sim";
                 }
-                dataTabelaUser.Rows.Add(readr["nome"], readr["pass"], user,bloq);
+                dataTabelaUser.Rows.Add(readr["nome"], readr["pass"], user, bloq);
+
+                if (bloq == "Sim")
+                {
+                    int lastRowIndex = dataTabelaUser.Rows.Count - 1;
+                    dataTabelaUser.Rows[lastRowIndex].Cells["Blocked"].Style.BackColor = Color.IndianRed;
+                    dataTabelaUser.Rows[lastRowIndex].Cells["Blocked"].Style.ForeColor = Color.White;
+                }
+
                 textCamp2.Text = (readr["pass"]).ToString();
                 if (user == "Admin" && Admlenght == 1)
                 {
@@ -414,27 +478,38 @@ namespace Stq
                 else
                 {
                     comboTipoUser.Text = user;
-                }     
-                textEdit.Visible = false;
-                textCamp1.Visible = true;
-                textCamp1.Text = readr["nome"].ToString();
+                }
 
-                if (textEdit.Text == User_)
+                if (textCamp1.Text == User_)
                 {
-                    comboBloq.Text = "Não";
+                    comboBloq.Text = bloq;
                     comboBloq.Enabled = false;
+                    comboTipoUser.Text = user;
+                    comboTipoUser.Enabled = false;
                 }
                 else
                 {
-                    comboBloq.Text = "Não";
+                    comboTipoUser.Text = user;
+                    comboTipoUser.Enabled = true;
+                    comboBloq.Text = bloq;
                     comboBloq.Enabled = true;
                 }
             }
         }
 
-        private void textEdit_TextChanged(object sender, EventArgs e)
+        private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonHome_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void textCamp2_KeyPress(object sender, KeyPressEventArgs e)

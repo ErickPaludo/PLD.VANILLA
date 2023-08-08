@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using MySql.Data.MySqlClient;
+using Excel = Microsoft
 
 
 namespace Stq
@@ -21,10 +22,11 @@ namespace Stq
         private static int lim = -1;
         private static List<Listagem> list_tab = new List<Listagem>();
         private static string code, User = "Gh0st";
-        private static int Ver = 0;
+        private static int Ver = 0, Pesq_ = 0;
 
         public Home(int ver, string user)
         {
+           
             Ver = ver;
             User = user;
             InitializeComponent();
@@ -155,14 +157,22 @@ namespace Stq
             buttonRemProd.Enabled = false;
             reelist();
         } // mostra as opções de registros
-        private void buttonRmvF_Click(object sender, EventArgs e)
+        private void reset_pesq()
         {
+            checkHist.Visible = false;
             checkHist.Checked = false;
             reelist();
             buttonRmvF.Visible = false;
             buttonPesquisar.Visible = true;
             Pesq.Text = string.Empty;
             buttonRegistro.Focus();
+            checkColor.Checked = false;
+            checkQuant.Checked = false;
+
+        }
+        private void buttonRmvF_Click(object sender, EventArgs e)
+        {
+            reset_pesq(); 
         } //remove o filtro
         private void buttonAdd_Click(object sender, EventArgs e)
         {
@@ -183,74 +193,116 @@ namespace Stq
 
             MessageBox.Show("Alterações feitas neste campo, não podem ser desfeitas! Se deseja sair, aperte em CANCELAR!");
             rem_reg.ShowDialog();
-            cancop();
             buttonAlterarReg.Enabled = true;
             buttonRemProd.Enabled = true;
-
-
-            dataTabela.Rows.Clear();
-            for (int i = 0; i < list_tab.Count; i++)
-            {
-                if (code == list_tab[i].Bars)
-                {
-                    list_tab.Remove(list_tab[i]);
-                    enable_true();
-                }
-            }
             reelist();
-            if (list_tab.Count == 0)
-            {
-                labelTotalestoque.Text = "Valor total em estoque: R$0.00";
-                buttonAlterarReg.Visible = false;
-                buttonAddProd.Visible = false;
-                buttonRemProd.Visible = false;
-            }
-
-
-
+            cancop();
 
         }// remove registro
         private void buttonPesq_Click(object sender, EventArgs e)
         {
-            checkHist.Visible = true;
+            
             dataTabela.Rows.Clear(); // limpa tabela
 
             if (Pesq.Text != string.Empty)
             {
+                buttonRmvF.Visible = true;
                 var strConexao = "server=localhost;uid=root;database=stq"; // loga banco
                 var conexao = new MySqlConnection(strConexao);
                 conexao.Open(); // abre banco
 
-                var cmd = new MySqlCommand("SELECT * FROM dados where cod = @cod", conexao); //mostrar
-                cmd.Parameters.AddWithValue("@cod", Pesq.Text);
-                var readr = cmd.ExecuteReader();
-
-                decimal Tsystem = 0;
-                int cont = 0;
-                while (readr.Read())
+                if (Pesq_ == 0)
                 {
-                    cont++;
+                    var cmd = new MySqlCommand("SELECT * FROM dados where cod = @cod or nome Like @nome", conexao); //mostrar
+                    cmd.Parameters.AddWithValue("@cod", Pesq.Text);
+                    cmd.Parameters.AddWithValue("@nome", Pesq.Text + "%");
+                    var readr = cmd.ExecuteReader();
 
-                    int quant = Convert.ToInt32(readr["quant"]);
+                    decimal Tsystem = 0;
+                    int cont = 0;
+                    while (readr.Read())
+                    {
+                        cont++;
 
-                    decimal preco = Convert.ToDecimal(readr["preco"]);
+                        int quant = Convert.ToInt32(readr["quant"]);
 
-                    decimal total = quant * preco;
+                        decimal preco = Convert.ToDecimal(readr["preco"]);
+
+                        decimal total = quant * preco;
 
                         dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
                 Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
 
                         Tsystem = Tsystem + total;
- 
+
+                    }
+                    labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
+                    labelQuantR.Text = "Registros no estoque: " + cont;
+                    readr.Close();
+
+                    if (cont == 1)
+                    {
+                        checkHist.Visible = true;
+                    }
                 }
+                else if (Pesq_ == 1)
+                {
+                    var cmd = new MySqlCommand("SELECT * FROM dados where color = @cor ", conexao); //mostrar
+                    cmd.Parameters.AddWithValue("@cor", Pesq.Text);
 
-                labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
-                labelQuantR.Text = "Registros no estoque: " + cont;
-                readr.Close();
+                    var readr = cmd.ExecuteReader();
 
-                buttonPesquisar.Visible = false;
-                buttonRmvF.Visible = true;
+                    decimal Tsystem = 0;
+                    int cont = 0;
+                    while (readr.Read())
+                    {
+                        cont++;
 
+                        int quant = Convert.ToInt32(readr["quant"]);
+
+                        decimal preco = Convert.ToDecimal(readr["preco"]);
+
+                        decimal total = quant * preco;
+
+                        dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
+                Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
+
+                        Tsystem = Tsystem + total;
+
+                    }
+                    labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
+                    labelQuantR.Text = "Registros no estoque: " + cont;
+                    readr.Close();
+                }
+                else
+                {
+                    var cmd = new MySqlCommand("SELECT * FROM dados where quant = @quant ", conexao); //mostrar
+                    cmd.Parameters.AddWithValue("@quant", Pesq.Text);
+
+                    var readr = cmd.ExecuteReader();
+
+                    decimal Tsystem = 0;
+                    int cont = 0;
+                    while (readr.Read())
+                    {
+                        cont++;
+
+                        int quant = Convert.ToInt32(readr["quant"]);
+
+                        decimal preco = Convert.ToDecimal(readr["preco"]);
+
+                        decimal total = quant * preco;
+
+                        dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
+                Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
+
+                        Tsystem = Tsystem + total;
+
+                    }
+                    labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
+                    labelQuantR.Text = "Registros no estoque: " + cont;
+                    readr.Close();
+                }
             }
             else
             {
@@ -466,7 +518,7 @@ namespace Stq
                     cmd.Parameters.AddWithValue("@quan", quant);
                     cmd.ExecuteNonQuery();
                     conexao.Close();
-
+                    MessageBox.Show("Foram removidos " + quant + " itens do registro "+ prod);
                     cancop();
                 }
                 else
@@ -584,6 +636,43 @@ namespace Stq
            
         }
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkColor.Checked == true)
+            {
+                Pesq_ = 1;
+                checkQuant.Checked = false;
+                checkHist.Checked = false;
+                checkHist.Visible = false;
+            }
+            else
+            {
+                reset_pesq();
+                Pesq_ = 0;
+            }
+        }
+
+        private void checkQuant_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkQuant.Checked == true)
+            {
+                Pesq_ = 2;
+                checkColor.Checked = false;
+                checkHist.Checked = false;
+                checkHist.Visible = false;
+            }
+            else
+            {
+                reset_pesq();
+                Pesq_ = 0;
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+           
+        }
+
         private void checkHist_CheckedChanged(object sender, EventArgs e)
         {
             if (checkHist.Checked)
@@ -595,8 +684,9 @@ namespace Stq
                     var conexao = new MySqlConnection(strConexao);
                     conexao.Open(); // abre banco
 
-                    var cmd = new MySqlCommand("SELECT * FROM historico where cod = @cod", conexao); //mostrar
+                    var cmd = new MySqlCommand("SELECT * FROM historico where cod = @cod or nome = @nome", conexao); //mostrar
                     cmd.Parameters.AddWithValue("@cod", Pesq.Text);
+                    cmd.Parameters.AddWithValue("@nome", Pesq.Text);
                     var readr = cmd.ExecuteReader();
 
                     while (readr.Read())
@@ -610,8 +700,9 @@ namespace Stq
 
                     conexao.Close();
                     conexao.Open();
-                    cmd = new MySqlCommand("SELECT * FROM dados where cod = @cod_", conexao);
-                    cmd.Parameters.AddWithValue("@cod_", Pesq.Text);//mostrar
+                    cmd = new MySqlCommand("SELECT * FROM dados where cod = @cod_ or nome = @n", conexao);
+                    cmd.Parameters.AddWithValue("@cod_", Pesq.Text);
+                    cmd.Parameters.AddWithValue("@n", Pesq.Text);
                     var readr_ = cmd.ExecuteReader();
 
                     while (readr_.Read())
@@ -639,7 +730,6 @@ namespace Stq
             else
             {
                 reelist();
-                checkHist.Visible = false;
                 checkHist.Visible = false;
                 buttonRmvF.Visible = false;
                 buttonPesquisar.Visible = true;

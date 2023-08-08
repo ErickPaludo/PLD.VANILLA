@@ -118,7 +118,6 @@
             this.textProduto.ShortcutsEnabled = false;
             this.textProduto.Size = new System.Drawing.Size(139, 20);
             this.textProduto.TabIndex = 1;
-            this.textProduto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textProduto_KeyPress);
             // 
             // label2
             // 
