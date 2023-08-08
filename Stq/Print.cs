@@ -16,5 +16,10 @@ namespace Stq
         {
             InitializeComponent();
         }
+
+        private void buttonExcel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -163,6 +163,26 @@ namespace Stq.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap excel_icon_161066 {
+            get {
+                object obj = ResourceManager.GetObject("excel_icon_161066", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap excel_icon_1610661 {
+            get {
+                object obj = ResourceManager.GetObject("excel_icon_1610661", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Grupo_1 {
             get {
                 object obj = ResourceManager.GetObject("Grupo 1", resourceCulture);

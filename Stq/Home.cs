@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using MySql.Data.MySqlClient;
-using Excel = Microsoft
+using Excel = Microsoft.Office.Interop.Excel;
 
 
 namespace Stq
@@ -26,7 +26,7 @@ namespace Stq
 
         public Home(int ver, string user)
         {
-           
+
             Ver = ver;
             User = user;
             InitializeComponent();
@@ -71,9 +71,9 @@ namespace Stq
 
                 decimal total = quant * preco;
 
-                
-                    dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
-                    Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
+
+                dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
+                Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
                 Tsystem = Tsystem + total;
             }
 
@@ -172,7 +172,7 @@ namespace Stq
         }
         private void buttonRmvF_Click(object sender, EventArgs e)
         {
-            reset_pesq(); 
+            reset_pesq();
         } //remove o filtro
         private void buttonAdd_Click(object sender, EventArgs e)
         {
@@ -201,7 +201,7 @@ namespace Stq
         }// remove registro
         private void buttonPesq_Click(object sender, EventArgs e)
         {
-            
+
             dataTabela.Rows.Clear(); // limpa tabela
 
             if (Pesq.Text != string.Empty)
@@ -274,7 +274,7 @@ namespace Stq
                     labelQuantR.Text = "Registros no estoque: " + cont;
                     readr.Close();
                 }
-                else
+                else if(Pesq_ == 2)
                 {
                     var cmd = new MySqlCommand("SELECT * FROM dados where quant = @quant ", conexao); //mostrar
                     cmd.Parameters.AddWithValue("@quant", Pesq.Text);
@@ -518,7 +518,7 @@ namespace Stq
                     cmd.Parameters.AddWithValue("@quan", quant);
                     cmd.ExecuteNonQuery();
                     conexao.Close();
-                    MessageBox.Show("Foram removidos " + quant + " itens do registro "+ prod);
+                    MessageBox.Show("Foram removidos " + quant + " itens do registro " + prod);
                     cancop();
                 }
                 else
@@ -533,7 +533,7 @@ namespace Stq
                 textAddQ.Text = string.Empty;
             }
         }
-    
+
 
 
         private void buttonEditReg_Click(object sender, EventArgs e)
@@ -633,7 +633,7 @@ namespace Stq
 
         private void dataTabela_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-           
+
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -670,13 +670,216 @@ namespace Stq
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-           
+            excel_save();
+        }
+
+        private void excel_save()
+        {
+            Excel.Application app = new Excel.Application();
+            Excel.Workbook pasta = app.Workbooks.Add();
+            Excel.Worksheet plan;
+            plan = pasta.Worksheets.Add();
+            app.DisplayAlerts = false;
+            var strConexao = "server=localhost;uid=root;database=stq"; // loga banco
+            var conexao = new MySqlConnection(strConexao);
+            conexao.Open();
+            int cont = 1;
+            decimal total_ = 0;
+            int itens = 0;
+            plan.Range["A1"].Value = "Código de Barras";
+            plan.Range["B1"].Value = "Produto";
+            plan.Range["C1"].Value = "Cor";
+            plan.Range["D1"].Value = "Peso";
+            plan.Range["E1"].Value = "Quantidade";
+            plan.Range["F1"].Value = "Preço";
+            plan.Range["G1"].Value = "Total";
+            plan.Range["H1"].Value = "Alterado por:";
+            plan.Range["I1"].Value = "Data de Alteração ";
+
+            if (Pesq_ == 0)
+            {
+                var cmd = new MySqlCommand("SELECT * FROM dados where cod = @cod or nome Like @nome", conexao); //mostrar
+                cmd.Parameters.AddWithValue("@cod", Pesq.Text);
+                cmd.Parameters.AddWithValue("@nome", Pesq.Text + "%");
+                var readr = cmd.ExecuteReader();
+                while (readr.Read())
+                {
+                    cont++;
+                    int quant = Convert.ToInt32(readr["quant"]);
+                    decimal total = quant * Convert.ToDecimal(readr["preco"]);
+                    plan.Range["A" + cont].NumberFormat = "0";
+                    plan.Range["A" + cont].Value = Convert.ToString(readr["cod"]);
+                    plan.Range["B" + cont].Value = readr["nome"];
+                    plan.Range["C" + cont].Value = readr["color"];
+                    plan.Range["D" + cont].Value = readr["peso"] + " " + readr["peso_kg"];
+                    plan.Range["E" + cont].Value = readr["quant"];
+                    plan.Range["F" + cont].Value = "R$ " + Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br"));
+                    plan.Range["G" + cont].Value = "R$ " + Convert.ToDecimal(total).ToString("n2", CultureInfo.GetCultureInfo("pt-br"));
+                    plan.Range["H" + cont].Value = readr["us"];
+                    plan.Range["I" + cont].Value = readr["dt"];
+                    total_ = total + total_;
+                }
+            }
+
+            else if (Pesq_ == 1)
+            {
+                var cmd = new MySqlCommand("SELECT * FROM dados where color = @cor ", conexao); //mostrar
+                cmd.Parameters.AddWithValue("@cor", Pesq.Text);
+
+                var readr = cmd.ExecuteReader();
+
+                while (readr.Read())
+                {
+                    cont++;
+                    int quant = Convert.ToInt32(readr["quant"]);
+                    decimal total = quant * Convert.ToDecimal(readr["preco"]);
+                    plan.Range["A" + cont].NumberFormat = "0";
+                    plan.Range["A" + cont].Value = Convert.ToString(readr["cod"]);
+                    plan.Range["B" + cont].Value = readr["nome"];
+                    plan.Range["C" + cont].Value = readr["color"];
+                    plan.Range["D" + cont].Value = readr["peso"] + " " + readr["peso_kg"];
+                    plan.Range["E" + cont].Value = readr["quant"];
+                    plan.Range["F" + cont].Value = "R$ " + Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br"));
+                    plan.Range["G" + cont].Value = "R$ " + Convert.ToDecimal(total).ToString("n2", CultureInfo.GetCultureInfo("pt-br"));
+                    plan.Range["H" + cont].Value = readr["us"];
+                    plan.Range["I" + cont].Value = readr["dt"];
+                    total_ = total + total_;
+                }
+            }
+            else if (Pesq_ == 2)
+            {
+                var cmd = new MySqlCommand("SELECT * FROM dados where quant = @quant ", conexao); //mostrar
+                cmd.Parameters.AddWithValue("@quant", Pesq.Text);
+
+                var readr = cmd.ExecuteReader();
+
+                while (readr.Read())
+                {
+                    cont++;
+                    int quant = Convert.ToInt32(readr["quant"]);
+                    decimal total = quant * Convert.ToDecimal(readr["preco"]);
+                    plan.Range["A" + cont].NumberFormat = "0";
+                    plan.Range["A" + cont].Value = Convert.ToString(readr["cod"]);
+                    plan.Range["B" + cont].Value = readr["nome"];
+                    plan.Range["C" + cont].Value = readr["color"];
+                    plan.Range["D" + cont].Value = readr["peso"] + " " + readr["peso_kg"];
+                    plan.Range["E" + cont].Value = readr["quant"];
+                    plan.Range["F" + cont].Value = "R$ " + Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br"));
+                    plan.Range["G" + cont].Value = "R$ " + Convert.ToDecimal(total).ToString("n2", CultureInfo.GetCultureInfo("pt-br"));
+                    plan.Range["H" + cont].Value = readr["us"];
+                    plan.Range["I" + cont].Value = readr["dt"];
+                    total_ = total + total_;
+                }
+            }
+            else if (Pesq_ == 3)
+            {
+                var cmd = new MySqlCommand("SELECT * FROM historico where cod = @cod or nome = @nome ", conexao); //mostrar
+                cmd.Parameters.AddWithValue("@cod", Pesq.Text);
+                cmd.Parameters.AddWithValue("@nome", Pesq.Text);
+
+                var readr = cmd.ExecuteReader();
+
+                while (readr.Read())
+                {
+                    cont++;
+                    int quant = Convert.ToInt32(readr["quant"]);
+                    decimal total = quant * Convert.ToDecimal(readr["preco"]);
+                    plan.Range["A" + cont].NumberFormat = "0";
+                    plan.Range["A" + cont].Value = Convert.ToString(readr["cod"]);
+                    plan.Range["B" + cont].Value = readr["nome"];
+                    plan.Range["C" + cont].Value = readr["color"];
+                    plan.Range["D" + cont].Value = readr["peso"] + " " + readr["peso_kg"];
+                    plan.Range["E" + cont].Value = readr["quant"];
+                    plan.Range["F" + cont].Value = "R$ " + Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br"));
+                    plan.Range["G" + cont].Value = "R$ " + Convert.ToDecimal(total).ToString("n2", CultureInfo.GetCultureInfo("pt-br"));
+                    plan.Range["H" + cont].Value = readr["us"];
+                    plan.Range["I" + cont].Value = readr["dt"];
+                    total_ = total + total_;
+                }
+                conexao.Close();
+                conexao.Open();
+                cmd = new MySqlCommand("SELECT * FROM dados where cod = @cod or nome = @nome ", conexao); //mostrar
+                cmd.Parameters.AddWithValue("@cod", Pesq.Text);
+                cmd.Parameters.AddWithValue("@nome", Pesq.Text);
+                var readr_ = cmd.ExecuteReader();
+                
+                while (readr_.Read())
+                {
+                    cont++;
+                    int quant = Convert.ToInt32(readr_["quant"]);
+                    decimal total = quant * Convert.ToDecimal(readr_["preco"]);
+                    plan.Range["A" + cont].NumberFormat = "0";
+                    plan.Range["A" + cont].Value = Convert.ToString(readr_["cod"]);
+                    plan.Range["B" + cont].Value = readr_["nome"];
+                    plan.Range["C" + cont].Value = readr_["color"];
+                    plan.Range["D" + cont].Value = readr_["peso"] + " " + readr_["peso_kg"];
+                    plan.Range["E" + cont].Value = readr_["quant"];
+                    plan.Range["F" + cont].Value = "R$ " + Convert.ToDecimal(readr_["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br"));
+                    plan.Range["G" + cont].Value = "R$ " + Convert.ToDecimal(total).ToString("n2", CultureInfo.GetCultureInfo("pt-br"));
+                    plan.Range["H" + cont].Value = readr_["us"];
+                    plan.Range["I" + cont].Value = readr_["dt"];
+                    total_ = total + total_;
+                }
+                conexao.Close();
+            }
+            else
+            {
+                var cmd = new MySqlCommand("SELECT * FROM dados", conexao); //mostrar
+                var readr = cmd.ExecuteReader();
+
+                while (readr.Read())
+                {
+                    cont++;
+                    int quant = Convert.ToInt32(readr["quant"]);
+                    decimal total = quant * Convert.ToDecimal(readr["preco"]);
+                    plan.Range["A" + cont].NumberFormat = "0";
+                    plan.Range["A" + cont].Value = Convert.ToString(readr["cod"]);
+                    plan.Range["B" + cont].Value = readr["nome"];
+                    plan.Range["C" + cont].Value = readr["color"];
+                    plan.Range["D" + cont].Value = readr["peso"] + " " + readr["peso_kg"];
+                    plan.Range["E" + cont].Value = readr["quant"];
+                    plan.Range["F" + cont].Value = "R$ " + Convert.ToDouble(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br"));
+                    plan.Range["G" + cont].Value = "R$ " + Convert.ToDouble(total).ToString("n2", CultureInfo.GetCultureInfo("pt-br"));
+                    plan.Range["H" + cont].Value = readr["us"];
+                    plan.Range["I" + cont].Value = readr["dt"];
+                    total_ = total + total_;
+                }
+            }
+
+            itens = cont - 1;
+            int line = cont + 1;
+            int line_2 = cont + 2;
+
+            plan.Range["A" + line].Value = "Valor total R$ " + total_.ToString("n2", CultureInfo.GetCultureInfo("pt-br"));
+            plan.Range["A" + line_2].Value = "Quantidade: " + itens;
+
+
+            Excel.Range primeiraLinha = plan.Range["A1", "I1"];
+            Excel.Range segundalinha = plan.Range["A" + line, "A" + line_2];
+
+            primeiraLinha.Font.Bold = true;
+            segundalinha.Font.Bold = true;
+            Excel.Range intervaloCelulas = plan.UsedRange;
+            intervaloCelulas.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+            intervaloCelulas.Borders.Weight = Excel.XlBorderWeight.xlThin;
+            plan.Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            plan.Columns.AutoFit();
+
+            app.Visible = true;
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Executando Excel");
+            excel_save();
         }
 
         private void checkHist_CheckedChanged(object sender, EventArgs e)
         {
             if (checkHist.Checked)
             {
+                Pesq_ = 3;
                 dataTabela.Rows.Clear();
                 if (Pesq.Text != string.Empty)
                 {
@@ -713,16 +916,11 @@ namespace Stq
                         dataTabela.Rows.Add(readr_["cod"], readr_["nome"], readr_["color"], Convert.ToDecimal(readr_["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr_["peso_kg"], quant, "R$ " +
    Convert.ToDecimal(readr_["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr_["us"].ToString(), readr_["dt"].ToString());
                     }
-
-
-
-                    buttonPesquisar.Visible = false;
-                    buttonRmvF.Visible = true;
-
                 }
                 else
                 {
                     MessageBox.Show("Campo de pesquisa está vazio!");
+                    Pesq_ = 0;
                     Pesq.Focus();
                     reelist();
                 }
@@ -767,8 +965,8 @@ namespace Stq
                Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
 
                 }
-            
-        
+
+
 
                 labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
                 labelQuantR.Text = "Registros no estoque: " + cont;
