@@ -162,6 +162,7 @@ namespace Stq
         } // mostra as opções de registros
         private void reset_pesq()
         {
+            checkData.Checked = false;
             labelMin.Visible = false;
             labelMax.Visible = false;
             textMin.Visible = false;
@@ -218,106 +219,138 @@ namespace Stq
 
             dataTabela.Rows.Clear(); // limpa tabela
 
-         
-                buttonRmvF.Visible = true;
-                var strConexao = "server=localhost;uid=root;database=stq"; // loga banco
-                var conexao = new MySqlConnection(strConexao);
-                conexao.Open(); // abre banco
 
-                if (Pesq_ == 0)
+            buttonRmvF.Visible = true;
+            var strConexao = "server=localhost;uid=root;database=stq"; // loga banco
+            var conexao = new MySqlConnection(strConexao);
+            conexao.Open(); // abre banco
+
+            if (Pesq_ == 0)
+            {
+                var cmd = new MySqlCommand("SELECT * FROM dados where cod = @cod or nome  Like @nome", conexao); //mostrar
+                cmd.Parameters.AddWithValue("@cod", Pesq.Text);
+                cmd.Parameters.AddWithValue("@nome", Pesq.Text + "%");
+                var readr = cmd.ExecuteReader();
+
+                decimal Tsystem = 0;
+                int cont = 0;
+                while (readr.Read())
                 {
-                    var cmd = new MySqlCommand("SELECT * FROM dados where cod = @cod or nome Like @nome", conexao); //mostrar
-                    cmd.Parameters.AddWithValue("@cod", Pesq.Text);
-                    cmd.Parameters.AddWithValue("@nome", Pesq.Text + "%");
-                    var readr = cmd.ExecuteReader();
+                    cont++;
 
-                    decimal Tsystem = 0;
-                    int cont = 0;
-                    while (readr.Read())
-                    {
-                        cont++;
+                    int quant = Convert.ToInt32(readr["quant"]);
 
-                        int quant = Convert.ToInt32(readr["quant"]);
+                    decimal preco = Convert.ToDecimal(readr["preco"]);
 
-                        decimal preco = Convert.ToDecimal(readr["preco"]);
+                    decimal total = quant * preco;
 
-                        decimal total = quant * preco;
+                    dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
+            Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
 
-                        dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
-                Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
+                    Tsystem = Tsystem + total;
 
-                        Tsystem = Tsystem + total;
-
-                    }
-                    labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
-                    labelQuantR.Text = "Registros no estoque: " + cont;
-                    readr.Close();
-
-                    if (cont == 1)
-                    {
-                        checkHist.Visible = true;
-                    }
                 }
-                else if (Pesq_ == 1)
+                labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
+                labelQuantR.Text = "Registros no estoque: " + cont;
+                readr.Close();
+
+                if (cont == 1)
                 {
-                    var cmd = new MySqlCommand("SELECT * FROM dados where color = @cor ", conexao); //mostrar
-                    cmd.Parameters.AddWithValue("@cor", Pesq.Text);
-
-                    var readr = cmd.ExecuteReader();
-
-                    decimal Tsystem = 0;
-                    int cont = 0;
-                    while (readr.Read())
-                    {
-                        cont++;
-
-                        int quant = Convert.ToInt32(readr["quant"]);
-
-                        decimal preco = Convert.ToDecimal(readr["preco"]);
-
-                        decimal total = quant * preco;
-
-                        dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
-                Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
-
-                        Tsystem = Tsystem + total;
-
-                    }
-                    labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
-                    labelQuantR.Text = "Registros no estoque: " + cont;
-                    readr.Close();
+                    checkHist.Visible = true;
                 }
-                else if(Pesq_ == 2)
+            }
+            else if (Pesq_ == 1)
+            {
+                var cmd = new MySqlCommand("SELECT * FROM dados where color = @cor ", conexao); //mostrar
+                cmd.Parameters.AddWithValue("@cor", Pesq.Text);
+
+                var readr = cmd.ExecuteReader();
+
+                decimal Tsystem = 0;
+                int cont = 0;
+                while (readr.Read())
                 {
-                    var cmd = new MySqlCommand("SELECT * FROM dados where quant >= @quant and quant <= @quant2 ", conexao); //mostrar
-                    cmd.Parameters.AddWithValue("@quant", textMin.Text);
-                    cmd.Parameters.AddWithValue("@quant2", textMax.Text);
+                    cont++;
 
-                    var readr = cmd.ExecuteReader();
+                    int quant = Convert.ToInt32(readr["quant"]);
 
-                    decimal Tsystem = 0;
-                    int cont = 0;
-                    while (readr.Read())
-                    {
-                        cont++;
+                    decimal preco = Convert.ToDecimal(readr["preco"]);
 
-                        int quant = Convert.ToInt32(readr["quant"]);
+                    decimal total = quant * preco;
 
-                        decimal preco = Convert.ToDecimal(readr["preco"]);
+                    dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
+            Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
 
-                        decimal total = quant * preco;
+                    Tsystem = Tsystem + total;
 
-                        dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
-                Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
-
-                        Tsystem = Tsystem + total;
-
-                    }
-                    labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
-                    labelQuantR.Text = "Registros no estoque: " + cont;
-                    readr.Close();
                 }
-          
+                labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
+                labelQuantR.Text = "Registros no estoque: " + cont;
+                readr.Close();
+            }
+            else if (Pesq_ == 2)
+            {
+                var cmd = new MySqlCommand("SELECT * FROM dados where quant >= @quant and quant <= @quant2 ", conexao); //mostrar
+                cmd.Parameters.AddWithValue("@quant", textMin.Text);
+                cmd.Parameters.AddWithValue("@quant2", textMax.Text);
+
+                var readr = cmd.ExecuteReader();
+
+                decimal Tsystem = 0;
+                int cont = 0;
+                while (readr.Read())
+                {
+                    cont++;
+
+                    int quant = Convert.ToInt32(readr["quant"]);
+
+                    decimal preco = Convert.ToDecimal(readr["preco"]);
+
+                    decimal total = quant * preco;
+
+                    dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
+            Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
+
+                    Tsystem = Tsystem + total;
+
+                }
+
+                labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
+                labelQuantR.Text = "Registros no estoque: " + cont;
+                readr.Close();
+            }
+            else if (Pesq_ == 4)
+            {
+                var cmd = new MySqlCommand("SELECT * FROM dados where dt >= @dt and dt <= @dt1 ", conexao); //mostrar
+
+                cmd.Parameters.AddWithValue("@dt", Convert.ToDateTime(dateTimeAntes.Text));
+                cmd.Parameters.AddWithValue("@dt1", Convert.ToDateTime(dateTimeDepois.Text));
+
+                var readr = cmd.ExecuteReader();
+
+                decimal Tsystem = 0;
+                int cont = 0;
+                while (readr.Read())
+                {
+                    cont++;
+
+                    int quant = Convert.ToInt32(readr["quant"]);
+
+                    decimal preco = Convert.ToDecimal(readr["preco"]);
+
+                    decimal total = quant * preco;
+
+                    dataTabela.Rows.Add(readr["cod"], readr["nome"], readr["color"], Convert.ToDecimal(readr["peso"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")) + " " + readr["peso_kg"], quant, "R$ " +
+            Convert.ToDecimal(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br")), "R$ " + total.ToString("n2", CultureInfo.GetCultureInfo("pt-br")), readr["us"].ToString(), readr["dt"].ToString());
+
+                    Tsystem = Tsystem + total;
+
+                }
+
+                labelTotalestoque.Text = "Valor total em estoque: R$" + Tsystem.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
+                labelQuantR.Text = "Registros no estoque: " + cont;
+                readr.Close();
+            }
 
         }//pesquisa registro
         private void buttonConfig_Click(object sender, EventArgs e)
@@ -649,6 +682,7 @@ namespace Stq
             if (checkColor.Checked == true)
             {
                 Pesq_ = 1;
+                checkData.Checked = false;
                 checkQuant.Checked = false;
                 checkHist.Checked = false;
                 checkHist.Visible = false;
@@ -672,6 +706,7 @@ namespace Stq
                 textMin.Visible = true;
                 textMax.Visible = true;
                 Pesq_ = 2;
+                checkData.Checked = false;
                 checkColor.Checked = false;
                 checkHist.Checked = false;
                 checkHist.Visible = false;
@@ -815,7 +850,7 @@ namespace Stq
                 cmd.Parameters.AddWithValue("@cod", Pesq.Text);
                 cmd.Parameters.AddWithValue("@nome", Pesq.Text);
                 var readr_ = cmd.ExecuteReader();
-                
+
                 while (readr_.Read())
                 {
                     cont++;
@@ -834,6 +869,32 @@ namespace Stq
                     total_ = total + total_;
                 }
                 conexao.Close();
+            }
+            else if (Pesq_ == 4)
+            {
+                var cmd = new MySqlCommand("SELECT * FROM dados where dt >= @dt and dt <= @dt1 ", conexao); //mostrar
+
+                cmd.Parameters.AddWithValue("@dt", Convert.ToDateTime(dateTimeAntes.Text));
+                cmd.Parameters.AddWithValue("@dt1", Convert.ToDateTime(dateTimeDepois.Text));
+                var readr = cmd.ExecuteReader();
+
+                while (readr.Read())
+                {
+                    cont++;
+                    int quant = Convert.ToInt32(readr["quant"]);
+                    decimal total = quant * Convert.ToDecimal(readr["preco"]);
+                    plan.Range["A" + cont].NumberFormat = "0";
+                    plan.Range["A" + cont].Value = Convert.ToString(readr["cod"]);
+                    plan.Range["B" + cont].Value = readr["nome"];
+                    plan.Range["C" + cont].Value = readr["color"];
+                    plan.Range["D" + cont].Value = readr["peso"] + " " + readr["peso_kg"];
+                    plan.Range["E" + cont].Value = readr["quant"];
+                    plan.Range["F" + cont].Value = "R$ " + Convert.ToDouble(readr["preco"]).ToString("n2", CultureInfo.GetCultureInfo("pt-br"));
+                    plan.Range["G" + cont].Value = "R$ " + Convert.ToDouble(total).ToString("n2", CultureInfo.GetCultureInfo("pt-br"));
+                    plan.Range["H" + cont].Value = readr["us"];
+                    plan.Range["I" + cont].Value = readr["dt"];
+                    total_ = total + total_;
+                }
             }
             else
             {
@@ -858,6 +919,7 @@ namespace Stq
                     total_ = total + total_;
                 }
             }
+           
 
             itens = cont - 1;
             int line = cont + 1;
@@ -890,7 +952,7 @@ namespace Stq
                 plan.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, pdfFilePath);
                 Process.Start(pdfFilePath);
             }
-           
+
 
         }
 
@@ -921,6 +983,31 @@ namespace Stq
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (checkData.Checked)
+            {
+                Pesq_ = 4;
+                dateTimeAntes.Visible = true;
+                dateTimeDepois.Visible = true;
+                checkQuant.Checked = false;
+                checkColor.Checked = false;
+                checkHist.Checked = false;
+                checkHist.Visible = false;
+                dateTimeAntes.Text = DateTime.Now.ToString();
+                dateTimeDepois.Text = DateTime.Now.ToString();
+
+            }
+            else
+            {
+                dateTimeAntes.Visible = false;
+                dateTimeDepois.Visible = false;
+                reset_pesq();
+                Pesq_ = 0;
+                reelist();
             }
         }
 

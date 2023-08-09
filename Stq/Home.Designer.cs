@@ -75,6 +75,9 @@
             this.textMax = new System.Windows.Forms.TextBox();
             this.labelMin = new System.Windows.Forms.Label();
             this.labelMax = new System.Windows.Forms.Label();
+            this.dateTimeAntes = new System.Windows.Forms.DateTimePicker();
+            this.dateTimeDepois = new System.Windows.Forms.DateTimePicker();
+            this.checkData = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataTabela)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureExcel)).BeginInit();
@@ -548,7 +551,7 @@
             this.checkHist.AutoSize = true;
             this.checkHist.BackColor = System.Drawing.Color.Transparent;
             this.checkHist.ForeColor = System.Drawing.SystemColors.Control;
-            this.checkHist.Location = new System.Drawing.Point(607, 41);
+            this.checkHist.Location = new System.Drawing.Point(706, 41);
             this.checkHist.Name = "checkHist";
             this.checkHist.Size = new System.Drawing.Size(95, 17);
             this.checkHist.TabIndex = 27;
@@ -659,12 +662,50 @@
             this.labelMax.Text = "Max";
             this.labelMax.Visible = false;
             // 
+            // dateTimeAntes
+            // 
+            this.dateTimeAntes.CalendarForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.dateTimeAntes.CalendarMonthBackground = System.Drawing.SystemColors.ScrollBar;
+            this.dateTimeAntes.CalendarTitleBackColor = System.Drawing.SystemColors.Highlight;
+            this.dateTimeAntes.CalendarTitleForeColor = System.Drawing.Color.Gray;
+            this.dateTimeAntes.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimeAntes.Location = new System.Drawing.Point(728, 12);
+            this.dateTimeAntes.Name = "dateTimeAntes";
+            this.dateTimeAntes.Size = new System.Drawing.Size(98, 20);
+            this.dateTimeAntes.TabIndex = 39;
+            this.dateTimeAntes.Visible = false;
+            // 
+            // dateTimeDepois
+            // 
+            this.dateTimeDepois.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimeDepois.Location = new System.Drawing.Point(832, 12);
+            this.dateTimeDepois.Name = "dateTimeDepois";
+            this.dateTimeDepois.Size = new System.Drawing.Size(97, 20);
+            this.dateTimeDepois.TabIndex = 40;
+            this.dateTimeDepois.Visible = false;
+            // 
+            // checkData
+            // 
+            this.checkData.AutoSize = true;
+            this.checkData.BackColor = System.Drawing.Color.Transparent;
+            this.checkData.ForeColor = System.Drawing.SystemColors.Control;
+            this.checkData.Location = new System.Drawing.Point(607, 41);
+            this.checkData.Name = "checkData";
+            this.checkData.Size = new System.Drawing.Size(93, 17);
+            this.checkData.TabIndex = 41;
+            this.checkData.Text = "Filtrar por data";
+            this.checkData.UseVisualStyleBackColor = false;
+            this.checkData.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Stq.Properties.Resources.BackgroundInic_;
             this.ClientSize = new System.Drawing.Size(1370, 689);
+            this.Controls.Add(this.checkData);
+            this.Controls.Add(this.dateTimeDepois);
+            this.Controls.Add(this.dateTimeAntes);
             this.Controls.Add(this.labelMax);
             this.Controls.Add(this.labelMin);
             this.Controls.Add(this.textMax);
@@ -756,5 +797,8 @@
         private System.Windows.Forms.TextBox textMax;
         private System.Windows.Forms.Label labelMin;
         private System.Windows.Forms.Label labelMax;
+        private System.Windows.Forms.DateTimePicker dateTimeAntes;
+        private System.Windows.Forms.DateTimePicker dateTimeDepois;
+        private System.Windows.Forms.CheckBox checkData;
     }
 }
