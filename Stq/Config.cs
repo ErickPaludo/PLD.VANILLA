@@ -330,7 +330,7 @@ namespace Stq
             else if (where == 3)//confguser
             {
 
-                if (textEdit.Text != string.Empty && textCamp2.Text != string.Empty && comboTipoUser.Text != string.Empty && (textCamp2.Text).Length <= 8 && (textCamp2.Text).Length >= 6 && (textCamp1.Text).Length <= 10 && (textCamp1.Text).Length >= 3)
+                if (textEdit.Text != string.Empty && textCamp2.Text != string.Empty && comboTipoUser.Text != string.Empty && (textCamp2.Text).Length <= 8 && (textCamp2.Text).Length >= 4 && (textCamp1.Text).Length <= 10 && (textCamp1.Text).Length >= 3)
                 {
                     int ver = Tipouser(comboTipoUser.Text);
                     var strConexao = "server=localhost;uid=root;database=stq";
@@ -397,7 +397,7 @@ namespace Stq
                 }
                 else
                 {
-                    MessageBox.Show("Verifique se todos os campos estão preenchidos, a senha deve conter de 6 a 8 caractres!");
+                    MessageBox.Show("Verifique se todos os campos estão preenchidos, a senha deve conter de 4 a 8 caractres!");
                 }
                 adml();
                 reelist();

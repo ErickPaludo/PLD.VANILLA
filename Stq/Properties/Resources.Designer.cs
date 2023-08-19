@@ -193,6 +193,16 @@ namespace Stq.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Grupo_11 {
+            get {
+                object obj = ResourceManager.GetObject("Grupo 11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap iconfinder_print_4341315_120555 {
             get {
                 object obj = ResourceManager.GetObject("iconfinder-print-4341315_120555", resourceCulture);
