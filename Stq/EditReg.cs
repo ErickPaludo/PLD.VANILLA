@@ -16,7 +16,6 @@ namespace Stq
     {
         static bool tru = false;
         private bool commaEntered = false;
-        private static List<Listagem> list_tab = new List<Listagem>();
         static string Bars, User;
         public EditReg()
         {

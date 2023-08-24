@@ -1,0 +1,32 @@
+create database stq;
+use stq;
+select * from dados;
+CREATE TABLE login (
+  nome varchar(10)  ,
+  pass varchar(8)  ,
+  ver int  ,
+  bloq int  
+);
+INSERT INTO login VALUES ('Admin','0000',0,0);
+  CREATE TABLE historico (
+  cod char(13) ,
+  nome varchar(30),
+  color varchar(10) ,
+  peso double ,
+  peso_kg varchar(2)  ,
+  quant int  ,
+  preco double  ,
+  us varchar(30)  ,
+  dt datetime  
+) ;
+  CREATE TABLE dados (
+  cod char(13) ,
+  nome varchar(30),
+  color varchar(10) ,
+  peso double ,
+  peso_kg varchar(2)  ,
+  quant int  ,
+  preco double  ,
+  us varchar(30)  ,
+  dt datetime  
+) ;

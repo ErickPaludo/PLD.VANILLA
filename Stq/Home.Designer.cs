@@ -69,10 +69,19 @@
             this.checkHist = new System.Windows.Forms.CheckBox();
             this.checkColor = new System.Windows.Forms.CheckBox();
             this.checkQuant = new System.Windows.Forms.CheckBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureExcel = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.textMin = new System.Windows.Forms.TextBox();
+            this.textMax = new System.Windows.Forms.TextBox();
+            this.labelMin = new System.Windows.Forms.Label();
+            this.labelMax = new System.Windows.Forms.Label();
+            this.dateTimeAntes = new System.Windows.Forms.DateTimePicker();
+            this.dateTimeDepois = new System.Windows.Forms.DateTimePicker();
+            this.checkData = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataTabela)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureExcel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonRegistro
@@ -130,8 +139,8 @@
             this.dataTabela.AllowUserToOrderColumns = true;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray;
             this.dataTabela.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataTabela.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataTabela.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataTabela.BackgroundColor = System.Drawing.Color.DimGray;
             this.dataTabela.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -380,6 +389,7 @@
             this.textAddQ.Size = new System.Drawing.Size(131, 20);
             this.textAddQ.TabIndex = 10;
             this.textAddQ.Visible = false;
+            this.textAddQ.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textAddQ_KeyPress);
             // 
             // buttonAddQ
             // 
@@ -485,7 +495,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox1.BackColor = System.Drawing.Color.DimGray;
             this.pictureBox1.BackgroundImage = global::Stq.Properties.Resources.LateralInc1;
@@ -517,7 +527,7 @@
             this.Pesq.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.Pesq.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Pesq.ForeColor = System.Drawing.SystemColors.Window;
-            this.Pesq.Location = new System.Drawing.Point(380, 11);
+            this.Pesq.Location = new System.Drawing.Point(380, 12);
             this.Pesq.MaxLength = 30;
             this.Pesq.Name = "Pesq";
             this.Pesq.Size = new System.Drawing.Size(211, 20);
@@ -541,7 +551,7 @@
             this.checkHist.AutoSize = true;
             this.checkHist.BackColor = System.Drawing.Color.Transparent;
             this.checkHist.ForeColor = System.Drawing.SystemColors.Control;
-            this.checkHist.Location = new System.Drawing.Point(607, 41);
+            this.checkHist.Location = new System.Drawing.Point(706, 41);
             this.checkHist.Name = "checkHist";
             this.checkHist.Size = new System.Drawing.Size(95, 17);
             this.checkHist.TabIndex = 27;
@@ -576,18 +586,116 @@
             this.checkQuant.UseVisualStyleBackColor = false;
             this.checkQuant.CheckedChanged += new System.EventHandler(this.checkQuant_CheckedChanged);
             // 
-            // pictureBox2
+            // pictureExcel
             // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.BackgroundImage = global::Stq.Properties.Resources.excel_icon_1610661;
-            this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox2.Location = new System.Drawing.Point(1308, 632);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(40, 40);
-            this.pictureBox2.TabIndex = 33;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            this.pictureExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureExcel.BackColor = System.Drawing.Color.Transparent;
+            this.pictureExcel.BackgroundImage = global::Stq.Properties.Resources.excel_icon_1610661;
+            this.pictureExcel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureExcel.Location = new System.Drawing.Point(1260, 635);
+            this.pictureExcel.Name = "pictureExcel";
+            this.pictureExcel.Size = new System.Drawing.Size(40, 40);
+            this.pictureExcel.TabIndex = 33;
+            this.pictureExcel.TabStop = false;
+            this.pictureExcel.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox3.BackgroundImage = global::Stq.Properties.Resources.iconfinder_print_4341315_120555;
+            this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox3.Location = new System.Drawing.Point(1306, 635);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(40, 40);
+            this.pictureBox3.TabIndex = 34;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
+            // 
+            // textMin
+            // 
+            this.textMin.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.textMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textMin.ForeColor = System.Drawing.SystemColors.Window;
+            this.textMin.Location = new System.Drawing.Point(408, 12);
+            this.textMin.MaxLength = 30;
+            this.textMin.Name = "textMin";
+            this.textMin.Size = new System.Drawing.Size(72, 20);
+            this.textMin.TabIndex = 35;
+            this.textMin.Visible = false;
+            this.textMin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textMin_KeyPress);
+            // 
+            // textMax
+            // 
+            this.textMax.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.textMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textMax.ForeColor = System.Drawing.SystemColors.Window;
+            this.textMax.Location = new System.Drawing.Point(519, 12);
+            this.textMax.MaxLength = 30;
+            this.textMax.Name = "textMax";
+            this.textMax.Size = new System.Drawing.Size(72, 20);
+            this.textMax.TabIndex = 36;
+            this.textMax.Visible = false;
+            this.textMax.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textMin_KeyPress);
+            // 
+            // labelMin
+            // 
+            this.labelMin.AutoSize = true;
+            this.labelMin.BackColor = System.Drawing.Color.Transparent;
+            this.labelMin.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.labelMin.Location = new System.Drawing.Point(378, 19);
+            this.labelMin.Name = "labelMin";
+            this.labelMin.Size = new System.Drawing.Size(24, 13);
+            this.labelMin.TabIndex = 37;
+            this.labelMin.Text = "Min";
+            this.labelMin.Visible = false;
+            // 
+            // labelMax
+            // 
+            this.labelMax.AutoSize = true;
+            this.labelMax.BackColor = System.Drawing.Color.Transparent;
+            this.labelMax.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.labelMax.Location = new System.Drawing.Point(486, 19);
+            this.labelMax.Name = "labelMax";
+            this.labelMax.Size = new System.Drawing.Size(27, 13);
+            this.labelMax.TabIndex = 38;
+            this.labelMax.Text = "Max";
+            this.labelMax.Visible = false;
+            // 
+            // dateTimeAntes
+            // 
+            this.dateTimeAntes.CalendarForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.dateTimeAntes.CalendarMonthBackground = System.Drawing.SystemColors.ScrollBar;
+            this.dateTimeAntes.CalendarTitleBackColor = System.Drawing.SystemColors.Highlight;
+            this.dateTimeAntes.CalendarTitleForeColor = System.Drawing.Color.Gray;
+            this.dateTimeAntes.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimeAntes.Location = new System.Drawing.Point(728, 12);
+            this.dateTimeAntes.Name = "dateTimeAntes";
+            this.dateTimeAntes.Size = new System.Drawing.Size(98, 20);
+            this.dateTimeAntes.TabIndex = 39;
+            this.dateTimeAntes.Visible = false;
+            // 
+            // dateTimeDepois
+            // 
+            this.dateTimeDepois.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimeDepois.Location = new System.Drawing.Point(832, 12);
+            this.dateTimeDepois.Name = "dateTimeDepois";
+            this.dateTimeDepois.Size = new System.Drawing.Size(97, 20);
+            this.dateTimeDepois.TabIndex = 40;
+            this.dateTimeDepois.Visible = false;
+            // 
+            // checkData
+            // 
+            this.checkData.AutoSize = true;
+            this.checkData.BackColor = System.Drawing.Color.Transparent;
+            this.checkData.ForeColor = System.Drawing.SystemColors.Control;
+            this.checkData.Location = new System.Drawing.Point(607, 41);
+            this.checkData.Name = "checkData";
+            this.checkData.Size = new System.Drawing.Size(93, 17);
+            this.checkData.TabIndex = 41;
+            this.checkData.Text = "Filtrar por data";
+            this.checkData.UseVisualStyleBackColor = false;
+            this.checkData.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
             // 
             // Home
             // 
@@ -595,7 +703,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Stq.Properties.Resources.BackgroundInic_;
             this.ClientSize = new System.Drawing.Size(1370, 689);
-            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.checkData);
+            this.Controls.Add(this.dateTimeDepois);
+            this.Controls.Add(this.dateTimeAntes);
+            this.Controls.Add(this.labelMax);
+            this.Controls.Add(this.labelMin);
+            this.Controls.Add(this.textMax);
+            this.Controls.Add(this.textMin);
+            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.pictureExcel);
             this.Controls.Add(this.checkQuant);
             this.Controls.Add(this.checkColor);
             this.Controls.Add(this.checkHist);
@@ -631,7 +747,8 @@
             this.Load += new System.EventHandler(this.Home_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataTabela)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureExcel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -674,6 +791,14 @@
         private System.Windows.Forms.CheckBox checkHist;
         private System.Windows.Forms.CheckBox checkColor;
         private System.Windows.Forms.CheckBox checkQuant;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureExcel;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.TextBox textMin;
+        private System.Windows.Forms.TextBox textMax;
+        private System.Windows.Forms.Label labelMin;
+        private System.Windows.Forms.Label labelMax;
+        private System.Windows.Forms.DateTimePicker dateTimeAntes;
+        private System.Windows.Forms.DateTimePicker dateTimeDepois;
+        private System.Windows.Forms.CheckBox checkData;
     }
 }
